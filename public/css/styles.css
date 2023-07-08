@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.contenedor {
+  margin-top: 60px;
+  padding: 2rem;
+}
+aside ul {
+  padding-left: 0px !important;
+}
+aside ul li {
+  list-style: none;
+  border-bottom: 1px solid black;
+  padding: 3px;
+  margin: 8px 1px;
+}
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
+li a span.active {
+  display: block;
+}
+li a span {
+  display: none;
+}
