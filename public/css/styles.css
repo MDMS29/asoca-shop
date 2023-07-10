@@ -4,7 +4,11 @@
 }
 .contenedor {
   margin-top: 60px;
-  padding: 2rem;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+a {
+  text-decoration: none !important;
 }
 aside ul {
   padding-left: 0px !important;
@@ -15,13 +19,45 @@ aside ul li {
   padding: 3px;
   margin: 8px 1px;
 }
-a {
+aside ul li a {
   color: black !important;
-  text-decoration: none !important;
 }
 li a span.active {
   display: block;
 }
 li a span {
   display: none;
+}
+/* -- DIV OCULTAR COLUMNAS -- */
+.ocultar > a:is(.toggle-vis).active,
+.ocultar > a:is(.toggle-vis):hover {
+  border-radius: none !important;
+  color: var(--azulBase);
+  font-weight: 700;
+  border: none;
+}
+
+/* DATATABLE */
+table {
+  background-color: white;
+  border: 5px solid #161666;
+  border-radius: 10px;
+}
+
+/* MODAL */
+.modal-content {
+  border: none;
+}
+.body-M {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid crimson !important; /*BORDE DE LOS MODALES*/
+  border-radius: 10px;
+  background-color: white;
+  width: 100%;
+}
+#invalid-feedback{
+  color: red;
+  font-weight: bold;  
 }

@@ -8,10 +8,14 @@ aside {
   height: 100vh;
   width: 100px;
   overflow: hidden;
-  transition: all .35s ease-in;
-  margin-top: 60px;
+  transition: all 0.35s ease-in;
   /* position: absolute; */
+}
+aside ul {
+  margin-top: 70px;
 }
 aside.active {
   width: 250px;
 }
+
+

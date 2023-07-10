@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo-asoca-s.png') ?>">
     <link rel="stylesheet" href="<?= base_url('bootstrap-5/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('dataTable/dataTables.bootstrap5.min.css') ?>" />
+
 
     <script src="<?= base_url('bootstrap-5/js/bootstrap.bundle.min.js') ?>"></script>
 
@@ -17,51 +19,110 @@
 </head>
 
 <body class="d-flex">
-
     <header class="fixed-top d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
-            <button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>
             <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo tienda" width="50">
             <h5>Asoca Shop</h5>
+            <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
+
         </div>
 
-        <div class="dropdown">
-            <div>
-                <i class="bi bi-bell-fill"></i>
-            </div>
-            <div>
-                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-fill text-secondary" style="background-color: black;border-radius:100%; padding:3px 8px"></i>
+        <div class="d-flex gap-2">
+            <?php if (session('id') != 0) { ?>
+                <div class="d-flex align-items-center">
+                    <a href="" id="notifi" style="transition: hover .2s ease-in ;"><i class="bi bi-bell-fill fs-4"></i></a>
+                </div>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-fill text-secondary" style="background-color: black;border-radius:100%; padding:3px 8px"></i>
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="#"> <i class="bi bi-person-fill-gear"></i> Perfil</a>
+                        </li>
+                        <li>
+                            <button class="dropdown-item" onclick="salir()"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion </button>
+                        </li>
+                    </ul>
+                </div>
+            <?php } else { ?>
+                <button class="btn btn-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
+                    Iniciar Sesion
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#"> <i class="bi bi-person-fill-gear"></i> Perfil</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion </a></li>
-                </ul>
-            </div>
+
+                <a class="btn">
+                    Registrarse
+                </a>
+            <?php } ?>
+
         </div>
     </header>
 
-    <aside>
-        <ul class="text-center">
-            <!-- <li>
-                <a href="" style="width: 100% !important;">
-                    <i class="bi bi-database-fill-gear fs-4"></i> <span>Base de Datos</span>
-                </a>
-            </li> -->
-            <li>
-                <a href="" style="width: 100% !important;">
-                    <i class="bi bi-database-fill-gear fs-4"></i> <span>Productos</span>
-                </a>
-            </li>
-            <li>
-                <a href="" style="width: 100% !important;">
-                    <i class="bi bi-people-fill fs-4"></i> <span>Usuarios</span>
-                </a>
-            </li>
-            <li><a href="">Compras</a></li>
-        </ul>
-    </aside>
+    <?php if (session('id') != 0) { ?>
+        <aside>
+            <ul class="text-center">
+                <?php foreach (session('modulos') as $modulo) { ?>
+                    <li>
+                        <a href="<?= base_url($modulo['url']) ?>" style="width: 100% !important;">
+                            <i class="<?= $modulo['icon'] ?> fs-4"></i> <span><?= $modulo['modulo'] ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </aside>
+    <?php } ?>
 </body>
+
+<!-- MODAL INICIAR SESION -->
+<form id="formularioLogin">
+    <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="card mb-3" style="border:none;">
+                            <div class="card-body">
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Inicia Sesion</h5>
+                                    <p class="text-center small">Ingresa tu usuario y contraseña para ingresar</p>
+                                    <div class="w-100 text-center"><span id="invalid-feedback"></span></div>
+                                </div>
+                                <form class="row g-3">
+                                    <div class="col-12">
+                                        <label for="usuario" class="form-label">Usuario</label>
+                                        <div class="input-group has-validation">
+                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            <input type="text" name="usuario" class="form-control" id="usuario" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="contrasena" class="form-label">Contraseña</label>
+                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required>
+                                    </div>
+
+                                    <div class="col-12 my-3">
+                                        <input class="btn btn-primary w-100" type="submit" value="Ingresar">
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">¿No tienes una cuenta? <a href="pages-register.html"> Crear cuenta</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <script src="<?= base_url('js/jquery.min.js') ?>"></script>
 <script src="<?= base_url('js/main.js') ?>"></script>
+<script src="<?= base_url('js/swalfire.js') ?>"></script>
+<script src="<?= base_url('dataTable/jquery.dataTables.js') ?>"></script>
+<script src="<?= base_url('dataTable/dataTables.bootstrap5.min.js') ?>"></script>
+<script>
+    var url = '<?= base_url() ?>';
+</script>
