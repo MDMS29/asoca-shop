@@ -427,14 +427,12 @@ $("#formularioUsuarios").on("submit", function (e) {
     validCorreo == false
   ) {
     return mostrarMensaje("error", "¡Hay campos vacios o invalidos!");
-  }
-  // else if ([telefono, correo].includes("")) {
-  //   return mostrarMensaje(
-  //     "error",
-  //     "¡Debe tener un telefono o correo principal!"
-  //   );
-  // }
-  else {
+  } else if ([telefono, correo].includes("")) {
+    return mostrarMensaje(
+      "error",
+      "¡Debe tener un telefono o correo principal!"
+    );
+  } else {
     var formData = new FormData();
     formData.append("id", id);
     formData.append("tp", tp);
@@ -467,7 +465,7 @@ $("#formularioUsuarios").on("submit", function (e) {
         formData.append("tipoUsu", 7);
         formData.append("tipoTel", tel.tipo);
         $.ajax({
-          url: "",
+          url: `${url}insertarTelefono`,
           type: "POST",
           data: formData,
           dataType: "json",
@@ -489,7 +487,7 @@ $("#formularioUsuarios").on("submit", function (e) {
         formData.append("prioridad", correo.prioridad);
         formData.append("tipoUsu", 7);
         $.ajax({
-          url: "",
+          url: `${url}insertarCorreo`,
           type: "POST",
           data: formData,
           dataType: "json",
@@ -600,10 +598,10 @@ $("#btnAddTel").on("click", function (e) {
   }
 });
 //Funcion para buscar el correo o el telefono
-function buscarCorreoTel(url, valor, inputName, tipo) {
+function buscarCorreoTel(urlS, valor, inputName, tipo) {
   $.ajax({
     type: "POST",
-    url: "<?php echo base_url() ?>" + `${url}` + valor + "/" + 0 + "/" + 7, //url, valor, idUsuario, tipoUsuario
+    url: `${url}${urlS}/${valor}/${0}`, //url, valor, idUsuario
     dataType: "JSON",
     success: function (res) {
       if (res[0] == null) {
@@ -621,7 +619,7 @@ function buscarCorreoTel(url, valor, inputName, tipo) {
 //Al escribir validar que el numero no este registrado
 $("#telefonoAdd").on("input", function (e) {
   numero = $("#telefonoAdd").val();
-  buscarCorreoTel("telefonos/buscarTelefono/", numero, "msgTel", "telefono");
+  buscarCorreoTel("buscarTelefono", numero, "msgTel", "telefono");
 });
 // Funcion para mostrar telefonos en la tabla.
 function guardarTelefono() {
@@ -643,16 +641,15 @@ function guardarTelefono() {
                                 <td id=${telefonos[i].prioridad}>${
         telefonos[i].prioridad == "S" ? "Secundaria" : "Principal"
       }</td>  
-                                <td>
-                                    <button class="btn btnEditarTel" id="btnEditarTel${
-                                      telefonos[i].id
-                                    }" onclick="editarTelefono('${
+          <td>
+              <button class="btn  btn-outline-primary" id="btnEditarTel${
+                telefonos[i].id
+              }" onclick="editarTelefono('${
         telefonos[i].id
-      }')"><img src="<?= base_url('img/edit.svg') ?>" title="Editar Telefono">
-                                    <button class="btn" onclick="eliminarTel('${
-                                      telefonos[i].id
-                                    }')"><img src="<?= base_url('img/delete.svg') ?>" title="Eliminar Telefono">
-                                </td>
+      }')" title="Editar Telefono"> <i class="bi bi-pencil-square"></i> </button>
+              <button class="btn  btn-outline-danger" onclick="eliminarTel('${
+                telefonos[i].id
+              }')"><i class="bi bi-trash3-fill"></i></td>
                             </tr>`;
     }
   }
@@ -757,7 +754,7 @@ $("#btnAddCorre").on("click", function (e) {
 //Al escribir validar que el correo no este registrado
 $("#correoAdd").on("input", function (e) {
   correo = $("#correoAdd").val();
-  buscarCorreoTel("email/buscarEmail/", correo, "msgCorreo", "correo");
+  buscarCorreoTel("buscarEmail", correo, "msgCorreo", "correo");
 });
 // Funcion para mostrar correos en la tabla.
 function guardarCorreo() {
@@ -772,19 +769,19 @@ function guardarCorreo() {
   } else {
     for (let i = 0; i < correos.length; i++) {
       cadena += ` <tr class="text-center" id='${correos[i].id}'>
-                                <td>${correos[i].correo}</td>
-                                <td id=${correos[i].prioridad} >${
+                      <td>${correos[i].correo}</td>
+                      <td id=${correos[i].prioridad} >${
         correos[i].prioridad == "S" ? "Secundaria" : "Principal"
       }</td>
-                                <td>
-                                    <button class="btn" onclick="editarCorreo('${
-                                      correos[i].id
-                                    }')"><img src="<?= base_url('img/edit.svg') ?>" title="Editar Correo">
-                                    <button class="btn" onclick="eliminarCorreo('${
-                                      correos[i].id
-                                    }')"><img src="<?= base_url('img/delete.svg') ?>" title="Eliminar Correo">
-                                </td>
-                            </tr>`;
+                      <td>
+                          <button class="btn btn-outline-primary" onclick="editarCorreo('${
+                            correos[i].id
+                          }')" title="Editar Correo"><i class="bi bi-pencil-square"></i></button>
+                          <button class="btn btn-outline-danger" onclick="eliminarCorreo('${
+                            correos[i].id
+                          }')"><i class="bi bi-trash3-fill"></i> </button>
+                      </td>
+                  </tr>`;
     }
   }
   $("#bodyCorre").html(cadena);

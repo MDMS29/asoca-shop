@@ -27,7 +27,7 @@ class EmailModel extends Model
 
     public function obtenerEmailUser($id)
     {
-        $this->select('id_correo as id, correo, prioridad_crr');
+        $this->select('id_correo as id, correo, prioridad_crr as prioridad');
         $this->where('id_usuario', $id);
         $data = $this->find();
         return $data;

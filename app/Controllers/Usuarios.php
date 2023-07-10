@@ -7,16 +7,17 @@ use App\Controllers\BaseController;
 use App\Models\UsuariosModel;
 use App\Models\RolesModel;
 use App\Models\ModulosModel;
-use App\Models\TelefonosModel;
+use App\Models\ParamDetModel;
 
 class Usuarios extends BaseController
 {
-    protected $usuarios, $roles, $modulos, $telefonos;
+    protected $usuarios, $roles, $modulos, $param;
     public function __construct()
     {
         $this->usuarios = new UsuariosModel();
         $this->roles = new RolesModel();
         $this->modulos = new ModulosModel();
+        $this->param = new ParamDetModel();
     }
 
     public function login()
@@ -67,8 +68,9 @@ class Usuarios extends BaseController
     }
     public function index()
     {
+        $tipoTele = $this->param->obtenerTipoTelefono();
         $roles = $this->roles->obtenerRoles();
-        $data = ['roles' => $roles];
+        $data = ['roles' => $roles, 'tipoTele' => $tipoTele];
         echo view('components/navbar');
         echo view('usuarios/usuarios', $data);
         echo view('components/footer');

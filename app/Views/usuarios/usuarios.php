@@ -178,9 +178,9 @@
                                     <label for="prioridad" class="col-form-label">Tipo Telefono:</label>
                                     <select class="form-select form-control" name="tipoTele" id="tipoTele">
                                         <option selected value="">-- Seleccione --</option>
-                                        <!-- < ?php foreach ($tipoTele as $tipe) { ?>
-                                            <option value="< ?= $tipe['id'] ?>">< ?= $tipe['nombre'] ?></option>
-                                        < ?php } ?> -->
+                                        <?php foreach ($tipoTele as $tipe) { ?>
+                                            <option value="<?= $tipe['id'] ?>"><?= $tipe['nombre'] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="flex-grow-1">

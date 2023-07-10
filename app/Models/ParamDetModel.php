@@ -27,7 +27,7 @@ class ParamDetModel extends Model
 
     public function obtenerTipoTelefono()
     {
-        $this->select('*');
+        $this->select('id_param_det as id, nombre');
         $this->where('id_param_enc', '3');
         $data = $this->findAll();
         return $data;

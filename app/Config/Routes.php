@@ -44,8 +44,13 @@ $routes->get('/clientes', 'Clientes::index');
 
 $routes->post('/obtenerClientes', 'Clientes::obtenerClientes');
 
+$routes->post('/insertarTelefono', 'Telefonos::insertar');
 $routes->post('/obtenerTelefonosUser/(:num)', 'Telefonos::obtenerTelefonosUser/$1');
+$routes->post('/buscarTelefono/(:num)/(:num)', 'Telefonos::buscarTelefono/$1/$2');
 
+$routes->post('/insertarCorreo', 'Email::insertar');
+$routes->post('/obtenerEmailUser/(:num)', 'Email::obtenerEmailUser/$1');
+$routes->post('/buscarEmail/(:any)/(:num)', 'Email::buscarEmail/$1/$2');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
