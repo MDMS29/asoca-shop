@@ -32,4 +32,11 @@ class ParamDetModel extends Model
         $data = $this->findAll();
         return $data;
     }
+    public function obtenerTipoDocumentos()
+    {
+        $this->select('id_param_det as id, nombre');
+        $this->where('id_param_enc', '1');
+        $data = $this->findAll();
+        return $data;
+    }
 }

@@ -21,8 +21,10 @@
 <body class="d-flex">
     <header class="fixed-top d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
-            <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo tienda" width="50">
-            <h5>Asoca Shop</h5>
+            <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark">
+                <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo tienda" width="50">
+                <h5>Asoca Shop</h5>
+            </a>
             <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
 
         </div>
@@ -99,7 +101,7 @@
 
                                     <div class="col-12">
                                         <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required>
+                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required autocomplete>
                                     </div>
 
                                     <div class="col-12 my-3">

@@ -1,12 +1,6 @@
 var contadorUser = 0;
-var contador = 0;
-var contadorCorreo = 0;
-var inputIden = 0;
 let telefonos = []; //Telefonos del usuario.
 let correos = []; //Correos del usuario.
-var validTel = true;
-var validCorreo = true;
-var validIdent = true;
 
 //Marcar botones ocultar columnas
 var botones = $(".ocultar a");
@@ -65,29 +59,18 @@ var tableClientes = $("#tableClientes").DataTable({
     {
       data: null,
       render: function (data, type, row) {
-        return (
-          '<div class="d-flex gap-2 justify-content-center">' +
-          '<button class="btn btn-outline-primary" onclick="buscarCorreoTel(' +
-          data.id_usuario +
-          ')" data-bs-toggle="modal" data-bs-target="#verTelefonos" title="Banear Usuario"><i class="bi bi-telephone"></i></button>' +
-          '<button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#verCorreos" data-bs-target="#staticBackdrop" onclick=$("#idUsuario").val(' +
-          data.id_usuario +
-          ') title="Restaurar Contraseña"><i class="bi bi-envelope-at"></i></button></div>'
-        );
+        return `<div class="d-flex gap-2 justify-content-center">
+            <button class="btn btn-outline-primary" onclick="buscarCorreoTel(${data.id_usuario}, 'obtenerTelefonosUser', 1)" data-bs-toggle="modal" data-bs-target="#verTelefonos" title="Ver Telefonos"><i class="bi bi-telephone"></i></button>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#verCorreos" data-bs-target="#staticBackdrop" onclick="buscarCorreoTel(${data.id_usuario}, 'obtenerEmailUser', 2)" title="Ver Correos"><i class="bi bi-envelope-at"></i></button>
+          </div>`;
       },
     },
     {
       data: null,
       render: function (data, type, row) {
-        return (
-          '<div class="d-flex gap-2 justify-content-center">' +
-          '<button class="btn btn-outline-danger" onclick="eliminarUsuario(' +
-          data.id_usuario +
-          ')" data-bs-toggle="modal" data-bs-target="#modalConfirmar" title="Banear Usuario"><i class="bi bi-x-circle"></i></button>' +
-          '<button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#cambiarContra" data-bs-target="#staticBackdrop" onclick=$("#idUsuario").val(' +
-          data.id_usuario +
-          ') title="Restaurar Contraseña"><i class="bi bi-shield-lock-fill"></i></button></div>'
-        );
+        return `<div class="d-flex gap-2 justify-content-center">
+          <button class="btn btn-outline-danger" onclick="banearCliente(${data.id_usuario}, '${data.nombre_p} ${data.apellido_p}')" data-bs-toggle="modal" data-bs-target="#modalConfirmar" title="Banear Usuario"><i class="bi bi-x-circle"></i></button>
+          <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#cambiarContra" data-bs-target="#staticBackdrop" onclick="restaurarContrasena(${data.id_usuario})" title="Restaurar Contraseña"><i class="bi bi-shield-lock-fill"></i></button></div>`;
       },
     },
   ],
@@ -96,89 +79,32 @@ var tableClientes = $("#tableClientes").DataTable({
   },
 });
 //Limpiar campos de telefonos y correos
-function limpiarCampos(input1, input2, input3, accion) {
+function limpiarCampos(accion) {
   if (accion == 3) {
-    if (telefonos.length != 0) {
-      principalT = telefonos.filter((tel) => tel.prioridad == "P");
-      if (principalT.length == 0) {
-        return mostrarMensaje("error", "¡Debe tener un telefono principal!");
-      } else {
-        $("#agregarTelefono").modal("hide");
-        // $('#fotoModal').attr('hidden', '')
-        $("#agregarUsuario").modal("show");
-      }
-    } else {
-      $("#agregarTelefono").modal("hide");
-      // $('#fotoModal').attr('hidden', '')
-      $("#agregarUsuario").modal("show");
-    }
+    telefonos = [];
   }
   if (accion == 4) {
-    if (correos.length != 0) {
-      principalC = correos.filter((correo) => correo.prioridad == "P");
-      if (principalC.length == 0) {
-        return mostrarMensaje("error", "¡Debe tener un correo principal!");
-      } else {
-        $("#agregarCorreo").modal("hide");
-        $("#agregarUsuario").modal("show");
-        // $('#fotoModal').attr('hidden')
-      }
-    } else {
-      $("#agregarCorreo").modal("hide");
-      $("#agregarUsuario").modal("show");
-      // $('#fotoModal').attr('hidden')
-    }
-  }
-  if (objCorreo.id != 0) {
-    correos.push(objCorreo);
-    guardarCorreo();
-  }
-  if (objTelefono.id != 0) {
-    telefonos.push(objTelefono);
-    guardarTelefono();
-  }
-  if (input1 == 0) {
-    telefonos = [];
     correos = [];
   }
-  objCorreo = {
-    id: 0,
-    correo: "",
-    prioridad: "",
-  };
-  objTelefono = {
-    id: 0,
-    numero: "",
-    tipo: "",
-    prioridad: "",
-  };
-  $(`#${input1}`).val("");
-  $(`#${input2}`).val("");
-  $(`#${input3}`).val("");
-  $("#msgConfirRes").text("");
-  $("#msgConfir").text("");
-  $("#msgTel").text("");
-  $("#msgCorreo").text("");
-  $("#FotoUsuario").text("");
-  // $('#fotoModal').removeAttr('hidden')
-  $("#foto").val("");
 }
 
 //Funcion para buscar el correo o el telefono
-function buscarCorreoTel(url, valor, inputName, tipo) {
+function buscarCorreoTel(id, ruta, tipo) {
   $.ajax({
     type: "POST",
-    url: "<?php echo base_url() ?>" + `${url}` + valor + "/" + 0 + "/" + 7, //url, valor, idUsuario, tipoUsuario
+    url: `${url}${ruta}/${id}`, //url, valor, idUsuario, tipoUsuario
     dataType: "JSON",
     success: function (res) {
-      if (res[0] == null) {
-        $(`#${inputName}`).text("");
-        validTel = true;
-        validCorreo = true;
-      } else if (res[0] != null) {
-        $(`#${inputName}`).text(`* Este ${tipo} ya esta registrado *`);
-        validTel = false;
-        validCorreo = false;
+      switch (tipo) {
+        case 1:
+          telefonos.push(...res[0]);
+          guardarTelefono();
+          break;
+
+        default:
+          correos.push(...res[0]);
+          guardarCorreo();
+          break;
       }
     },
   });
@@ -204,16 +130,6 @@ function guardarTelefono() {
                                 <td id=${telefonos[i].prioridad}>${
         telefonos[i].prioridad == "S" ? "Secundaria" : "Principal"
       }</td>  
-                                <td>
-                                    <button class="btn btnEditarTel" id="btnEditarTel${
-                                      telefonos[i].id
-                                    }" onclick="editarTelefono('${
-        telefonos[i].id
-      }')"><img src="<?= base_url('img/edit.svg') ?>" title="Editar Telefono">
-                                    <button class="btn" onclick="eliminarTel('${
-                                      telefonos[i].id
-                                    }')"><img src="<?= base_url('img/delete.svg') ?>" title="Eliminar Telefono">
-                                </td>
                             </tr>`;
     }
   }
@@ -237,43 +153,77 @@ function guardarCorreo() {
                                 <td id=${correos[i].prioridad} >${
         correos[i].prioridad == "S" ? "Secundaria" : "Principal"
       }</td>
-                                <td>
-                                    <button class="btn" onclick="editarCorreo('${
-                                      correos[i].id
-                                    }')"><img src="<?= base_url('img/edit.svg') ?>" title="Editar Correo">
-                                    <button class="btn" onclick="eliminarCorreo('${
-                                      correos[i].id
-                                    }')"><img src="<?= base_url('img/delete.svg') ?>" title="Eliminar Correo">
-                                </td>
                             </tr>`;
     }
   }
   $("#bodyCorre").html(cadena);
 }
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
 //Cambiar estado de "Activo" a "Inactivo"
-function eliminarUsuario(id) {
+function banearCliente(id, nombre) {
   Swal.fire({
-    title: "¿Desea eliminar este Usuario?",
-    // text: "¡Esta acción puede causar errores!",
-    icon: "warning",
+    title: `¿Desea banear el usuario "${nombre}?"`,
+    text: "¡Está acción puede generar errores!",
+    icon: "question",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
-    confirmButtonText: "Eliminar",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      $.ajax({
-        type: "POST",
-        url: `${url}camEstUsuario`,
-        data: {
-          id,
-          estado: "I",
+    confirmButtonText: "Sí",
+    showCancelButton: true,
+  }).then((respon) => {
+    if (respon.isConfirmed) {
+      Swal.fire({
+        title: `¡Ingrese el numero de días!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Eliminar",
+        input: "text",
+        inputAttributes: {
+          autocapitalize: "on",
         },
-      }).done(function (data) {
-        contadorUser = 0;
-        mostrarMensaje("success", data);
-        tableClientes.ajax.reload(null, false);
+        preConfirm: (time) => {
+          $.ajax({
+            url: `${url}camEstUsuario`,
+            type: "POST",
+            dataType: "json",
+            data: {
+              id,
+              estado: "B",
+              tiempo: time,
+            },
+            success: function (res) {
+              if (res == 1) {
+                contadorUser = 0;
+                tableClientes.ajax.reload(null, false);
+                Toast.fire({
+                  icon: `success`,
+                  title: `¡Se ha baneado el usuario "${nombre}"!`,
+                });
+                return res;
+              }
+            },
+          });
+        },
+        showCancelButton: true,
+      }).then((respon) => {
+        if (respon.value == "1") {
+          if (respon.isConfirmed) {
+            return 1;
+          }
+        }
       });
     }
   });

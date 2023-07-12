@@ -69,8 +69,9 @@ class Usuarios extends BaseController
     public function index()
     {
         $tipoTele = $this->param->obtenerTipoTelefono();
+        $tipoDocs = $this->param->obtenerTipoDocumentos();
         $roles = $this->roles->obtenerRoles();
-        $data = ['roles' => $roles, 'tipoTele' => $tipoTele];
+        $data = ['roles' => $roles, 'tipoTele' => $tipoTele, 'tipoDocs' => $tipoDocs];
         echo view('components/navbar');
         echo view('usuarios/usuarios', $data);
         echo view('components/footer');
@@ -181,8 +182,8 @@ class Usuarios extends BaseController
             $usuarioUpdate = [
                 'id_rol' => $rol,
                 'tipo_user' => $tipoUser,
-                'tipo_doc' => $tipoDoc,
-                'n_identificacion' => $nIdenti,
+                'tipo_documento' => $tipoDoc,
+                'n_documento' => $nIdenti,
                 'nombre_p' => $nombreP,
                 'nombre_s' => $nombreS,
                 'apellido_p' => $apellidoP,
@@ -257,12 +258,17 @@ class Usuarios extends BaseController
     {
         $id = $this->request->getPost('id');
         $estado = $this->request->getPost('estado');
-        if ($this->usuarios->update($id, ['estado' => $estado])) {
+        $tiempo = $this->request->getPost('tiempo');
+        if ($this->usuarios->update($id, ['estado' => $estado, 'duracion' => $tiempo == null ? 0 : $tiempo])) {
             if ($estado == 'A') {
                 return '¡Se ha reestablecido el Usuario!';
-            } else {
+            }else if ($estado == 'B'){
+                return json_encode(1);
+            }else {
                 return '¡Se ha eliminado el Usuario!';
             }
+        }else{
+            return 2;
         }
     }
     // public function eliminados()

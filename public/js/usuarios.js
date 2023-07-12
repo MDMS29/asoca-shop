@@ -268,7 +268,7 @@ function seleccionarUsuario(id, tp) {
       $("#nombreS").val(res[0]["nombre_s"]);
       $("#apellidoP").val(res[0]["apellido_p"]);
       $("#apellidoS").val(res[0]["apellido_s"]);
-      $("#tipoDoc").val(1);
+      $("#tipoDoc").val(res[0]["tipo_documento"]);
       $("#nIdenti").val(res[0]["n_documento"]);
       $("#rol").val(res[0]["id_rol"]);
       $("#contra").val("");
@@ -636,7 +636,7 @@ function guardarTelefono() {
       cadena += ` <tr class="text-center" id='${telefonos[i].id}'>
                                 <td>${telefonos[i].numero}</td>
                                 <td id=${telefonos[i].tipo}>${
-        telefonos[i].tipo == 3 ? "Celular" : "Fijo"
+        telefonos[i].tipo == 4 ? "Celular" : "Fijo"
       }</td>
                                 <td id=${telefonos[i].prioridad}>${
         telefonos[i].prioridad == "S" ? "Secundaria" : "Principal"
@@ -680,7 +680,7 @@ function eliminarTel(id) {
   if (tp == 2) {
     // Consulta tipo delete
     $.ajax({
-      url: "" + id,
+      url: `${url}eliminarTelefono/${id}`,
       type: "POST",
       dataType: "json",
       success: function (data) {
@@ -768,7 +768,7 @@ function guardarCorreo() {
     $("#bodyCorre").html(cadena);
   } else {
     for (let i = 0; i < correos.length; i++) {
-      cadena += ` <tr class="text-center" id='${correos[i].id}'>
+      cadena += ` <tr class="text-center" id='c${correos[i].id}'>
                       <td>${correos[i].correo}</td>
                       <td id=${correos[i].prioridad} >${
         correos[i].prioridad == "S" ? "Secundaria" : "Principal"
@@ -788,18 +788,18 @@ function guardarCorreo() {
 }
 //Editar Correo
 function editarCorreo(id) {
-  const fila = $(`#${id}`);
+  const fila = $(`#c${id}`);
   const correo = fila.find("td").eq(0);
   const prioridad = fila.find("td").eq(1);
   $("#correoAdd").val(correo.text());
   $("#prioridadCorreo").val(prioridad.attr("id"));
-  $("#editCorreo").val(fila.attr("id"));
+  $("#editCorreo").val(fila.attr("id").split('c')[1]);
   objCorreo = {
-    id: fila.attr("id"),
+    id: fila.attr("id").split('c')[1],
     correo: correo.text(),
     prioridad: prioridad.attr("id"),
   };
-  correos = correos.filter((correo) => correo.id != fila.attr("id"));
+  correos = correos.filter((correo) => correo.id != fila.attr("id").split('c')[1]);
   guardarCorreo();
 }
 //Eliminar correo de la tabla
@@ -808,7 +808,7 @@ function eliminarCorreo(id) {
   if (tp == 2) {
     // Consulta tipo delete
     $.ajax({
-      url: "" + id,
+      url: `${url}eliminarEmail/${id}`,
       type: "POST",
       dataType: "json",
       success: function (data) {

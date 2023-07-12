@@ -68,9 +68,11 @@
                                     <div class="mb-3" style="width: 100%">
                                         <div class="mb-3">
                                             <label for="tipoDoc" class="col-form-label">Tipo Identificación:</label>
-                                            <select disabled class="form-select form-select" name="tipoDoc" id="tipoDoc">
-                                                <option value="1" selected>Cedula de Ciudadania</option>
-                                                <option>-- Seleccione --</option>
+                                            <select class="form-select form-select" name="tipoDoc" id="tipoDoc">
+                                                <option value="" selected>-- Seleccione --</option>
+                                                <?php foreach($tipoDocs as $tipoDoc){?>
+                                                    <option value="<?=$tipoDoc['id']?>" selected><?=$tipoDoc['nombre']?></option>
+                                                <?php }?>
                                             </select>
                                         </div>
                                     </div>
@@ -212,8 +214,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btnRedireccion" onclick="limpiarCampos('telefonoAdd', 'prioridad', 'tipoTele', 3)">Cerrar</button>
-                        <button type="button" class="btn btnAccionF" id="btnAddTel">Agregar</button>
+                        <button type="button" class="btn btn-primary" onclick="limpiarCampos('telefonoAdd', 'prioridad', 'tipoTele', 3)">Cerrar</button>
+                        <button type="button" class="btn btn-success" id="btnAddTel">Agregar</button>
                     </div>
                 </div>
             </div>
@@ -271,8 +273,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btnRedireccion" onclick="limpiarCampos('correoAdd', 'prioridadCorreo', '', 4)">Cerrar</button>
-                        <button type="button" class="btn btnAccionF" id="btnAddCorre">Agregar</button>
+                        <button type="button" class="btn btn-primary" onclick="limpiarCampos('correoAdd', 'prioridadCorreo', '', 4)">Cerrar</button>
+                        <button type="button" class="btn btn-success" id="btnAddCorre">Agregar</button>
                     </div>
                 </div>
             </div>
