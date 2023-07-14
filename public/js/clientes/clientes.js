@@ -69,8 +69,8 @@ var tableClientes = $("#tableClientes").DataTable({
       data: null,
       render: function (data, type, row) {
         return `<div class="d-flex gap-2 justify-content-center">
-          <button class="btn btn-outline-danger" onclick="banearCliente(${data.id_usuario}, '${data.nombre_p} ${data.apellido_p}')" data-bs-toggle="modal" data-bs-target="#modalConfirmar" title="Banear Usuario"><i class="bi bi-x-circle"></i></button>
-          <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#cambiarContra" data-bs-target="#staticBackdrop" onclick="restaurarContrasena(${data.id_usuario})" title="Restaurar Contraseña"><i class="bi bi-shield-lock-fill"></i></button></div>`;
+          <button class="btn btn-outline-danger" onclick="banearCliente(${data.id_usuario}, '${data.nombre_p} ${data.apellido_p}')" title="Banear Usuario"><i class="bi bi-x-circle"></i></button>
+          <button class="btn btn-outline-warning" onclick="restaurarContrasena(${data.id_usuario}, '${data.nombre_p} ${data.apellido_p}')" title="Restaurar Contraseña"><i class="bi bi-person-lock"></i></button></div>`;
       },
     },
   ],
@@ -87,7 +87,6 @@ function limpiarCampos(accion) {
     correos = [];
   }
 }
-
 //Funcion para buscar el correo o el telefono
 function buscarCorreoTel(id, ruta, tipo) {
   $.ajax({
@@ -109,7 +108,6 @@ function buscarCorreoTel(id, ruta, tipo) {
     },
   });
 }
-
 // Funcion para mostrar telefonos en la tabla.
 function guardarTelefono() {
   principal = telefonos.filter((tel) => tel.prioridad == "P");
@@ -135,7 +133,6 @@ function guardarTelefono() {
   }
   $("#bodyTel").html(cadena);
 }
-
 // Funcion para mostrar correos en la tabla.
 function guardarCorreo() {
   principal = correos.filter((correo) => correo.prioridad == "P");
@@ -158,7 +155,6 @@ function guardarCorreo() {
   }
   $("#bodyCorre").html(cadena);
 }
-
 const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
@@ -190,11 +186,11 @@ function banearCliente(id, nombre) {
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Eliminar",
-        input: "text",
-        inputAttributes: {
-          autocapitalize: "on",
-        },
+        input: "number",
         preConfirm: (time) => {
+          var fechaActual = new Date();
+          fechaActual.setDate(fechaActual.getDate() + Number(time));
+          var fechaISO = fechaActual.toISOString().split("T")[0];
           $.ajax({
             url: `${url}camEstUsuario`,
             type: "POST",
@@ -202,7 +198,7 @@ function banearCliente(id, nombre) {
             data: {
               id,
               estado: "B",
-              tiempo: time,
+              tiempo: fechaISO,
             },
             success: function (res) {
               if (res == 1) {
@@ -210,7 +206,7 @@ function banearCliente(id, nombre) {
                 tableClientes.ajax.reload(null, false);
                 Toast.fire({
                   icon: `success`,
-                  title: `¡Se ha baneado el usuario "${nombre}"!`,
+                  title: `¡Se ha baneado el usuario "${nombre}" por ${time} días!`,
                 });
                 return res;
               }
@@ -226,5 +222,40 @@ function banearCliente(id, nombre) {
         }
       });
     }
+  });
+}
+//
+function restaurarContrasena(idUsuario, nombre) {
+  Swal.fire({
+    title: `¿Desea restaurar la contraseña de ${nombre}?"`,
+    text: "¡Está acción puede generar errores!",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Restaurar",
+    showCancelButton: true,
+  }).then((respon) => {
+    $.ajax({
+      url: `${url}camContraUser`,
+      data: {
+        idUsuario,
+        contra: "",
+        contraConfir: "",
+      },
+      type: "POST",
+      dataType: "json",
+    }).done(function (data) {
+      tableClientes.ajax.reload(null, false); //Recargar tabla
+      contadorUser = 0;
+      if (data == 2) {
+        return mostrarMensaje("error", "¡Ha ocurrido un error!");
+      } else {
+        return Toast.fire({
+          icon: `success`,
+          title: "¡Contraseña restaurada!",
+        });
+      }
+    });
   });
 }

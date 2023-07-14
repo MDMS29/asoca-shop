@@ -39,6 +39,9 @@ $routes->post('/insertUsuario', 'Usuarios::insertar');
 $routes->post('/obtenerUsuarios', 'Usuarios::obtenerUsuarios');
 $routes->post('/buscarUsuario/(:num)/(:num)', 'Usuarios::buscarUsuario/$1/$2');
 $routes->post('/camEstUsuario', 'Usuarios::cambiarEstado');
+$routes->post('/camContraUser', 'Usuarios::cambiarContrasena');
+
+$routes->get('/usuEliminados', 'Usuarios::eliminados');
 
 $routes->get('/clientes', 'Clientes::index');
 
@@ -53,6 +56,10 @@ $routes->post('/insertarCorreo', 'Email::insertar');
 $routes->post('/obtenerEmailUser/(:num)', 'Email::obtenerEmailUser/$1');
 $routes->post('/buscarEmail/(:any)/(:num)', 'Email::buscarEmail/$1/$2');
 $routes->post('/eliminarEmail/(:num)', 'Email::eliminarEmail/$1');
+
+$routes->get('/adminProduc', 'Productos::adminProductos');
+$routes->post('/obtenerProductos', 'Productos::obtenerProductos');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

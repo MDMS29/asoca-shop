@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="<?= base_url('bootstrap-5/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('dataTable/dataTables.bootstrap5.min.css') ?>" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <script src="<?= base_url('bootstrap-5/js/bootstrap.bundle.min.js') ?>"></script>
 
@@ -23,7 +26,7 @@
         <div class="d-flex align-items-center gap-3">
             <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark">
                 <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo tienda" width="50">
-                <h5>Asoca Shop</h5>
+                <h5 class="fw-semibold m-0">Asoca Shop</h5>
             </a>
             <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
 

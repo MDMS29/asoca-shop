@@ -9,7 +9,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title"><?= $producto['nombre'] ?></h5>
-                            <p class="card-text"><?= $producto['descripcion'] ?></p>
+                            <p class="card-text" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3;
+    overflow: hidden;" ><?= $producto['descripcion'] ?></p>
                             <p class="card-text"><small class="text-body-secondary"><?= $producto['fecha_public'] ?></small></p>
                         </div>
                     </div>

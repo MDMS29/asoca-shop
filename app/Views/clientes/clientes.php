@@ -1,5 +1,5 @@
 <div class="contenedor">
-    <link rel="stylesheet" href=" <?php echo base_url('css/usuarios/usuarios.css') ?>">
+
 
     <!-- TABLA MOSTRAR CLIENTES -->
     <div id="content" class="p-4 p-md-5 h-100">
@@ -27,7 +27,7 @@
             </table>
         </div>
         <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarUsuario" onclick="" alt="icon-plus" width="20"> <i class="bi bi-arrow-left"></i> Regresar</button>
+            <button type="button" class="btn btn-primary" onclick="history.back()" alt="icon-plus" width="20"> <i class="bi bi-arrow-left"></i> Regresar</button>
         </div>
     </div>
 </div>
@@ -111,4 +111,4 @@
     </div>
 </div>
 
-<script src="<?= base_url('js/clientes.js') ?>" type="text/javascript"></script>
+<script src="<?= base_url('js/clientes/clientes.js') ?>" type="text/javascript"></script>

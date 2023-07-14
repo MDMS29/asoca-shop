@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: 'Rubik', sans-serif;
 }
 .contenedor {
   margin-top: 60px;
@@ -32,18 +33,15 @@ li a span {
 .ocultar > a:is(.toggle-vis).active,
 .ocultar > a:is(.toggle-vis):hover {
   border-radius: none !important;
-  color: var(--azulBase);
   font-weight: 700;
   border: none;
 }
-
 /* DATATABLE */
 table {
   background-color: white;
   border: 5px solid #161666;
   border-radius: 10px;
 }
-
 /* MODAL */
 .modal-content {
   border: none;
@@ -60,4 +58,15 @@ table {
 #invalid-feedback {
   color: red;
   font-weight: bold;
+}
+/* VALIDACION COLORES */
+.valido {
+  color: green !important;
+}
+.invalido {
+  color: red;
+  font-weight: bold;
+}
+.normal {
+  color: #8e8e8e;
 }

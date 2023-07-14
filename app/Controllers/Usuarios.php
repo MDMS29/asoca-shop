@@ -212,29 +212,41 @@ class Usuarios extends BaseController
             return json_encode($this->usuarios->getInsertID());
         }
     }
-    // public function cambiarContrasena()
-    // {
-    //     $idUser = $this->request->getPost('idUsuario');
-    //     $contra = $this->request->getVar('contra');
-    //     $contrConfir = $this->request->getVar('contraConfir');
+    public function cambiarContrasena()
+    {
+        $idUser = $this->request->getPost('idUsuario');
+        $contra = $this->request->getVar('contra');
+        $contrConfir = $this->request->getVar('contraConfir');
 
-    //     $res = $this->usuarios->buscarUsuario($idUser, 0);
-    //     //Si la contraseña esta vacia no se actualiza
-    //     if ($contra != '') {
-    //         //Verifica que no sea la misma de antes
-    //         $contraHash = password_verify($contra, $res['contrasena']);
-    //         if (!$contraHash) {
-    //             $contra = password_hash($contra, PASSWORD_DEFAULT); //Hasheo nuevo
-    //         }
-    //     } else {
-    //         $contra = $res['contrasena'];
-    //     }
-    //     if ($this->usuarios->update($idUser, ['contrasena' => $contra])) {
-    //         return json_encode(1);
-    //     } else {
-    //         return json_encode(2);
-    //     }
-    // }
+        $res = $this->usuarios->buscarUsuario($idUser, 0);
+
+        if ($contra == '' && $contrConfir == '') {
+            $nuevaContra = '*a1s5o0c2a2s9h0o4p*';
+
+            $contra = password_hash($nuevaContra, PASSWORD_DEFAULT); //Hasheo nuevo
+
+            if ($this->usuarios->update($idUser, ['contrasena' => $contra])) {
+                return json_encode(1);
+            } else {
+                return json_encode(2);
+            }
+        }
+        //Si la contraseña esta vacia no se actualiza
+        if ($contra != '') {
+            //Verifica que no sea la misma de antes
+            $contraHash = password_verify($contra, $res['contrasena']);
+            if (!$contraHash) {
+                $contra = password_hash($contra, PASSWORD_DEFAULT); //Hasheo nuevo
+            }
+        } else {
+            $contra = $res['contrasena'];
+        }
+        if ($this->usuarios->update($idUser, ['contrasena' => $contra])) {
+            return json_encode(1);
+        } else {
+            return json_encode(2);
+        }
+    }
     public function buscarUsuario($id, $nIdenti)
     {
         $array = array();
@@ -262,23 +274,25 @@ class Usuarios extends BaseController
         if ($this->usuarios->update($id, ['estado' => $estado, 'duracion' => $tiempo == null ? 0 : $tiempo])) {
             if ($estado == 'A') {
                 return '¡Se ha reestablecido el Usuario!';
-            }else if ($estado == 'B'){
+            } else if ($estado == 'B') {
                 return json_encode(1);
-            }else {
+            } else {
                 return '¡Se ha eliminado el Usuario!';
             }
-        }else{
+        } else {
             return 2;
         }
     }
-    // public function eliminados()
-    // {
-    //     $param = $this->param->obtenerTipoDoc();
-    //     $roles = $this->roles->obtenerRoles();
-    //     $data = ['tipoDoc' => $param, 'roles' => $roles];
-    //     echo view('principal/sidebar');
-    //     echo view('usuarios/eliminados', $data);
-    // }
+    public function eliminados()
+    {
+        $tipoTele = $this->param->obtenerTipoTelefono();
+        $tipoDocs = $this->param->obtenerTipoDocumentos();
+        $roles = $this->roles->obtenerRoles();
+        $data = ['roles' => $roles, 'tipoTele' => $tipoTele, 'tipoDocs' => $tipoDocs];
+        echo view('components/navbar');
+        echo view('usuarios/eliminados', $data);
+        echo view('components/footer');
+    }
     // public function contadorUsuarios()
     // {
     //     $id = $this->request->getPost('id');

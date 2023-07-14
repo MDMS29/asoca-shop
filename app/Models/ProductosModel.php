@@ -27,8 +27,9 @@ class ProductosModel extends Model
 
     public function obtenerProductos($estado)
     {
-        $this->select('*');
-        $this->where('estado', $estado);
+        $this->select('nombre, descripcion, cantidad, precio, fecha_public, valoracion, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador');
+        $this->join('tbl_usuarios', 'tbl_usuarios.id_usuario = tbl_productos.usuario_crea');
+        $this->where('tbl_productos.estado', $estado);
         $data = $this->findAll();
         return $data;
     }

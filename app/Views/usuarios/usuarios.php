@@ -1,6 +1,4 @@
 <div class="contenedor">
-    <link rel="stylesheet" href=" <?php echo base_url('css/usuarios/usuarios.css') ?>">
-
     <!-- TABLA MOSTRAR USUARIOS -->
     <div id="content" class="p-4 p-md-5 h-100">
         <h2 class="text-center mb-4"><i class="bi bi-people-fill fs-1"></i> Usuarios del Sistema</h2>
@@ -11,7 +9,7 @@
 
             <div class="my-3">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarUsuario" onclick="seleccionarUsuario(0,1)"><i class="bi bi-plus-lg"></i> Agregar</button>
-                <a class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
+                <a href="<?=base_url('usuEliminados')?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
             </div>
 
             <table class="table table-striped" id="tableUsuarios" width="100%" cellspacing="0">
@@ -32,7 +30,7 @@
             </table>
         </div>
         <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarUsuario" onclick="" alt="icon-plus" width="20"> <i class="bi bi-arrow-left"></i> Regresar</button>
+            <button type="button" class="btn btn-primary" onclick="history.back()" alt="icon-plus" width="20"> <i class="bi bi-arrow-left"></i> Regresar</button>
         </div>
     </div>
 
@@ -125,7 +123,7 @@
                                     <div class="mb-3" style="width: 100%" id="divContras">
                                         <label id="labelNom" for="nombres" class="col-form-label"> Contraseña:
                                         </label>
-                                        <input type="password" name="contra" class="form-control" id="contra" minlength="5">
+                                        <input type="password" name="contra" class="form-control" id="contra" autocomplete  minlength="5">
                                         <small class="normal">¡La contraseña debe contar con un minimo de 6 caracteres!</small>
 
                                         <div class="form-check" style="margin-top: 10px;">
@@ -138,7 +136,7 @@
                                     <div class="mb-3" style="width: 100%" id="divContras2">
                                         <div>
                                             <label for="nombres" class="col-form-label">Confirmar Contraseña:</label>
-                                            <input type="password" name="confirContra" class="form-control" id="confirContra" minlength="5">
+                                            <input type="password" name="confirContra" class="form-control" autocomplete  id="confirContra" minlength="5">
                                         </div>
                                         <small id="msgConfir" class="normal"></small>
                                     </div>
@@ -161,7 +159,7 @@
             <div class="body-M">
                 <div class="modal-content">
                     <div class="modal-header d-flex justify-content-between align-items-center">
-                        <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo-empresa" width="100" height="60">
+                        <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo-empresa" width="60" height="60">
                         <h1 class="modal-title fs-5 text-center " id="tituloModal"><i class="bi bi-telephone-plus-fill"></i> Agregar Telefono</h1>
                         <button type="button" class="btn" aria-label="Close" onclick="limpiarCampos('telefonoAdd', 'prioridad', 'tipoTele', 3)">X</button>
                     </div>
@@ -228,7 +226,7 @@
             <div class="body-M">
                 <div class="modal-content">
                     <div class="modal-header flex justify-content-between align-items-center">
-                        <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo-empresa" width="100" height="60">
+                        <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo-empresa" width="60" height="60">
                         <h1 class="modal-title fs-5 text-center " id="tituloModal"><i class="bi bi-envelope-plus-fill"></i> Agregar Correo</h1>
                         <button type="button" class="btn" aria-label="Close" onclick="limpiarCampos('correoAdd', 'prioridadCorreo', '', 4)">X</button>
                     </div>
@@ -302,7 +300,7 @@
                                     <label id="labelNom" for="nombres" class="col-form-label"> Contraseña:
                                     </label>
                                     <div class="flex">
-                                        <input type="password" name="contraRes" class="form-control" id="contraRes" minlength="5">
+                                        <input type="password" name="contraRes" class="form-control" id="contraRes" autocomplete minlength="5">
                                         <small class="normal">¡La contraseña debe contar con un minimo de 6
                                             caracteres!</small>
                                     </div>
@@ -316,7 +314,7 @@
                                 <div class="mb-3" style="width: 100%" id="divContras2">
                                     <div>
                                         <label for="nombres" class="col-form-label">Confirmar Contraseña:</label>
-                                        <input type="password" name="confirContraRes" class="form-control" id="confirContraRes" minlength="5">
+                                        <input type="password" name="confirContraRes" class="form-control" id="confirContraRes" autocomplete minlength="5">
                                     </div>
                                     <small id="msgConfirRes" class="normal"></small>
                                 </div>
@@ -334,4 +332,4 @@
 </form>
 </div>
 
-<script src="<?= base_url('js/usuarios.js') ?>" type="text/javascript"></script>
+<script src="<?= base_url('js/usuarios/usuarios.js') ?>" type="text/javascript"></script>
