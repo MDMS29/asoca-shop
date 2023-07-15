@@ -8,8 +8,8 @@
             </div>
 
             <div class="my-3">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarUsuario" onclick="seleccionarUsuario(0,1)"><i class="bi bi-plus-lg"></i> Agregar</button>
-                <a href="<?=base_url('')?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarProducto" onclick="seleccionarProducto(0,1)"><i class="bi bi-plus-lg"></i> Agregar</button>
+                <a href="<?= base_url('') ?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
             </div>
 
             <table class="table table-striped" id="tableProductos" width="100%" cellspacing="0">
@@ -36,5 +36,66 @@
         </div>
     </div>
 </div>
+
+
+<!-- FORMULARIO PARA AGREGAR - EDITAR PRODUCTO -->
+<form autocomplete="off" id="formularioProductos" enctype="multipart/form-data">
+    <div class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <input type="text" name="id" id="id" hidden>
+        <input type="text" name="tp" id="tp" hidden>
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="body-M">
+                <div class="modal-content">
+                    <div class="modal-header flex align-items-center gap-3">
+                        <div class="d-flex" style="width: 100%; justify-content: space-between; align-items: center;">
+                            <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="Logo Empresa" class="logoEmpresa" width="60">
+                            <h1 class="modal-title fs-5 d-flex align-items-center gap-2">
+                                <i class="bi bi-plus-lg"></i>
+                                <span id="tituloModal"><!-- TEXTO DINAMICO--></span>
+                            </h1>
+                            <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="d-flex column-gap-3" style="width: 100%">
+                                <div class="mb-3" style="width: 100%">
+                                    <label for="nombre" class="col-form-label">Nombre:</label>
+                                    <input type="text" name="nombre" class="form-control" id="nombre" oninput="this.value = this.value.replace(/[^a-zA-Zñáéíóú ]/,'')">
+                                </div>
+                            </div>
+                            <div class="d-flex column-gap-3" style="width: 100%">
+                                <div class="mb-3" style="width: 100%">
+                                    <label for="descripcion" class="col-form-label">Descripción:</label>
+                                    <textarea name="descripcion" class="form-control" id="descripcion" style="height:150px"></textarea>
+                                </div>
+                            </div>
+                            <div class="d-flex column-gap-3" style="width: 100%">
+                                <div class="mb-3" style="width: 100%">
+                                    <label for="precio" class="col-form-label">Precio:</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">$</span>
+                                        <input type="number" name="precio" class="form-control" id="precio" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                    </div>
+                                </div>
+                                <div class="mb-3" style="width: 100%">
+                                    <div class="">
+                                        <label for="cantidad" class="col-form-label">Cantidad:</label>
+                                        <input type="number" name="cantidad" class="form-control" id="cantidad" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                    </div>
+                                    <input type="text" name="fecha" class="form-control" id="fecha">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success" id="btnGuardar"><!-- TEXTO DIANMICO --></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <script src="<?= base_url('js/productos/productos.js') ?>" type="text/javascript"></script>

@@ -59,6 +59,7 @@ $routes->post('/eliminarEmail/(:num)', 'Email::eliminarEmail/$1');
 
 $routes->get('/adminProduc', 'Productos::adminProductos');
 $routes->post('/obtenerProductos', 'Productos::obtenerProductos');
+$routes->post('/buscarProducto', 'Productos::buscarProducto');
 
 /*
  * --------------------------------------------------------------------

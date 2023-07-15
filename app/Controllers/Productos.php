@@ -25,4 +25,10 @@ class Productos extends BaseController
         echo view('productos/adminProductos');
         echo view('components/footer');
     }
+    public function buscarProducto()
+    {
+        $id = $this->request->getPost('id');
+        $res = $this->producto->buscarProducto($id);
+        return json_encode($res);
+    }
 }
