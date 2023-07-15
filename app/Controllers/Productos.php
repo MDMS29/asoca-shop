@@ -13,10 +13,10 @@ class Productos extends BaseController
     {
         $this->producto = new ProductosModel();
     }
-
     public function obtenerProductos()
     {
-        $res = $this->producto->obtenerProductos('A');
+        $estado = $this->request->getPost('estado');
+        $res = $this->producto->obtenerProductos($estado);
         return json_encode($res);
     }
     public function adminProductos()
@@ -28,18 +28,19 @@ class Productos extends BaseController
     public function buscarProducto()
     {
         $id = $this->request->getPost('id');
-        $res = $this->producto->buscarProducto($id);
+        $nombre = $this->request->getPost('nombre');
+        $res = $this->producto->buscarProducto($id, $nombre, session('id'));
         return json_encode($res);
     }
     public function insertar()
     {
-        $id = $this->request->getPost('id'); 
-        $tp = $this->request->getPost('tp'); 
-        $nombre = $this->request->getPost('nombre'); 
-        $descripcion = $this->request->getPost('descripcion'); 
-        $precio = $this->request->getPost('precio'); 
-        $cantidad = $this->request->getPost('cantidad'); 
-        $fecha = $this->request->getPost('fecha'); 
+        $id = $this->request->getPost('id');
+        $tp = $this->request->getPost('tp');
+        $nombre = $this->request->getPost('nombre');
+        $descripcion = $this->request->getPost('descripcion');
+        $precio = $this->request->getPost('precio');
+        $cantidad = $this->request->getPost('cantidad');
+        $fecha = $this->request->getPost('fecha');
 
         $dataProducto = [
             'nombre' => $nombre,
@@ -50,18 +51,46 @@ class Productos extends BaseController
             'usuario_crea' => session('id')
         ];
 
-        if($tp == 2){
-            if($this->producto->update($id, $dataProducto)){
+        if ($tp == 2) {
+            if ($this->producto->update($id, $dataProducto)) {
                 return json_encode(1);
-            }else{
+            } else {
                 return json_encode(2);
             }
-        }else{
-            if($this->producto->save($dataProducto)){
+        } else {
+            if ($this->producto->save($dataProducto)) {
                 return json_encode(1);
-            }else{
+            } else {
                 return json_encode(2);
             }
         }
+    }
+    public function cambiarEstado()
+    {
+        $id = $this->request->getPost('id');
+        $estado = $this->request->getPost('estado');
+        if ($this->producto->update($id, ['estado' => $estado])) {
+            if ($estado == 'A') {
+                return '¡Se ha reestablecido el Producto!';
+            } else {
+                return '¡Se ha eliminado el Producto!';
+            }
+        } else {
+            return 2;
+        }
+    }
+    public function adminProductosEliminados()
+    {
+        echo view('components/navbar');
+        echo view('productos/adminProductosEliminados');
+        echo view('components/footer');
+    }
+    public function verDetallesProducto($id)
+    {
+        $res = $this->producto->buscarProducto($id, '', 0);
+        $data = ['producto' => $res];
+        echo view('components/navbar');
+        echo view('productos/detallesProducto', $data);
+        echo view('components/footer');
     }
 }

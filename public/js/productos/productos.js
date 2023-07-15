@@ -1,4 +1,22 @@
 contadorProd = 0;
+var validProduc = true;
+//Marcar botones ocultar columnas
+var botones = $(".ocultar a");
+botones.click(function () {
+  if ($(this).attr("class").includes("active")) {
+    $(this).removeClass("active");
+  } else {
+    $(this).addClass("active");
+  }
+});
+//Mostrar Ocultar Columnas
+$("a.toggle-vis").on("click", function (e) {
+  e.preventDefault();
+  // Get the column API object
+  var column = tableProductos.column($(this).attr("data-column"));
+  // Toggle the visibility
+  column.visible(!column.visible());
+});
 // Tabla de usuarios
 var tableProductos = $("#tableProductos").DataTable({
   ajax: {
@@ -51,9 +69,9 @@ var tableProductos = $("#tableProductos").DataTable({
           '<div class="d-flex gap-2 justify-content-center"><button class="btn btn-outline-primary" onclick="seleccionarProducto(' +
           data.id_producto +
           ',2)" data-bs-target="#agregarProducto" data-bs-toggle="modal" title="Editar Usuario"><i class="bi bi-pencil-square"></i></button>' +
-          '<button class="btn btn-outline-danger" onclick="eliminarUsuario(' +
+          '<button class="btn btn-outline-danger" onclick="eliminarProducto(' +
           data.id_producto +
-          ')" data-bs-toggle="modal" data-bs-target="#modalConfirmar" title="Eliminar Usuario"><i class="bi bi-trash3-fill"></i></button></div>'
+          ')" title="Eliminar Producto"><i class="bi bi-trash3-fill"></i></button></div>'
         );
       },
     },
@@ -80,6 +98,7 @@ function seleccionarProducto(id, tp) {
         $("#id").val(id);
         $("#tp").val(tp);
         $("#nombre").val(res[0]["nombre"]);
+        $("#nombreEdit").val(res[0]["nombre"]);
         $("#descripcion").val(res[0]["descripcion"]);
         $("#precio").val(res[0]["precio"]);
         $("#cantidad").val(res[0]["cantidad_actual"]);
@@ -95,6 +114,7 @@ function seleccionarProducto(id, tp) {
     $("#id").val(id);
     $("#tp").val(tp);
     $("#nombre").val("");
+    $("#nombreEdit").val("");
     $("#descripcion").val("");
     $("#precio").val("");
     $("#cantidad").val("");
@@ -102,6 +122,29 @@ function seleccionarProducto(id, tp) {
     $("#btnGuardar").text("Agregar");
   }
 }
+
+$("#nombre").on("input", function (e) {
+  e.preventDefault();
+  nombre = $("#nombre").val();
+  nombreEdit = $("#nombreEdit").val();
+  $.ajax({
+    url: `${url}buscarProducto`,
+    type: "POST",
+    dataType: "json",
+    data: {
+      nombre,
+    },
+    success: function (res) {
+      if (res.length == 0 || nombre == nombreEdit) {
+        $("#msgNombre").text("");
+        validProduc = true;
+      } else {
+        validProduc = false;
+        $("#msgNombre").text(" * Este producto ya existe * ");
+      }
+    },
+  });
+});
 
 $("#formularioProductos").submit(function (e) {
   e.preventDefault();
@@ -112,35 +155,67 @@ $("#formularioProductos").submit(function (e) {
   precio = $("#precio").val();
   cantidad = $("#cantidad").val();
   fecha = $("#fecha").val();
-  if ([nombre, descripcion, precio, cantidad].includes("")) {
-    return mostrarMensaje("error", "¡Hay campos vacios!");
-  }else{
+  if ([nombre, descripcion, precio, cantidad].includes("") || !validProduc) {
+    return mostrarMensaje("error", "¡Hay campos vacios o invalidos!");
+  } else {
     $.ajax({
-      url : `${url}insertarProducto`,
-      type : 'POST',
-      dataType : 'json',
-      data : {
-        id,tp,nombre,descripcion,precio,cantidad
+      url: `${url}insertarProducto`,
+      type: "POST",
+      dataType: "json",
+      data: {
+        id,
+        tp,
+        nombre,
+        descripcion,
+        precio,
+        cantidad,
       },
-      success : function(res){
+      success: function (res) {
         tableProductos.ajax.reload(null, false);
-        contadorProd = 0
-        if(tp == 2){
-          if(res == 1){
-            $('#agregarProducto').modal('hide')
-            return mostrarMensaje('success', '¡Se ha actualizado el producto!')
-          }else{
-            return mostrarMensaje('error', '¡Ha ocurrido un error!')
+        contadorProd = 0;
+        if (tp == 2) {
+          if (res == 1) {
+            $("#agregarProducto").modal("hide");
+            return mostrarMensaje("success", "¡Se ha actualizado el producto!");
+          } else {
+            return mostrarMensaje("error", "¡Ha ocurrido un error!");
           }
-        }else{
-          if(res == 1){
-            $('#agregarProducto').modal('hide')
-            return mostrarMensaje('success', '¡Se ha agregado el producto!')
-          }else{
-            return mostrarMensaje('error', '¡Ha ocurrido un error!')
+        } else {
+          if (res == 1) {
+            $("#agregarProducto").modal("hide");
+            return mostrarMensaje("success", "¡Se ha agregado el producto!");
+          } else {
+            return mostrarMensaje("error", "¡Ha ocurrido un error!");
           }
         }
-      }
-    })
+      },
+    });
   }
 });
+
+function eliminarProducto(id) {
+  Swal.fire({
+    title: "¿Desea eliminar este Producto?",
+    // text: "¡Esta acción puede causar errores!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Eliminar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "POST",
+        url: `${url}camEstProducto`,
+        data: {
+          id,
+          estado: "I",
+        },
+      }).done(function (data) {
+        contadorProd = 0;
+        mostrarMensaje("success", data);
+        tableProductos.ajax.reload(null, false);
+      });
+    }
+  });
+}

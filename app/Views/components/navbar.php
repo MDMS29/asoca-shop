@@ -69,7 +69,7 @@
             <ul class="text-center">
                 <?php foreach (session('modulos') as $modulo) { ?>
                     <li>
-                        <a href="<?= base_url($modulo['url']) ?>" style="width: 100% !important;">
+                        <a href="<?= base_url($modulo['url']) ?>" title="<?= $modulo['modulo'] ?>" style="width: 100% !important;">
                             <i class="<?= $modulo['icon'] ?> fs-4"></i> <span><?= $modulo['modulo'] ?></span>
                         </a>
                     </li>

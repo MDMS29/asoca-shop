@@ -33,10 +33,16 @@ class ProductosModel extends Model
         $data = $this->findAll();
         return $data;
     }
-    public function buscarProducto($id)
+    public function buscarProducto($id, $nombre, $idUser)
     {
-        $this->select('*');
-        $this->where('tbl_productos.id_producto', $id);
+        $this->select('id_producto, nombre, descripcion, cantidad_actual, precio, fecha_public, valoracion, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador');
+        $this->join('tbl_usuarios' ,'tbl_usuarios.id_usuario = tbl_productos.usuario_crea');
+        if($nombre != ''){
+            $this->where('tbl_productos.nombre', $nombre);
+            $this->where('tbl_productos.usuario_crea', $idUser);
+        }else{
+            $this->where('tbl_productos.id_producto', $id);
+        }
         $data = $this->findAll();
         return $data;
     }

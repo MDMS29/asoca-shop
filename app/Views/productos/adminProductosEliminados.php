@@ -1,15 +1,14 @@
 <div class="contenedor">
     <!-- TABLA MOSTRAR PRODUCTOS -->
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-box-seam-fill fs-1"></i> Administrar Productos</h2>
+        <h2 class="text-center mb-4"><i class="bi bi-box-seam-fill fs-1"></i> Administrar Productos Eliminados</h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
-                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a> - <a class="toggle-vis btn" data-column="2">Descripción</a> - <a class="toggle-vis btn" data-column="6">Valoración</a>
+                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a> - <a class="toggle-vis btn" data-column="3">Dirección</a>
             </div>
 
             <div class="my-3">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarProducto" onclick="seleccionarProducto(0,1)"><i class="bi bi-plus-lg"></i> Agregar</button>
-                <a href="<?= base_url('adminProductosEliminados') ?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
+                <a href="<?= base_url('adminProduc') ?>" class="btn btn-primary"> <i class="bi bi-box-seam-fill "></i> Productos</a>
             </div>
 
             <table class="table table-striped" id="tableProductos" width="100%" cellspacing="0">
@@ -50,8 +49,7 @@
                         <div class="d-flex" style="width: 100%; justify-content: space-between; align-items: center;">
                             <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="Logo Empresa" class="logoEmpresa" width="60">
                             <h1 class="modal-title fs-5 d-flex align-items-center gap-2">
-                                <i class="bi bi-plus-lg"></i>
-                                <span id="tituloModal"><!-- TEXTO DINAMICO--></span>
+                                <span id="tituloModal"><i class="bi bi-eye-fill"></i> Ver</span>
                             </h1>
                             <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">X</button>
                         </div>
@@ -61,15 +59,13 @@
                             <div class="d-flex column-gap-3" style="width: 100%">
                                 <div class="mb-3" style="width: 100%">
                                     <label for="nombre" class="col-form-label">Nombre:</label>
-                                    <input type="text" name="nombre" class="form-control" id="nombre" oninput="this.value = this.value.replace(/[^a-zA-Zñáéíóú ]/,'')">
-                                    <input type="text" name="nombreEdit" class="form-control" id="nombreEdit" hidden >
-                                    <small class="invalido" id="msgNombre"></small>
+                                    <input type="text" name="nombre" class="form-control" id="nombre" oninput="this.value = this.value.replace(/[^a-zA-Zñáéíóú ]/,'')" disabled>
                                 </div>
                             </div>
                             <div class="d-flex column-gap-3" style="width: 100%">
                                 <div class="mb-3" style="width: 100%">
                                     <label for="descripcion" class="col-form-label">Descripción:</label>
-                                    <textarea name="descripcion" class="form-control" id="descripcion" style="height:150px"></textarea>
+                                    <textarea name="descripcion" class="form-control" id="descripcion" style="height:150px" disabled></textarea>
                                 </div>
                             </div>
                             <div class="d-flex column-gap-3" style="width: 100%">
@@ -77,13 +73,13 @@
                                     <label for="precio" class="col-form-label">Precio:</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">$</span>
-                                        <input type="number" name="precio" class="form-control" id="precio" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                        <input type="number" name="precio" class="form-control" id="precio" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')" disabled>
                                     </div>
                                 </div>
                                 <div class="mb-3" style="width: 100%">
                                     <div class="">
                                         <label for="cantidad" class="col-form-label">Cantidad:</label>
-                                        <input type="number" name="cantidad" class="form-control" id="cantidad" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                        <input type="number" name="cantidad" class="form-control" id="cantidad" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')" disabled>
                                     </div>
                                     <input type="text" name="fecha" class="form-control" id="fecha" hidden>
                                 </div>
@@ -92,7 +88,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success" id="btnGuardar"><!-- TEXTO DIANMICO --></button>
                     </div>
                 </div>
             </div>
@@ -100,4 +95,4 @@
     </div>
 </form>
 
-<script src="<?= base_url('js/productos/productos.js') ?>" type="text/javascript"></script>
+<script src="<?= base_url('js/productos/productosEliminados.js') ?>" type="text/javascript"></script>

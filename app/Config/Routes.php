@@ -61,6 +61,10 @@ $routes->get('/adminProduc', 'Productos::adminProductos');
 $routes->post('/obtenerProductos', 'Productos::obtenerProductos');
 $routes->post('/buscarProducto', 'Productos::buscarProducto');
 $routes->post('/insertarProducto', 'Productos::insertar');
+$routes->post('/camEstProducto', 'Productos::cambiarEstado');
+
+$routes->get('/adminProductosEliminados', 'Productos::adminProductosEliminados');
+$routes->get('/verDetallesProducto/(:num)', 'Productos::verDetallesProducto/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -19,6 +19,23 @@ var objTelefono = {
   prioridad: "",
 };
 
+//Marcar botones ocultar columnas
+var botones = $(".ocultar a");
+botones.click(function () {
+  if ($(this).attr("class").includes("active")) {
+    $(this).removeClass("active");
+  } else {
+    $(this).addClass("active");
+  }
+});
+//Mostrar Ocultar Columnas
+$("a.toggle-vis").on("click", function (e) {
+  e.preventDefault();
+  // Get the column API object
+  var column = tableUsuarios.column($(this).attr("data-column"));
+  // Toggle the visibility
+  column.visible(!column.visible());
+});
 
 //Ver contraseñas
 function verContrasena() {
