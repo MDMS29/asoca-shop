@@ -1,4 +1,4 @@
-contadorUser = 0;
+contadorProd = 0;
 // Tabla de usuarios
 var tableProductos = $("#tableProductos").DataTable({
   ajax: {
@@ -13,8 +13,8 @@ var tableProductos = $("#tableProductos").DataTable({
     {
       data: null,
       render: function (data, type, row) {
-        contadorUser = contadorUser + 1;
-        return "<b>" + contadorUser + "</b>";
+        contadorProd = contadorProd + 1;
+        return "<b>" + contadorProd + "</b>";
       },
     },
     {
@@ -27,7 +27,7 @@ var tableProductos = $("#tableProductos").DataTable({
       },
     },
     {
-      data: "cantidad",
+      data: "cantidad_actual",
     },
     {
       data: null,
@@ -50,7 +50,7 @@ var tableProductos = $("#tableProductos").DataTable({
         return (
           '<div class="d-flex gap-2 justify-content-center"><button class="btn btn-outline-primary" onclick="seleccionarProducto(' +
           data.id_producto +
-          ' , 2 )" data-bs-target="#agregarUsuario" data-bs-toggle="modal" title="Editar Usuario"><i class="bi bi-pencil-square"></i></button>' +
+          ',2)" data-bs-target="#agregarProducto" data-bs-toggle="modal" title="Editar Usuario"><i class="bi bi-pencil-square"></i></button>' +
           '<button class="btn btn-outline-danger" onclick="eliminarUsuario(' +
           data.id_producto +
           ')" data-bs-toggle="modal" data-bs-target="#modalConfirmar" title="Eliminar Usuario"><i class="bi bi-trash3-fill"></i></button></div>'
@@ -72,14 +72,75 @@ function seleccionarProducto(id, tp) {
       data: {
         id,
       },
-      success: function(res){
-        
-      }
+      success: function (res) {
+        $("#tituloModal").text("Editar");
+        $("h1 i.bi-plus-lg")
+          .removeClass("bi-plus-lg")
+          .addClass("bi-pencil-square");
+        $("#id").val(id);
+        $("#tp").val(tp);
+        $("#nombre").val(res[0]["nombre"]);
+        $("#descripcion").val(res[0]["descripcion"]);
+        $("#precio").val(res[0]["precio"]);
+        $("#cantidad").val(res[0]["cantidad_actual"]);
+        $("#fecha").val(res[0]["fecha_public"]);
+        $("#btnGuardar").text("Actualizar");
+      },
     });
   } else {
+    $("#tituloModal").text("Agregar");
+    $("h1 i.bi-pencil-square")
+      .removeClass("bi-pencil-square")
+      .addClass("bi-plus-lg");
+    $("#id").val(id);
+    $("#tp").val(tp);
+    $("#nombre").val("");
+    $("#descripcion").val("");
+    $("#precio").val("");
+    $("#cantidad").val("");
+    $("#fecha").val("");
+    $("#btnGuardar").text("Agregar");
   }
 }
 
 $("#formularioProductos").submit(function (e) {
   e.preventDefault();
+  id = $("#id").val();
+  tp = $("#tp").val();
+  nombre = $("#nombre").val();
+  descripcion = $("#descripcion").val();
+  precio = $("#precio").val();
+  cantidad = $("#cantidad").val();
+  fecha = $("#fecha").val();
+  if ([nombre, descripcion, precio, cantidad].includes("")) {
+    return mostrarMensaje("error", "¡Hay campos vacios!");
+  }else{
+    $.ajax({
+      url : `${url}insertarProducto`,
+      type : 'POST',
+      dataType : 'json',
+      data : {
+        id,tp,nombre,descripcion,precio,cantidad
+      },
+      success : function(res){
+        tableProductos.ajax.reload(null, false);
+        contadorProd = 0
+        if(tp == 2){
+          if(res == 1){
+            $('#agregarProducto').modal('hide')
+            return mostrarMensaje('success', '¡Se ha actualizado el producto!')
+          }else{
+            return mostrarMensaje('error', '¡Ha ocurrido un error!')
+          }
+        }else{
+          if(res == 1){
+            $('#agregarProducto').modal('hide')
+            return mostrarMensaje('success', '¡Se ha agregado el producto!')
+          }else{
+            return mostrarMensaje('error', '¡Ha ocurrido un error!')
+          }
+        }
+      }
+    })
+  }
 });

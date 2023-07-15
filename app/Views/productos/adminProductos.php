@@ -83,7 +83,7 @@
                                         <label for="cantidad" class="col-form-label">Cantidad:</label>
                                         <input type="number" name="cantidad" class="form-control" id="cantidad" minlength="9" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
                                     </div>
-                                    <input type="text" name="fecha" class="form-control" id="fecha">
+                                    <input type="text" name="fecha" class="form-control" id="fecha" hidden>
                                 </div>
                             </div>
                         </form>

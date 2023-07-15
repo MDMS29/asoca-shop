@@ -31,4 +31,37 @@ class Productos extends BaseController
         $res = $this->producto->buscarProducto($id);
         return json_encode($res);
     }
+    public function insertar()
+    {
+        $id = $this->request->getPost('id'); 
+        $tp = $this->request->getPost('tp'); 
+        $nombre = $this->request->getPost('nombre'); 
+        $descripcion = $this->request->getPost('descripcion'); 
+        $precio = $this->request->getPost('precio'); 
+        $cantidad = $this->request->getPost('cantidad'); 
+        $fecha = $this->request->getPost('fecha'); 
+
+        $dataProducto = [
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'cantidad_actual' =>  $cantidad,
+            'precio' =>  $precio,
+            'fecha_public' =>  $fecha == '' ? date('Y-m-d') : $fecha,
+            'usuario_crea' => session('id')
+        ];
+
+        if($tp == 2){
+            if($this->producto->update($id, $dataProducto)){
+                return json_encode(1);
+            }else{
+                return json_encode(2);
+            }
+        }else{
+            if($this->producto->save($dataProducto)){
+                return json_encode(1);
+            }else{
+                return json_encode(2);
+            }
+        }
+    }
 }

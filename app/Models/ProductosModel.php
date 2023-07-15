@@ -14,7 +14,7 @@ class ProductosModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['nombre', 'descipcion', 'cantidad', 'precio', 'fecha_public', 'valoracion', 'estado', 'fecha_crea', 'usuario_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['nombre', 'descripcion', 'cantidad_actual', 'canatidad_vendida', 'precio', 'fecha_public', 'valoracion', 'estado', 'fecha_crea', 'usuario_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */
@@ -27,7 +27,7 @@ class ProductosModel extends Model
 
     public function obtenerProductos($estado)
     {
-        $this->select('id_producto, nombre, descripcion, cantidad, precio, fecha_public, valoracion, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador');
+        $this->select('id_producto, nombre, descripcion, cantidad_actual, precio, fecha_public, valoracion, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador');
         $this->join('tbl_usuarios', 'tbl_usuarios.id_usuario = tbl_productos.usuario_crea');
         $this->where('tbl_productos.estado', $estado);
         $data = $this->findAll();
