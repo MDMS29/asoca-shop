@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="<?= base_url('dataTable/dataTables.bootstrap5.min.css') ?>" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <script src="<?= base_url('bootstrap-5/js/bootstrap.bundle.min.js') ?>"></script>
 

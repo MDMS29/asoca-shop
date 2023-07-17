@@ -62,7 +62,7 @@
                                 <div class="mb-3" style="width: 100%">
                                     <label for="nombre" class="col-form-label">Nombre:</label>
                                     <input type="text" name="nombre" class="form-control" id="nombre" oninput="this.value = this.value.replace(/[^a-zA-Zñáéíóú ]/,'')">
-                                    <input type="text" name="nombreEdit" class="form-control" id="nombreEdit" hidden >
+                                    <input type="text" name="nombreEdit" class="form-control" id="nombreEdit" hidden>
                                     <small class="invalido" id="msgNombre"></small>
                                 </div>
                             </div>
@@ -88,6 +88,9 @@
                                     <input type="text" name="fecha" class="form-control" id="fecha" hidden>
                                 </div>
                             </div>
+                            <div class="d-flex column-gap-3" style="width: 100%">
+                                <button type="button" class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#fotosProducto"><i class="bi bi-images"></i> Editar Imagenes</button>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -99,5 +102,37 @@
         </div>
     </div>
 </form>
+
+<div class="modal fade" id="fotosProducto" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="body-M">
+            <div class="modal-content">
+                <div class="modal-header flex align-items-center gap-3">
+                    <div class="d-flex" style="width: 100%; justify-content: space-between; align-items: center;">
+                        <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="Logo Empresa" class="logoEmpresa" width="60">
+                        <h1 class="modal-title fs-5 d-flex align-items-center gap-2">
+                            <i class="bi bi-images"></i>
+                            <span id="tituloModal">Fotos Producto</span>
+                        </h1>
+                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#agregarProducto" aria-label="Close">X</button>
+                    </div>
+                </div>
+                <div class="modal-body"><div class="my-3" id="prev-img">
+                        <div class="d-flex column-gap-3" style="width: 100%"><input type="file" id="fileInput"><img id="previewImage" src="#" alt="Vista previa de la imagen" width="100"></div>
+                    </div>
+                    <div class="my-3" id="prev-img">
+                        <div class="d-flex column-gap-3" style="width: 100%"><input type="file" id="fileInput1"><img id="previewImage1" src="#" alt="Vista previa de la imagen" width="100"></div>
+                    </div>
+                    <div class="my-3" id="prev-img">
+                        <div class="d-flex column-gap-3" style="width: 100%"><input type="file" id="fileInput2"><img id="previewImage2" src="#" alt="Vista previa de la imagen" width="100"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProducto">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="<?= base_url('js/productos/productos.js') ?>" type="text/javascript"></script>

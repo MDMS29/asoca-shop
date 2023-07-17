@@ -66,6 +66,8 @@ $routes->post('/camEstProducto', 'Productos::cambiarEstado');
 $routes->get('/adminProductosEliminados', 'Productos::adminProductosEliminados');
 $routes->get('/verDetallesProducto/(:num)', 'Productos::verDetallesProducto/$1');
 
+$routes->post('/urlImg', 'Productos::urlImg');
+$routes->get('/imagenesProducto/(:any)', 'Productos::imagenesProducto/$1');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

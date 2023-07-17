@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-07-2023 a las 05:26:49
+-- Tiempo de generación: 17-07-2023 a las 07:24:06
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `asoca_shop`
 --
+CREATE DATABASE IF NOT EXISTS `asoca_shop` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `asoca_shop`;
 
 -- --------------------------------------------------------
 
@@ -76,6 +78,31 @@ CREATE TABLE `tbl_correos` (
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_img_producto`
+--
+
+CREATE TABLE `tbl_img_producto` (
+  `id_img` smallint(2) NOT NULL,
+  `item` char(1) NOT NULL,
+  `nombre_img` varchar(100) NOT NULL,
+  `id_producto` smallint(2) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT 'A',
+  `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `usuario_crea` smallint(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_img_producto`
+--
+
+INSERT INTO `tbl_img_producto` (`id_img`, `item`, `nombre_img`, `id_producto`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, '1', '0icon.ico', 1, 'A', '2023-07-17 10:12:40', 3),
+(2, '2', '0icon_1.ico', 1, 'A', '2023-07-17 10:12:40', 3),
+(3, '3', '0icon_2.ico', 1, 'A', '2023-07-17 10:12:40', 3);
 
 -- --------------------------------------------------------
 
@@ -161,14 +188,22 @@ CREATE TABLE `tbl_productos` (
   `id_producto` smallint(2) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `descripcion` text NOT NULL,
-  `cantidad` tinyint(4) NOT NULL,
+  `cantidad_actual` smallint(4) NOT NULL,
+  `cantidad_vendida` smallint(4) NOT NULL,
   `precio` tinyint(4) NOT NULL,
   `fecha_public` date NOT NULL,
   `valoracion` tinyint(4) NOT NULL,
-  `estado` char(1) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT 'A',
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_productos`
+--
+
+INSERT INTO `tbl_productos` (`id_producto`, `nombre`, `descripcion`, `cantidad_actual`, `cantidad_vendida`, `precio`, `fecha_public`, `valoracion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, 'Prueba de js', 'sjsjsjsjjs', 3, 0, 33, '2023-07-17', 0, 'A', '2023-07-17 10:12:40', 3);
 
 -- --------------------------------------------------------
 
@@ -227,6 +262,7 @@ CREATE TABLE `tbl_usuarios` (
   `n_documento` varchar(10) NOT NULL,
   `foto` varchar(45) DEFAULT NULL,
   `contrasena` varchar(200) NOT NULL,
+  `duracion` varchar(15) NOT NULL,
   `estado` varchar(1) NOT NULL,
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL,
@@ -237,8 +273,8 @@ CREATE TABLE `tbl_usuarios` (
 -- Volcado de datos para la tabla `tbl_usuarios`
 --
 
-INSERT INTO `tbl_usuarios` (`id_usuario`, `id_rol`, `tipo_user`, `nombre_p`, `nombre_s`, `apellido_p`, `apellido_s`, `n_documento`, `foto`, `contrasena`, `estado`, `fecha_crea`, `usuario_crea`, `tipo_documento`) VALUES
-(3, 1, 2, 'Root', NULL, 'Asoca', 'Shop', '123123', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', 'A', '2023-07-15 03:24:31', 1, 1);
+INSERT INTO `tbl_usuarios` (`id_usuario`, `id_rol`, `tipo_user`, `nombre_p`, `nombre_s`, `apellido_p`, `apellido_s`, `n_documento`, `foto`, `contrasena`, `duracion`, `estado`, `fecha_crea`, `usuario_crea`, `tipo_documento`) VALUES
+(3, 1, 2, 'Root', NULL, 'Asoca', 'Shop', '123123', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', '0', 'A', '2023-07-15 17:55:10', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -310,6 +346,12 @@ ALTER TABLE `tbl_correos`
   ADD KEY `fk_tbl_telefonos_tbl_usuarios1_idx` (`id_usuario`);
 
 --
+-- Indices de la tabla `tbl_img_producto`
+--
+ALTER TABLE `tbl_img_producto`
+  ADD PRIMARY KEY (`id_img`);
+
+--
 -- Indices de la tabla `tbl_modulos`
 --
 ALTER TABLE `tbl_modulos`
@@ -332,8 +374,7 @@ ALTER TABLE `tbl_param_enc`
 -- Indices de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  ADD PRIMARY KEY (`id_producto`),
-  ADD KEY `fk_tbl_productos_tbl_usuarios1_idx` (`usuario_crea`);
+  ADD PRIMARY KEY (`id_producto`);
 
 --
 -- Indices de la tabla `tbl_roles`
@@ -387,6 +428,12 @@ ALTER TABLE `tbl_correos`
   MODIFY `id_correo` smallint(2) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `tbl_img_producto`
+--
+ALTER TABLE `tbl_img_producto`
+  MODIFY `id_img` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
 ALTER TABLE `tbl_modulos`
@@ -408,7 +455,7 @@ ALTER TABLE `tbl_param_enc`
 -- AUTO_INCREMENT de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  MODIFY `id_producto` smallint(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_producto` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_roles`

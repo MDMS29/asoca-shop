@@ -158,18 +158,25 @@ $("#formularioProductos").submit(function (e) {
   if ([nombre, descripcion, precio, cantidad].includes("") || !validProduc) {
     return mostrarMensaje("error", "¡Hay campos vacios o invalidos!");
   } else {
+    var formData = new FormData();
+    formData.append("id", id);
+    formData.append("tp", tp);
+    formData.append("nombre", nombre);
+    formData.append("descripcion", descripcion);
+    formData.append("precio", precio);
+    formData.append("cantidad", cantidad);
+    formData.append("foto", $("#fileInput")[0].files[0]);
+    formData.append("foto1", $("#fileInput1")[0].files[0]);
+    formData.append("foto2", $("#fileInput2")[0].files[0]);
+    
     $.ajax({
       url: `${url}insertarProducto`,
       type: "POST",
       dataType: "json",
-      data: {
-        id,
-        tp,
-        nombre,
-        descripcion,
-        precio,
-        cantidad,
-      },
+      data: formData,
+      dataType: "json",
+      contentType: false, // Importante: desactiva el tipo de contenido predeterminado
+      processData: false, // Importante: no proceses los datos
       success: function (res) {
         tableProductos.ajax.reload(null, false);
         contadorProd = 0;
@@ -219,3 +226,38 @@ function eliminarProducto(id) {
     }
   });
 }
+
+// Agregar evento change al elemento de entrada de archivo
+$("#prev-img #fileInput").on('change',function(e){
+  const file = e.target.files[0];
+  console.log(e.target)
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      $(`#previewImage`).attr("src", e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+})
+$("#prev-img #fileInput1").on('change',function(e){
+  const file = e.target.files[0];
+  console.log(e.target)
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      $(`#previewImage1`).attr("src", e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+})
+$("#prev-img #fileInput2").on('change',function(e){
+  const file = e.target.files[0];
+  console.log(e.target)
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      $(`#previewImage2`).attr("src", e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+})
