@@ -39,7 +39,8 @@
                 </div>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-fill text-secondary" style="background-color: black;border-radius:100%; padding:3px 8px"></i>
+                        <i class="bi bi-person-fill text-secondary"
+                            style="background-color: black;border-radius:100%; padding:3px 8px"></i>
                     </button>
 
                     <ul class="dropdown-menu">
@@ -47,7 +48,8 @@
                             <a class="dropdown-item" href="#"> <i class="bi bi-person-fill-gear"></i> Perfil</a>
                         </li>
                         <li>
-                            <button class="dropdown-item" onclick="salir()"><i class="bi bi-box-arrow-right"></i> Cerrar Sesion </button>
+                            <button class="dropdown-item" onclick="salir()"><i class="bi bi-box-arrow-right"></i> Cerrar
+                                Sesion </button>
                         </li>
                     </ul>
                 </div>
@@ -69,8 +71,11 @@
             <ul class="text-center">
                 <?php foreach (session('modulos') as $modulo) { ?>
                     <li>
-                        <a href="<?= base_url($modulo['url']) ?>" title="<?= $modulo['modulo'] ?>" style="width: 100% !important;">
-                            <i class="<?= $modulo['icon'] ?> fs-4"></i> <span><?= $modulo['modulo'] ?></span>
+                        <a href="<?= base_url($modulo['url']) ?>" title="<?= $modulo['modulo'] ?>"
+                            style="width: 100% !important;">
+                            <i class="<?= $modulo['icon'] ?> fs-4"></i> <span>
+                                <?= $modulo['modulo'] ?>
+                            </span>
                         </a>
                     </li>
                 <?php } ?>
@@ -81,7 +86,8 @@
 
 <!-- MODAL INICIAR SESION -->
 <form id="formularioLogin">
-    <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion" tabindex="-1">
+    <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion"
+        tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -98,22 +104,97 @@
                                         <label for="usuario" class="form-label">Usuario</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            <input type="text" name="usuario" class="form-control" id="usuario" required>
+                                            <input type="text" name="usuario" class="form-control" id="usuario"
+                                                required>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required autocomplete>
+                                        <input type="password" name="contrasena" class="form-control" id="contrasena"
+                                            required autocomplete>
                                     </div>
 
                                     <div class="col-12 my-3">
                                         <input class="btn btn-primary w-100" type="submit" value="Ingresar">
                                     </div>
                                     <div class="col-12">
-                                        <p class="small mb-0">¿No tienes una cuenta? <a href="pages-register.html"> Crear cuenta</a></p>
+                                        <p class="small mb-0">¿No tienes una cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop" class="btn text-primary">
+                                                Crear cuenta</button></p>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- MODAL REGISTRO DE CLIENTE -->
+<form id="formularioRegistro">
+    <div class="modal fade" id="modalRegistroCliente" aria-hidden="true" aria-labelledby="modalRegistroCliente"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row justify-content-center">
+                        <div class="card mb-3"  style="border:none;">
+                            <div class="card-body">
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+                                    <p class="text-center small">Enter your personal details to create account</p>
+                                </div>
+
+                                <form class="row g-3 needs-validation" novalidate>
+                                    <div class="col-12">
+                                        <label for="yourName" class="form-label">Your Name</label>
+                                        <input type="text" name="name" class="form-control" id="yourName" required>
+                                        <div class="invalid-feedback">Please, enter your name!</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourEmail" class="form-label">Your Email</label>
+                                        <input type="email" name="email" class="form-control" id="yourEmail" required>
+                                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourUsername" class="form-label">Username</label>
+                                        <div class="input-group has-validation">
+                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            <input type="text" name="username" class="form-control" id="yourUsername"
+                                                required>
+                                            <div class="invalid-feedback">Please choose a username.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control" id="yourPassword"
+                                            required>
+                                        <div class="invalid-feedback">Please enter your password!</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" name="terms" type="checkbox" value=""
+                                                id="acceptTerms" required>
+                                            <label class="form-check-label" for="acceptTerms">I agree and accept the <a
+                                                    href="#">terms and conditions</a></label>
+                                            <div class="invalid-feedback">You must agree before submitting.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100" type="submit">Create Account</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Already have an account? <a href="pages-login.html">Log
+                                                in</a></p>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>

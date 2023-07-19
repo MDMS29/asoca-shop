@@ -12,10 +12,8 @@ class Home extends BaseController
     }
     public function index()
     {
-        $productos = $this->productos->obtenerProductos('A');
-        $data = ['productos' => $productos];
         echo view('components/navbar');
-        echo view('home', $data);
+        echo view('home');
         echo view('components/footer');
     }
 }
