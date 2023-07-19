@@ -42,6 +42,7 @@ $("#formularioLogin").on("submit", function (e) {
   }
 });
 
+
 function salir() {
   $.ajax({
     type: "POST",
