@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?= base_url('css/home.css') ?>">
 <div class="contenedor">
     <div class="contenedor-productos mt-5">
         <!-- PRODUCTOS DINAMICOS -->
@@ -23,24 +24,18 @@
                     res.forEach(element => {
                         var foto = `${url}imagenesProducto/${element.nombre_img}`;
                         cadena += `
-                        <div class="card mb-3" style="max-width: 540px; overflow: hidden;">
+                        <a href="<?= base_url('verDetallesProducto/') ?>${element.id_producto}" class="card mb-3 producto">
                             <div class="row g-0">
-                                <div class="col-md-4" style="max-width: 180px; overflow: hidden;">
-                                    <img src="${foto}"alt="${element.nombre_img}" width="180" height="180">
+                                <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
+                                    <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title"> ${element.nombre}</h5>
-                                        <p class="card-text" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3; overflow: hidden;" >${element.descripcion}</p>
-                                        <p class="card-text"><small class="text-body-secondary"> ${element.fecha_public}</small></p>
-                                        <div class="w-100 d-flex gap-2">
-                                            <a href="<?= base_url('verDetallesProducto/') ?>${element.id_producto} " class="flex-grow-1 btn btn-danger">Detalles</a>
-                                            <button class="flex-grow-1 btn btn-primary">Agregar</button>
-                                        </div>
-                                    </div>
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-capitalize" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
+                                    <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
+                                    
                                 </div>
                             </div>
-                        </div>`
+                        </a>`
                     });
                     break;
             }
