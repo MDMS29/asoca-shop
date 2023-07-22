@@ -17,3 +17,21 @@ aside ul {
 aside.active {
   width: 250px;
 }
+
+#asideCar {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  background-color: aqua;
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  transition: all 0.35s ease-in;
+}
+#asideCar.active {
+  width: 300px;
+}
+
+#asideCar ul li h3 {
+  text-align: center;
+}

@@ -16,6 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap" rel="stylesheet">
+
     <script src="<?= base_url('bootstrap-5/js/bootstrap.bundle.min.js') ?>"></script>
 
 
@@ -26,21 +30,26 @@
         <div class="d-flex align-items-center gap-3">
             <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark">
                 <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo tienda" width="50">
-                <h5 class="fw-semibold m-0">Asoca Shop</h5>
+                <h5 class="fw-semibold m-0">Asoca</h5>
             </a>
             <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
 
         </div>
 
         <div class="d-flex gap-2">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn text-primary" id="btnCarrito" style="transition: hover .2s ease-in ; border-radius:35%;">
+                    <i class="bi bi-cart4 fs-5"></i>
+                    <span id="numProducs">0</span>
+                </button>
+                <?php if (session('id') != 0) { ?>
+                    <a href="" id="notifi" style="transition: hover .2s ease-in ;"><i class="bi bi-bell-fill fs-5"></i></a>
+                <?php } ?>
+            </div>
             <?php if (session('id') != 0) { ?>
-                <div class="d-flex align-items-center">
-                    <a href="" id="notifi" style="transition: hover .2s ease-in ;"><i class="bi bi-bell-fill fs-4"></i></a>
-                </div>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-fill text-secondary"
-                            style="background-color: black;border-radius:100%; padding:3px 8px"></i>
+                        <i class="bi bi-person-fill text-secondary" style="background-color: black;border-radius:100%; padding:3px 8px"></i>
                     </button>
 
                     <ul class="dropdown-menu">
@@ -58,8 +67,7 @@
                     Iniciar Sesion
                 </button>
 
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente"
-                    data-bs-target="#staticBackdrop">
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop">
                     Registrarse
                 </button>
             <?php } ?>
@@ -72,8 +80,7 @@
             <ul class="text-center">
                 <?php foreach (session('modulos') as $modulo) { ?>
                     <li>
-                        <a href="<?= base_url($modulo['url']) ?>" title="<?= $modulo['modulo'] ?>"
-                            style="width: 100% !important;">
+                        <a href="<?= base_url($modulo['url']) ?>" title="<?= $modulo['modulo'] ?>" style="width: 100% !important;">
                             <i class="<?= $modulo['icon'] ?> fs-4"></i> <span>
                                 <?= $modulo['modulo'] ?>
                             </span>
@@ -83,12 +90,19 @@
             </ul>
         </aside>
     <?php } ?>
+
+    <aside id="asideCar">
+        <ul id="listaProductos">
+            <li>
+                <h3>Productos</h3>
+            </li>
+        </ul>
+    </aside>
 </body>
 
 <!-- MODAL INICIAR SESION -->
 <form id="formularioLogin">
-    <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion"
-        tabindex="-1">
+    <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -105,24 +119,20 @@
                                         <label for="usuario" class="form-label">Usuario</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                            <input type="text" name="usuario" class="form-control" id="usuario"
-                                                required>
+                                            <input type="text" name="usuario" class="form-control" id="usuario" required>
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="password" name="contrasena" class="form-control" id="contrasena"
-                                            required autocomplete>
+                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required autocomplete>
                                     </div>
 
                                     <div class="col-12 my-3">
                                         <input class="btn btn-primary w-100" type="submit" value="Ingresar">
                                     </div>
                                     <div class="col-12">
-                                        <p class="small mb-0">¿No tienes una cuenta? <button type="button"
-                                                data-bs-toggle="modal" data-bs-target="#modalRegistroCliente"
-                                                data-bs-target="#staticBackdrop" class="btn text-primary">
+                                        <p class="small mb-0">¿No tienes una cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop" class="btn text-primary">
                                                 Crear cuenta</button></p>
                                     </div>
                                 </form>
@@ -137,8 +147,7 @@
 
 <!-- MODAL REGISTRO DE CLIENTE -->
 <form id="formularioRegistro">
-    <div class="modal fade" id="modalRegistroCliente" aria-hidden="true" aria-labelledby="modalRegistroCliente"
-        tabindex="-1">
+    <div class="modal fade" id="modalRegistroCliente" aria-hidden="true" aria-labelledby="modalRegistroCliente" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body">
@@ -173,8 +182,7 @@
                                         <label for="usuario" class="form-label">Email</label>
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            <input type="text" name="usuario" class="form-control" id="usuario"
-                                                required>
+                                            <input type="text" name="usuario" class="form-control" id="email" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -182,13 +190,11 @@
 
                                     <div class="col-12">
                                         <label for="yourPassword" class="form-label">Contraseña</label>
-                                        <input type="password" name="password" class="form-control" id="contrasena"
-                                            required>
+                                        <input type="password" name="password" class="form-control" id="contrasenaRegis" required>
                                     </div>
                                     <div class="col-12">
                                         <label for="yourPassword" class="form-label">Confirmar Contraseña</label>
-                                        <input type="password" name="password" class="form-control"
-                                            id="confirContrasena" required>
+                                        <input type="password" name="password" class="form-control" id="confirContrasena" required>
                                     </div>
 
                                     <!-- <div class="col-12">
@@ -203,9 +209,7 @@
                                         <button class="btn btn-primary w-100" type="submit">Crear Cuenta</button>
                                     </div>
                                     <div class="col-12">
-                                        <p class="small mb-0">¿Ya tienes cuenta? <button type="button"
-                                                data-bs-toggle="modal" data-bs-target="#modalIniciarSesion "
-                                                data-bs-target="#staticBackdrop" class="btn text-primary">
+                                        <p class="small mb-0">¿Ya tienes cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalIniciarSesion " data-bs-target="#staticBackdrop" class="btn text-primary">
                                                 Ingresa</button></p>
                                     </div>
                                 </form>
@@ -226,4 +230,37 @@
 <script src="<?= base_url('dataTable/dataTables.bootstrap5.min.js') ?>"></script>
 <script>
     var url = '<?= base_url() ?>';
+
+    <?php if (session('id') != 0) { ?>
+
+    <?php } else { ?>
+        $("#formularioLogin").on("submit", function(e) {
+            e.preventDefault();
+            usuario = $("#usuario").val();
+            contrasena = $("#contrasena").val();
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: `${url}login`,
+                    dataType: "json",
+                    data: {
+                        usuario,
+                        contrasena,
+                    },
+                }).done(function(res) {
+                    if (res == 1) {
+                        window.location.reload();
+                    } else {
+                        $("#contrasena").val("");
+                        $("#invalid-feedback").text("¡Usuario o Contraseña incorrectos!");
+                        setTimeout(() => {
+                            $("#invalid-feedback").text("");
+                        }, 3000);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    <?php } ?>
 </script>

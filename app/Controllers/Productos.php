@@ -120,8 +120,7 @@ class Productos extends BaseController
     public function verDetallesProducto($id)
     {
         $res = $this->producto->buscarProducto($id, '', 0);
-        $resImg = $this->imgProducto->obtenerImagenes($id);
-        $data = ['producto' => $res, 'imagenes' => $resImg];
+        $data = ['producto' => $res];
         echo view('components/navbar');
         echo view('productos/detallesProducto', $data);
         echo view('components/footer');
@@ -133,8 +132,6 @@ class Productos extends BaseController
         $res = $this->imgProducto->obtenerImagenes($id);
         return json_encode($res);
     }
-
-
     public function imagenesProducto($name)
     {
         // $id = $this->request->getPost('id');
