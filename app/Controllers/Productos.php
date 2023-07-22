@@ -24,7 +24,7 @@ class Productos extends BaseController
     public function adminProductos()
     {
         echo view('components/navbar');
-        echo view('productos/adminProductos');
+        echo view('productos/admin/adminProductos');
         echo view('components/footer');
     }
     public function buscarProducto()
@@ -125,7 +125,6 @@ class Productos extends BaseController
         echo view('productos/detallesProducto', $data);
         echo view('components/footer');
     }
-
     public function urlImg()
     {
         $id = $this->request->getPost('id');

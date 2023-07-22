@@ -46,6 +46,7 @@ $("#btnAddCar").on("click", function (e) {
   nomProduc = $("#nomProduc").val();
   precioProduc = $("#precioProduc").val();
   cantidad = $("#cantidad").val();
+  imgProduc = $("#imgProduc").val();
 
   if ([cantidad].includes("")) {
     return mostrarMensaje("error", "¡Ingrese una cantidad valida!");
@@ -61,6 +62,7 @@ $("#btnAddCar").on("click", function (e) {
         nombre: nomProduc,
         precio: Number(precioProduc),
         cantidad: Number(cantidad),
+        img : imgProduc
       };
       carrito.push(objProducto);
     }

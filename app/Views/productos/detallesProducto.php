@@ -3,6 +3,7 @@
 <input type="number" id="idProduc" value="<?= $producto[0]['id_producto'] ?>" hidden>
 <input type="text" id="nomProduc" value="<?= $producto[0]['nombre'] ?>" hidden>
 <input type="number" id="precioProduc" value="<?= $producto[0]['precio'] ?>" hidden>
+<input type="text" id="imgProduc" value="<?= $producto[0]['nombre_img'] ?>" hidden>
 <div class="contenedor">
     <div id="content" class="p-4 p-md-5 h-100">
         <div class="mb-3">

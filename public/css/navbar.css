@@ -22,16 +22,32 @@ aside.active {
   position: absolute;
   z-index: 1;
   right: 0;
-  background-color: aqua;
   height: 100vh;
   width: 0;
   overflow: hidden;
   transition: all 0.35s ease-in;
+  box-shadow: 0 -5px 50px -10px rgba(0, 0, 0, 0.15);
+
 }
 #asideCar.active {
-  width: 300px;
+  width: 350px;
 }
 
-#asideCar ul li h3 {
+#asideCar h3 {
+  margin-top: 70px;
   text-align: center;
+}
+#asideCar #listaProductos{
+  height: 78%;
+  overflow-y: scroll;
+}
+#asideCar ul {
+  margin-top: 0px;
+}
+#asideCar .btnDetalle{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  border-radius: 0;
 }

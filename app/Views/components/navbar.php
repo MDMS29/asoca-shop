@@ -92,11 +92,15 @@
     <?php } ?>
 
     <aside id="asideCar">
-        <ul id="listaProductos">
+        <ul>
             <li>
-                <h3>Productos</h3>
+                <h3><i class="bi bi-cart4 fs-4"></i> Productos</h3>
             </li>
         </ul>
+        <ul id="listaProductos">
+            <!-- LISTA DINAMICA -->
+        </ul>
+        <a href="<?= base_url() . 'verDetallesCompra' ?>" class="btn btn-danger fw-semibold btnDetalle">Más Detalles</a>
     </aside>
 </body>
 
@@ -155,7 +159,7 @@
                         <div class="card mb-3" style="border:none;">
                             <div class="card-body">
                                 <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Crear tu Cuenta</h5>
+                                    <h5 class="card-title text-center pb-0 fs-4">Crea tu Cuenta</h5>
                                     <p class="text-center small">Ingresa tus detalles personales para crear una cuenta
                                     </p>
                                 </div>
@@ -179,10 +183,10 @@
                                     </div>
 
                                     <div class="col-12">
-                                        <label for="usuario" class="form-label">Email</label>
+                                        <label for="usuario" class="form-label">Documento</label>
                                         <div class="input-group has-validation">
-                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                            <input type="text" name="usuario" class="form-control" id="email" required>
+                                            <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                            <input type="text" name="usuario" class="form-control" id="documento" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -196,6 +200,7 @@
                                         <label for="yourPassword" class="form-label">Confirmar Contraseña</label>
                                         <input type="password" name="password" class="form-control" id="confirContrasena" required>
                                     </div>
+                                    <small class="invalido" id="msgContra"></small>
 
                                     <!-- <div class="col-12">
                                         <div class="form-check">
@@ -224,7 +229,6 @@
 </form>
 
 <script src="<?= base_url('js/jquery.min.js') ?>"></script>
-<script src="<?= base_url('js/main.js') ?>"></script>
 <script src="<?= base_url('js/swalfire.js') ?>"></script>
 <script src="<?= base_url('dataTable/jquery.dataTables.js') ?>"></script>
 <script src="<?= base_url('dataTable/dataTables.bootstrap5.min.js') ?>"></script>
@@ -234,6 +238,45 @@
     <?php if (session('id') != 0) { ?>
 
     <?php } else { ?>
+
+        function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
+            input = $(`#${inputMsg}`)
+            contra = $(`#${inputContra}`).val()
+            confirContra = $(`#${inputConfir}`).val()
+            if (tipo == 2) {
+                if (contra == '' && confirContra == '') {
+                    input.text('').removeClass().addClass('normal')
+                } else if (contra == confirContra) {
+                    input.text('¡Contraseñas validas!').removeClass().addClass('valido')
+                } else if (contra == '') {
+                    input.text('¡Ingrese una contraseña!').removeClass().addClass('normal')
+                } else if (confirContra == '') {
+                    input.text('').removeClass().addClass('normal')
+                } else if (contra != confirContra) {
+                    return input.text('¡Las contraseñas no coinciden!').removeClass().addClass('invalido')
+                }
+            } else {
+                if (contra == '' && confirContra == '') {
+                    input.text('').removeClass().addClass('normal')
+                } else if (contra == '' && confirContra) {
+                    input.text('¡Ingrese una contraseña!').removeClass().addClass('normal')
+                } else if (confirContra == '') {
+                    input.text('').removeClass().addClass('normal')
+                } else if (confirContra && contra == confirContra) {
+                    input.text('¡Contraseñas validas!').removeClass().addClass('valido')
+                } else if (confirContra && contra != confirContra) {
+                    return input.text('¡Las contraseñas no coinciden!').removeClass().addClass('invalido')
+                }
+            }
+        }
+        $('#confirContrasena').on('input', function(e) {
+            verifiContra(2, 'msgContra', 'contrasenaRegis', 'confirContrasena')
+        })
+        $('#contrasenaRegis').on('input', function(e) {
+            verifiContra(1, 'msgContra', 'contrasenaRegis', 'confirContrasena')
+        })
+
+
         $("#formularioLogin").on("submit", function(e) {
             e.preventDefault();
             usuario = $("#usuario").val();
@@ -262,5 +305,53 @@
                 console.log(error);
             }
         });
+
+
+        $("#formularioRegistro").on("submit", function(e) {
+            e.preventDefault();
+            nombreP = $("#primerNom").val();
+            nombreS = $("#segundoNom").val();
+            apellidoP = $("#primerApe").val();
+            apellidoS = $("#segundoApe").val();
+            email = $("#email").val();
+            nIdenti = $("#documento").val();
+            contra = $("#contrasenaRegis").val();
+            try {
+                $.ajax({
+                    type: "POST",
+                    url: `${url}insertUsuario`,
+                    dataType: "json",
+                    data: {
+                        tp: 1,
+                        id: 0,
+                        tipoUser: 4,
+                        nombreP,
+                        nombreS,
+                        apellidoP,
+                        apellidoS,
+                        nIdenti,
+                        rol: 2,
+                        contra,
+                    },
+                }).done(function(res) {
+                    if (res == 1) {
+                        mostrarMensaje('success', '¡Usuario creado con exito, ya puedes ingresar!')
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000)
+                    } else {
+                        $("#contrasena").val("");
+                        $("#invalid-feedback").text("¡Usuario o Contraseña incorrectos!");
+                        setTimeout(() => {
+                            $("#invalid-feedback").text("");
+                        }, 3000);
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        });
     <?php } ?>
 </script>
+<script src="<?= base_url('js/main.js') ?>"></script>
