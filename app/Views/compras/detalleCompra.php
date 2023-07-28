@@ -4,6 +4,7 @@
         <h2>Detalles de Compra</h2>
         <div class="d-flex gap-5">
             <div id="contenedorListado">
+                <input type="number" id="id" value="0" hidden>
                 <!-- LISTADO DINAMICO -->
             </div>
             <div class="precioTotal">
@@ -14,13 +15,18 @@
             </div>
         </div>
     </div>
+    <!-- <input type="number" value="<?= session('id') ?>"> -->
 </div>
+<script>
+    var url = '<?= base_url() ?>';
+</script>
 <script>
     function cargarTabla() {
         var cadena = ''
         var candenaTotal = ''
         var subtotal = 0
         var cantidad = 0
+        var precioProduc = 0;
         if (carrito.length != 0) {
             carrito.forEach((element) => {
                 var foto = `${url}imagenesProducto/${element.img}`;
@@ -43,7 +49,8 @@
                     })" class="flex-grow-1 btn btn-outline-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
                     </div>
                 </div>`;
-                subtotal = Number(element.precio) + subtotal;
+                precioProduc = Number(element.precio) * Number(element.cantidad);
+                subtotal = precioProduc + subtotal;
                 cantidad = Number(element.cantidad) + cantidad;
             });
         } else {
@@ -57,10 +64,11 @@
                 <p>${cantidad}</p>
                 <label>Total Compra: </label>
                 <p>${formatearCantidad(subtotal)} COP</p>
+                <input type="number" id="subtotal" value="${subtotal}" hidden>
                 <label>Fecha Compra:</label>
                 <p>${new Date().toLocaleString().split(',')[0]}</p>
                 </div>
-                <button class="btn btn-success" style="border-radius:0;">Confirmar Compra</button>
+                <button id="btnEnviarCompra" class="btn btn-success" style="border-radius:0;">Confirmar Compra</button>
                 `
         $("#info").html(candenaTotal);
     }

@@ -1,3 +1,14 @@
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  },
+});
 id = $("#idProduc").val();
 $.ajax({
   url: `${url}buscarProducto`,
@@ -39,7 +50,6 @@ $.ajax({
     }
   },
 });
-
 $("#btnAddCar").on("click", function (e) {
   e.preventDefault();
   idProduc = $("#idProduc").val();
@@ -62,10 +72,14 @@ $("#btnAddCar").on("click", function (e) {
         nombre: nomProduc,
         precio: Number(precioProduc),
         cantidad: Number(cantidad),
-        img : imgProduc
+        img: imgProduc,
       };
       carrito.push(objProducto);
     }
+    Toast.fire({
+      icon: `success`,
+      title: `¡Se ha agregado el producto ${nomProduc}!`,
+    });
     recargaCarrito();
     $("#cantidad").val("");
   }

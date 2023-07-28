@@ -234,15 +234,15 @@
 <script src="<?= base_url('dataTable/dataTables.bootstrap5.min.js') ?>"></script>
 <script>
     var url = '<?= base_url() ?>';
-
+    
     <?php if (session('id') != 0) { ?>
-
-    <?php } else { ?>
-
-        function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
-            input = $(`#${inputMsg}`)
-            contra = $(`#${inputContra}`).val()
-            confirContra = $(`#${inputConfir}`).val()
+        
+        <?php } else { ?>
+            
+            function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
+                input = $(`#${inputMsg}`)
+                contra = $(`#${inputContra}`).val()
+                confirContra = $(`#${inputConfir}`).val()
             if (tipo == 2) {
                 if (contra == '' && confirContra == '') {
                     input.text('').removeClass().addClass('normal')
@@ -275,7 +275,7 @@
         $('#contrasenaRegis').on('input', function(e) {
             verifiContra(1, 'msgContra', 'contrasenaRegis', 'confirContrasena')
         })
-
+        
 
         $("#formularioLogin").on("submit", function(e) {
             e.preventDefault();
@@ -336,7 +336,7 @@
                 }).done(function(res) {
                     if (res == 1) {
                         mostrarMensaje('success', '¡Usuario creado con exito, ya puedes ingresar!')
-
+                        
                         setTimeout(() => {
                             window.location.reload();
                         }, 3000)
@@ -352,6 +352,6 @@
                 console.log(error);
             }
         });
-    <?php } ?>
-</script>
-<script src="<?= base_url('js/main.js') ?>"></script>
+        <?php } ?>
+    </script>
+        <script src="<?= base_url('js/main.js') ?>" type="text/javascript"></script>
