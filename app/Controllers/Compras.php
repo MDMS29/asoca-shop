@@ -59,4 +59,21 @@ class Compras extends BaseController
             // EDITAR
         }
     }
+    public function verComprasRealizadas()
+    {
+        echo view('components/navbar');
+        echo view('compras/misCompras');
+        echo view('components/footer');
+    }
+    public function obtenerComprasRealizadas()
+    {
+        $res = $this->encCompra->obtenerComprasRealizadas(session('id'));
+        return json_encode($res);
+    }
+    public function detallesCompra()
+    {
+        $id = $this->request->getPost('id');
+        $res = $this->detCompra->detallesCompra($id);
+        return json_encode($res);
+    }
 }

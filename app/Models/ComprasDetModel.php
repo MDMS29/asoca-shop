@@ -25,4 +25,15 @@ class ComprasDetModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
+    public function detallesCompra($id){
+        $this->select('tbl_compras_enc.id_compra_enc, tbl_compras_enc.subtotal, tbl_compras_enc.fecha_compra, tbl_compras_enc.hora_compra, SUM(tbl_compras_det.cantidad) as numProductos, tbl_compras_enc.estado, tbl_productos.nombre, tbl_compras_det.cantidad, tbl_compras_det.precio, tbl_compras_det.subtotal');
+
+        $this->join('tbl_productos', 'tbl_productos.id_producto = tbl_compras_det.id_producto');
+        $this->join('tbl_compras_enc', 'tbl_compras_enc.id_compra_enc = tbl_compras_det.id_compra_enc');
+        // $this->where('tbl_compras_det.id_compra_enc', $id);
+        // $this->groupBy('tbl_compras_enc.id_compra_enc');
+        $data = $this->findAll();
+        return $data;
+    }
+
 }

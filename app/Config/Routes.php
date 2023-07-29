@@ -71,6 +71,10 @@ $routes->get('/imagenesProducto/(:any)', 'Productos::imagenesProducto/$1');
 
 $routes->get('/verDetallesCompra', 'Compras::verDetallesCompra');
 $routes->post('/confirCompra', 'Compras::insertar');
+
+$routes->get('/comprasRealizadas', 'Compras::verComprasRealizadas');
+$routes->post('/obtenerComprasRealizadas', 'Compras::obtenerComprasRealizadas');
+$routes->post('/detallesCompra', 'Compras::detallesCompra');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -17,7 +17,7 @@ $("a.toggle-vis").on("click", function (e) {
   // Toggle the visibility
   column.visible(!column.visible());
 });
-// Tabla de usuarios
+// Tabla de productos
 var tableProductos = $("#tableProductos").DataTable({
   ajax: {
     url: `${url}obtenerProductos`,

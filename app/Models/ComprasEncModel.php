@@ -25,4 +25,14 @@ class ComprasEncModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
+    
+    public function obtenerComprasRealizadas($usuario){
+        $this->select('tbl_compras_enc.id_compra_enc, tbl_compras_enc.subtotal, tbl_compras_enc.fecha_compra, tbl_compras_enc.hora_compra, SUM(tbl_compras_det.cantidad) as numProductos, tbl_compras_enc.estado');
+
+        $this->join('tbl_compras_det', 'tbl_compras_enc.id_compra_enc = tbl_compras_det.id_compra_enc');
+        $this->where('tbl_compras_enc.usuario_comprador', $usuario);
+        $this->groupBy('tbl_compras_enc.id_compra_enc');
+        $data = $this->findAll();
+        return $data;
+    }
 }

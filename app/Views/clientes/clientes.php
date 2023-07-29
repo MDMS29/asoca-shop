@@ -1,6 +1,4 @@
 <div class="contenedor">
-
-
     <!-- TABLA MOSTRAR CLIENTES -->
     <div id="content" class="p-4 p-md-5 h-100">
         <h2 class="text-center mb-4"><i class="bi bi-person-lines-fill fs-1"></i> Administrar Clientes</h2>

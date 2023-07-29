@@ -15,7 +15,7 @@ const formatearCantidad = (cantidad) => {
 };
 
 $("#btnMenu").click(function () {
-  $("aside").toggleClass("active");
+  $("#asidePrin").toggleClass("active");
   $("li a span").toggleClass("active");
 });
 

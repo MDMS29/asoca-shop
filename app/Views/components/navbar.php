@@ -76,7 +76,7 @@
     </header>
 
     <?php if (session('id') != 0) { ?>
-        <aside>
+        <aside id="asidePrin">
             <ul class="text-center">
                 <?php foreach (session('modulos') as $modulo) { ?>
                     <li>
