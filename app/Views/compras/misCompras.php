@@ -34,31 +34,57 @@
 <!-- MODAL VER LOS DETALLES -->
 <div class="modal fade" id="detallesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles de Compra</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
-                    <thead>
-                        <tr class="text-center">
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyTel">
-                        <tr class="text-center">
-                            <td colspan="4">NO HAY PRODUCTOS</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="body-M">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="tituloModal">Detalles de Compra</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-around mb-3">
+                        <div class="d-flex gap-3">
+                            <label>Productos Totales:</label>
+                            <input class="text-center" type="text" id="nProduc" disabled>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <label>Estado:</label>
+                            <input class="text-center" type="text" id="estado" disabled>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-around mb-3">
+                        <div class="d-flex gap-3">
+                            <label>Fecha Compra:</label>
+                            <input class="text-center" type="text" id="fecha" disabled>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <label>Hora Compra:</label>
+                            <input class="text-center" type="text" id="hora" disabled>
+                        </div>
+                    </div>
+                    <h6 class="fw-bold">Productos Comprados:</h6>
+                    <table class="table  table-responsive table-sm table-hover" id="tablePaises" width="100%" cellspacing="0">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Subtotal(Produc)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyTel">
+                            <tr class="text-center">
+                                <td colspan="4">NO HAY PRODUCTOS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="w-100 d-flex justify-content-end align-items-center">
+                        <p class="text-center fw-bold" style="margin-bottom: 0;">Total a Pagar: &nbsp;$</p>
+                        <input type="text" class="text-center fw-bold" id="totalCompra" disabled>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>

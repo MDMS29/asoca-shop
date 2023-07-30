@@ -67,7 +67,8 @@ class Compras extends BaseController
     }
     public function obtenerComprasRealizadas()
     {
-        $res = $this->encCompra->obtenerComprasRealizadas(session('id'));
+        $estado = $this->request->getPost('estado');
+        $res = $this->encCompra->obtenerComprasRealizadas($estado, session('id'));
         return json_encode($res);
     }
     public function detallesCompra()
@@ -75,5 +76,14 @@ class Compras extends BaseController
         $id = $this->request->getPost('id');
         $res = $this->detCompra->detallesCompra($id);
         return json_encode($res);
+    }
+    public function cancelCompra()
+    {
+        $id = $this->request->getPost('id');
+        if ($this->encCompra->update($id, ['estado' => 'I'])) {
+            return json_encode(1);
+        } else {
+            return json_encode(2);
+        }
     }
 }

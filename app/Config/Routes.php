@@ -75,6 +75,7 @@ $routes->post('/confirCompra', 'Compras::insertar');
 $routes->get('/comprasRealizadas', 'Compras::verComprasRealizadas');
 $routes->post('/obtenerComprasRealizadas', 'Compras::obtenerComprasRealizadas');
 $routes->post('/detallesCompra', 'Compras::detallesCompra');
+$routes->post('/cancelCompra', 'Compras::cancelCompra');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
