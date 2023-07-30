@@ -10,29 +10,30 @@ $("#btnEnviarCompra").click(function (e) {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Sí",
-    showCancelButton: true,
   }).then((respon) => {
-    $.ajax({
-      url: `${url}confirCompra`,
-      type: "POST",
-      dataType: "json",
-      data: {
-        id,
-        subtotal,
-        carrito,
-      },
-      success: function (res) {
-        if (res == 1) {
-          mostrarMensaje("success", "¡Compra realizada con exito!");
-          setTimeout(()=>{
-            carrito = [];
-            recargaCarrito();
-            window.location.href = `${url}`
-          },3000)
-        } else {
-          return mostrarMensaje("error", "¡Ha ocurrido un error!");
-        }
-      },
-    });
+    if (respon.isConfirmed) {
+      $.ajax({
+        url: `${url}confirCompra`,
+        type: "POST",
+        dataType: "json",
+        data: {
+          id,
+          subtotal,
+          carrito,
+        },
+        success: function (res) {
+          if (res == 1) {
+            mostrarMensaje("success", "¡Compra realizada con exito!");
+            setTimeout(() => {
+              carrito = [];
+              recargaCarrito();
+              window.location.href = `${url}verComprasRealizadas`;
+            }, 1500);
+          } else {
+            return mostrarMensaje("error", "¡Ha ocurrido un error!");
+          }
+        },
+      });
+    }
   });
 });

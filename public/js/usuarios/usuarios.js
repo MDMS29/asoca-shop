@@ -75,7 +75,7 @@ var tableUsuarios = $("#tableUsuarios").DataTable({
     url: `${url}obtenerUsuarios`,
     method: "POST",
     data: {
-      tipoUser: 2,
+      tipoUser: 3,
       estado: "A",
     },
     dataSrc: "",
@@ -437,7 +437,7 @@ $("#formularioUsuarios").on("submit", function (e) {
     var formData = new FormData();
     formData.append("id", id);
     formData.append("tp", tp);
-    formData.append("tipoUser", 2);
+    formData.append("tipoUser", 3);
     formData.append("nombreP", nombreP);
     formData.append("nombreS", nombreS);
     formData.append("apellidoP", apellidoP);

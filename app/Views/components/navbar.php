@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Segundo Nombre</label>
-                                        <input type="text" name="name" class="form-control" id="segundoNom" required>
+                                        <input type="text" name="name" class="form-control" id="segundoNom">
                                     </div>
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Primer Apellido</label>
@@ -179,7 +179,7 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Segundo Apellido</label>
-                                        <input type="text" name="name" class="form-control" id="segundoApe" required>
+                                        <input type="text" name="name" class="form-control" id="segundoApe">
                                     </div>
 
                                     <div class="col-12">
@@ -187,6 +187,20 @@
                                         <div class="input-group has-validation">
                                             <span class="input-group-text" id="inputGroupPrepend">#</span>
                                             <input type="text" name="usuario" class="form-control" id="documento" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="usuario" class="form-label">Direccion</label>
+                                        <div class="input-group has-validation">
+                                            <select class="input-group-text text-center" id="calkra">
+                                                <option value="Kra">Kra</option>
+                                                <option value="Calle">Calle</option>
+                                            </select>
+                                            <input type="text" class="form-control" id="numCalkra" required>
+                                            <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                            <input type="text" class="form-control" id="numero" required>
+                                            <span class="input-group-text" id="inputGroupPrepend">-</span>
+                                            <input type="text" class="form-control" id="numFinal" required>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -234,15 +248,15 @@
 <script src="<?= base_url('dataTable/dataTables.bootstrap5.min.js') ?>"></script>
 <script>
     var url = '<?= base_url() ?>';
-    
+
     <?php if (session('id') != 0) { ?>
-        
-        <?php } else { ?>
-            
-            function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
-                input = $(`#${inputMsg}`)
-                contra = $(`#${inputContra}`).val()
-                confirContra = $(`#${inputConfir}`).val()
+
+    <?php } else { ?>
+
+        function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
+            input = $(`#${inputMsg}`)
+            contra = $(`#${inputContra}`).val()
+            confirContra = $(`#${inputConfir}`).val()
             if (tipo == 2) {
                 if (contra == '' && confirContra == '') {
                     input.text('').removeClass().addClass('normal')
@@ -275,7 +289,7 @@
         $('#contrasenaRegis').on('input', function(e) {
             verifiContra(1, 'msgContra', 'contrasenaRegis', 'confirContrasena')
         })
-        
+
 
         $("#formularioLogin").on("submit", function(e) {
             e.preventDefault();
@@ -316,6 +330,15 @@
             email = $("#email").val();
             nIdenti = $("#documento").val();
             contra = $("#contrasenaRegis").val();
+            
+            
+            calkra = $("#calkra").val();
+            numCalkra = $("#numCalkra").val();
+            numero = $("#numero").val();
+            numFinal = $("#numFinal").val();
+
+            direccion = `${calkra} ${numCalkra} #${numero}-${numFinal}`
+
             try {
                 $.ajax({
                     type: "POST",
@@ -329,6 +352,7 @@
                         nombreS,
                         apellidoP,
                         apellidoS,
+                        direccion,
                         nIdenti,
                         rol: 2,
                         contra,
@@ -336,7 +360,7 @@
                 }).done(function(res) {
                     if (res == 1) {
                         mostrarMensaje('success', '¡Usuario creado con exito, ya puedes ingresar!')
-                        
+
                         setTimeout(() => {
                             window.location.reload();
                         }, 3000)
@@ -352,6 +376,6 @@
                 console.log(error);
             }
         });
-        <?php } ?>
-    </script>
-        <script src="<?= base_url('js/main.js') ?>" type="text/javascript"></script>
+    <?php } ?>
+</script>
+<script src="<?= base_url('js/main.js') ?>" type="text/javascript"></script>

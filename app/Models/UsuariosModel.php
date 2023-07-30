@@ -30,9 +30,9 @@ class UsuariosModel extends Model
         $this->select('tbl_usuarios.*, tbl_param_det.resumen as doc_res, tbl_roles.nombre as nombre_rol');
         $this->join('tbl_roles', 'tbl_roles.id_rol = tbl_usuarios.id_rol');
         $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_usuarios.tipo_documento');
-        $this->orderBy('id_usuario', 'asc');
+        // $this->orderBy('tbl_usuarios.id_usuario', 'desc');
         $this->where('tbl_usuarios.tipo_user', $tipoUser);
-        $this->where('tbl_usuarios.estado', $estado);
+        // $this->where('tbl_usuarios.estado', $estado);
         $data = $this->findAll();
         return $data;
     }

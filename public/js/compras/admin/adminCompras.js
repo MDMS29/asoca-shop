@@ -21,7 +21,7 @@ var tableCompras = $("#tableCompras").DataTable({
     url: `${url}obtenerComprasRealizadas`,
     method: "POST",
     data: {
-      estado: "A",
+      estado: 0,
     },
     dataSrc: "",
   },
@@ -32,14 +32,18 @@ var tableCompras = $("#tableCompras").DataTable({
         return "<b>" + row.id_compra_enc + "</b>";
       },
     },
+
+    {
+      data: "comprador",
+    },
+    {
+      data: "direccion",
+    },
     {
       data: "numProductos",
     },
     {
       data: "fecha_compra",
-    },
-    {
-      data: "hora_compra",
     },
     {
       data: null,
@@ -110,7 +114,10 @@ function seleccionarCompra(id, tp) {
             } <small class="text-secondary">c/u</small></td>
             <td>${formatearCantidad(data[i].precio)}</td>
             <td>${formatearCantidad(data[i].subtotal)}</td>
-            <td>${data[i].observacion == null || '' ? estadosCompra[data[0].estado] : data[i].observacion}</td>
+            <td>
+                <button class="btn btn-outline-success">Confirmar</button>
+                <button class="btn btn-outline-danger">Declinar</button>
+            </td>
             </tr>
             `;
           numProductos = Number(data[i].cantidad) + numProductos;

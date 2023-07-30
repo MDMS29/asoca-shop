@@ -6,14 +6,16 @@ use App\Controllers\BaseController;
 
 use App\Models\ComprasEncModel;
 use App\Models\ComprasDetModel;
+use App\Models\ParamDetModel;
 
 class Compras extends BaseController
 {
-    protected $encCompra, $detCompra;
+    protected $encCompra, $detCompra, $param;
     public function __construct()
     {
         $this->encCompra = new ComprasEncModel();
         $this->detCompra = new ComprasDetModel();
+        $this->param = new ParamDetModel();
     }
     public function verDetallesCompra()
     {
@@ -33,7 +35,7 @@ class Compras extends BaseController
             'subtotal' => intval($subtotal),
             'fecha_compra' => date('Y-m-d'),
             'hora_compra' => date('h:i:s'),
-            'estado' => 'P',
+            'estado' => 7,
             'usuario_crea' => session('id')
         ];
         if ($id == 0) {
@@ -61,8 +63,10 @@ class Compras extends BaseController
     }
     public function verComprasRealizadas()
     {
+        $param = $this->param->obtenerEstadosCompra();
+        $data = ['estadosCompra' => $param];
         echo view('components/navbar');
-        echo view('compras/misCompras');
+        echo view('compras/misCompras', $data);
         echo view('components/footer');
     }
     public function obtenerComprasRealizadas()
@@ -80,10 +84,28 @@ class Compras extends BaseController
     public function cancelCompra()
     {
         $id = $this->request->getPost('id');
-        if ($this->encCompra->update($id, ['estado' => 'I'])) {
+        if ($this->encCompra->update($id, ['estado' => '6'])) {
             return json_encode(1);
         } else {
             return json_encode(2);
         }
+    }
+    public function actuaDetCompra()
+    {
+        $id = $this->request->getPost('id');
+        $cantidad = $this->request->getPost('cantidad');
+        $precio = $this->request->getPost('precio');
+        if ($this->detCompra->update($id, ['cantidad' => $cantidad, 'subtotal' => intval($cantidad) * intval($precio)])) {
+            return json_encode(1);
+        } else {
+            return json_encode(2);
+        }
+    }
+    public function administrarCompras(){
+        $param = $this->param->obtenerEstadosCompra();
+        $data = ['estadosCompra' => $param];
+        echo view('components/navbar');
+        echo view('compras/admin/administrarCompras', $data);
+        echo view('components/footer');
     }
 }

@@ -1,10 +1,10 @@
 <div class="contenedor">
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-bag-check-fill fs-1"></i> Compras Realizadas
+        <h2 class="text-center mb-4"><i class="bi bi-bag-check-fill fs-1"></i> Administrar Compras
         </h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
-                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="1">N° Productos</a> - <a class="toggle-vis btn" data-column="3">Hora</a>
+                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="2">N° Productos</a> - <a class="toggle-vis btn" data-column="3">Fecha</a>
             </div>
 
 
@@ -12,9 +12,10 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">ID Compra</th>
+                        <th scope="col" class="text-center">Comprador</th>
+                        <th scope="col" class="text-center">Direccion</th>
                         <th scope="col" class="text-center">N° Productos</th>
                         <th scope="col" class="text-center">Fecha</th>
-                        <th scope="col" class="text-center">Hora</th>
                         <th scope="col" class="text-center">Estado</th>
                         <th scope="col" class="text-center">Subtotal</th>
                         <th scope="col" class="text-center">Acciones</th>
@@ -69,7 +70,7 @@
                                 <th>Cantidad</th>
                                 <th>Precio</th>
                                 <th>Subtotal(Produc)</th>
-                                <th>Observación</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="bodyTel">
@@ -92,7 +93,7 @@
     </div>
 </div>
 
-<script src="<?= base_url('js/compras/misCompras.js') ?>"></script>
+<script src="<?= base_url('js/compras/admin/adminCompras.js') ?>"></script>
 <script>
     const estiloEstado = {
         <?php foreach ($estadosCompra as $estado) { ?>

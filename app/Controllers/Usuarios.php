@@ -154,6 +154,7 @@ class Usuarios extends BaseController
         $nombreS = $this->request->getPost('nombreS');
         $apellidoP = $this->request->getPost('apellidoP');
         $apellidoS = $this->request->getPost('apellidoS');
+        $direccion = $this->request->getPost('direccion');
         $tipoDoc = $this->request->getPost('tipoDoc');
         $nIdenti = $this->request->getPost('nIdenti');
         $rol = $this->request->getVar('rol');
@@ -188,6 +189,7 @@ class Usuarios extends BaseController
                 'nombre_s' => $nombreS,
                 'apellido_p' => $apellidoP,
                 'apellido_s' => $apellidoS,
+                'direccion' => $direccion,
                 'foto' => $rutaImagen,
                 'contrasena' => $contra
             ];
@@ -205,11 +207,15 @@ class Usuarios extends BaseController
                 'nombre_s' => $nombreS,
                 'apellido_p' => $apellidoP,
                 'apellido_s' => $apellidoS,
+                'direccion' => $direccion,
                 'foto' => $rutaImagen,
                 'contrasena' => password_hash($contra, PASSWORD_DEFAULT)
             ];
-            $this->usuarios->save($usuarioSave);
-            return json_encode($this->usuarios->getInsertID());
+            if($this->usuarios->save($usuarioSave)){
+                return json_encode(1);
+            }else{
+                return json_encode(2);
+            };
         }
     }
     public function cambiarContrasena()

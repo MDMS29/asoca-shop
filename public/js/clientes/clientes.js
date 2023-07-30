@@ -26,7 +26,7 @@ var tableClientes = $("#tableClientes").DataTable({
     url: `${url}obtenerClientes`,
     method: "POST",
     data: {
-      tipoUser: 3,
+      tipoUser: 4,
       estado: "A",
     },
     dataSrc: "",
@@ -176,7 +176,6 @@ function banearCliente(id, nombre) {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Sí",
-    showCancelButton: true,
   }).then((respon) => {
     if (respon.isConfirmed) {
       Swal.fire({
@@ -234,28 +233,29 @@ function restaurarContrasena(idUsuario, nombre) {
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
     confirmButtonText: "Restaurar",
-    showCancelButton: true,
   }).then((respon) => {
-    $.ajax({
-      url: `${url}camContraUser`,
-      data: {
-        idUsuario,
-        contra: "",
-        contraConfir: "",
-      },
-      type: "POST",
-      dataType: "json",
-    }).done(function (data) {
-      tableClientes.ajax.reload(null, false); //Recargar tabla
-      contadorUser = 0;
-      if (data == 2) {
-        return mostrarMensaje("error", "¡Ha ocurrido un error!");
-      } else {
-        return Toast.fire({
-          icon: `success`,
-          title: "¡Contraseña restaurada!",
-        });
-      }
-    });
+    if (respon.value) {
+      $.ajax({
+        url: `${url}camContraUser`,
+        data: {
+          idUsuario,
+          contra: "",
+          contraConfir: "",
+        },
+        type: "POST",
+        dataType: "json",
+      }).done(function (data) {
+        tableClientes.ajax.reload(null, false); //Recargar tabla
+        contadorUser = 0;
+        if (data == 2) {
+          return mostrarMensaje("error", "¡Ha ocurrido un error!");
+        } else {
+          return Toast.fire({
+            icon: `success`,
+            title: "¡Contraseña restaurada!",
+          });
+        }
+      });
+    }
   });
 }

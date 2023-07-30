@@ -76,6 +76,9 @@ $routes->get('/comprasRealizadas', 'Compras::verComprasRealizadas');
 $routes->post('/obtenerComprasRealizadas', 'Compras::obtenerComprasRealizadas');
 $routes->post('/detallesCompra', 'Compras::detallesCompra');
 $routes->post('/cancelCompra', 'Compras::cancelCompra');
+$routes->post('/actuaDetCompra', 'Compras::actuaDetCompra');
+
+$routes->get('/adminCompras', 'Compras::administrarCompras');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
