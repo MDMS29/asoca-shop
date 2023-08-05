@@ -42,7 +42,7 @@ aside.active {
   overflow-y: scroll;
 }
 #asideCar ul {
-  margin-top: 0px;
+  margin-top: 70px;
 }
 #asideCar .btnDetalle{
   position: absolute;

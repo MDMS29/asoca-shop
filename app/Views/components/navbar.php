@@ -1,7 +1,7 @@
 <head>
     <meta charset="UTF-8">
-    <title>Asoca Shop</title>
-    <meta name="description" content="¡La tienda donde encontrarás tu prenda ideal!">
+    <title>Asoca</title>
+    <meta name="description" content="¡La tienda donde encontrarás tus productos ideales!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo-asoca-s.png') ?>">
@@ -92,11 +92,11 @@
     <?php } ?>
 
     <aside id="asideCar">
-        <ul>
+        <!-- <ul>
             <li>
                 <h3><i class="bi bi-cart4 fs-4"></i> Productos</h3>
             </li>
-        </ul>
+        </ul> -->
         <ul id="listaProductos">
             <!-- LISTA DINAMICA -->
         </ul>
@@ -190,7 +190,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <label for="usuario" class="form-label">Direccion</label>
+                                        <label for="usuario" class="form-label">Dirección</label>
                                         <div class="input-group has-validation">
                                             <select class="input-group-text text-center" id="calkra">
                                                 <option value="Kra">Kra</option>

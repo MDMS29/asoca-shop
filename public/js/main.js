@@ -7,6 +7,8 @@ let objProducto = {
   cantidad: 0,
   img: "",
 };
+
+
 const formatearCantidad = (cantidad) => {
   return Number(cantidad).toLocaleString("es-CO", {
     style: "currency",
@@ -47,12 +49,23 @@ const recargaCarrito = () => {
   var cadena = "";
   localStorage.setItem("carrito", JSON.stringify(carrito));
   $("#numProducs").text(`${carrito?.length}`);
-
-  carrito.forEach((element) => {
-    var foto = `${url}imagenesProducto/${element.img}`;
+  carrito.length == 0 ? $('.btnDetalle').attr('hidden',  '') : $('.btnDetalle').removeAttr('hidden')
+  
+  if (carrito.length == 0) {
     cadena += `
+    <li class="text-center d-flex flex-column justify-content-center align-items-center p-3 gap-5 h-100 m-0"> 
+      <img src="${url}img/empty-car.png" alt="Imagen carrito vacio" width="150">
+      <p class="fs-5">¡Carrito vacío!</p>
+      <p class="fs-6">Aún no tienes ningún artículo en el carrito, descubre todo lo que tenemos para ti</p>
+      <a href="${url}" class="btn btn-secondary">Descubrir</a>
+    </li>`
+  } else {
+
+    carrito.forEach((element) => {
+      var foto = `${url}imagenesProducto/${element.img}`;
+      cadena += `
           <li>
-            <div class="d-flex gap-3">
+          <div class="d-flex gap-3">
               <img src="${foto}" alt="${element.nombre}" width="120"/>
               <div>
                 <p class="text-capitalize">${element.nombre}</p>
@@ -63,13 +76,13 @@ const recargaCarrito = () => {
             </div>
             <div class="d-flex mt-1">
               <a href="${url}verDetallesCompra" class="flex-grow-1 btn btn-primary" style="color:white !important;border-radius:0;"><i class="bi bi-pencil-square"></i> Editar</a>
-              <button onclick="eliminarProducCar(${
-                element.id
-              })" class="flex-grow-1 btn btn-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
+              <button onclick="eliminarProducCar(${element.id
+        })" class="flex-grow-1 btn btn-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
             </div>
           </li>
           `;
-  });
+    });
+  }
   $("#listaProductos").html(cadena);
 };
 recargaCarrito();

@@ -68,7 +68,14 @@
                 <label>Fecha Compra:</label>
                 <p>${new Date().toLocaleString().split(',')[0]}</p>
                 </div>
-                <button id="btnEnviarCompra" class="btn btn-success" style="border-radius:0;">Confirmar Compra</button>
+                <?php if (session('id') != 0) { ?>
+                    <button id="btnEnviarCompra" class="btn btn-success" style="border-radius:0;">Confirmar Compra</button>
+                    <?php } else {?>
+                        <label class="text-center text-danger">¡Inicia Sesión para confirmar tu compra!</label>
+                        <button class="btn btn-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
+                            Ingresar
+                        </button>
+                 <?php } ?>
                 `
         $("#info").html(candenaTotal);
     }

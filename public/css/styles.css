@@ -33,7 +33,7 @@ aside ul li {
   padding: 3px;
   margin: 8px 1px;
 }
-aside ul li a {
+aside#asidePrin ul li a {
   color: black !important;
 }
 li a span.active {
