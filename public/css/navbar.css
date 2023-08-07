@@ -20,7 +20,7 @@ aside.active {
 
 #asideCar {
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   right: 0;
   height: 100vh;
   width: 0;

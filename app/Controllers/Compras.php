@@ -101,11 +101,42 @@ class Compras extends BaseController
             return json_encode(2);
         }
     }
-    public function administrarCompras(){
+    public function administrarCompras()
+    {
         $param = $this->param->obtenerEstadosCompra();
         $data = ['estadosCompra' => $param];
         echo view('components/navbar');
         echo view('compras/admin/administrarCompras', $data);
         echo view('components/footer');
+    }
+
+    public function confirProduc()
+    {
+        $id = $this->request->getPost('id');
+        $estado = $this->request->getPost('estado');
+
+        if ($this->detCompra->update($id, ['estado' => $estado])) {
+            return json_encode(1);
+        } else {
+            return json_encode(2);
+        }
+    }
+    public function cambEstadoCompra()
+    {
+        date_default_timezone_set('America/Bogota');
+        $id = $this->request->getPost('id');
+        $estado = $this->request->getPost('estado');
+
+        if ($this->encCompra->update($id,
+            [
+                'estado' => $estado,
+                'fecha_confir' => date('Y-m-d'),
+                'hora_confir' => date('h:i:s')
+            ]
+        )) {
+            return json_encode(1);
+        } else {
+            return json_encode(2);
+        }
     }
 }

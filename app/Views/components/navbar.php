@@ -43,7 +43,7 @@
                     <span id="numProducs">0</span>
                 </button>
                 <?php if (session('id') != 0) { ?>
-                    <a href="" id="notifi" style="transition: hover .2s ease-in ;"><i class="bi bi-bell-fill fs-5"></i></a>
+                    <!-- <a href="" id="notifi" style="transition: hover .2s ease-in ;"><i class="bi bi-bell-fill fs-5"></i></a> -->
                 <?php } ?>
             </div>
             <?php if (session('id') != 0) { ?>

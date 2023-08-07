@@ -26,7 +26,7 @@ class ComprasDetModel extends Model
     protected $skipValidation = false;
 
     public function detallesCompra($id){
-        $this->select('tbl_productos.nombre, tbl_compras_det.cantidad, tbl_compras_det.precio, tbl_compras_det.subtotal, tbl_compras_enc.fecha_compra,tbl_compras_enc.hora_compra, tbl_compras_enc.subtotal as totalCompra, tbl_compras_det.id_compra_det, tbl_compras_enc.estado, tbl_compras_det.observacion');
+        $this->select('tbl_productos.nombre, tbl_compras_det.cantidad, tbl_compras_det.precio, tbl_compras_det.subtotal, tbl_compras_enc.fecha_compra,tbl_compras_enc.hora_compra, tbl_compras_enc.subtotal as totalCompra, tbl_compras_det.id_compra_det, tbl_compras_enc.estado, tbl_compras_det.observacion, tbl_compras_det.estado as estadoPro');
         
         $this->join('tbl_productos', 'tbl_productos.id_producto = tbl_compras_det.id_producto');
         $this->join('tbl_compras_enc', 'tbl_compras_enc.id_compra_enc = tbl_compras_det.id_compra_enc');

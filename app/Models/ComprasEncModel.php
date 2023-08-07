@@ -14,7 +14,7 @@ class ComprasEncModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['usuario_comprador', 'metodo_pago', 'subtotal', 'fecha_compra', 'hora_compra', 'estado','fecha_crea', 'usuario_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['usuario_comprador', 'metodo_pago', 'subtotal', 'fecha_compra', 'hora_compra', 'fecha_confir', 'hora_confir', 'estado','fecha_crea', 'usuario_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */

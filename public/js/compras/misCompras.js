@@ -25,6 +25,7 @@ var tableCompras = $("#tableCompras").DataTable({
     },
     dataSrc: "",
   },
+  order: [[2, "desc"]],
   columns: [
     {
       data: "id_compra_enc",
@@ -44,9 +45,8 @@ var tableCompras = $("#tableCompras").DataTable({
     {
       data: null,
       render: function (data, type, row) {
-        return `<b class="fw-bold ${estiloEstado[row.nombreEstado]}">${
-          estadosCompra[row.estado]
-        }</b>`;
+        return `<b class="fw-bold ${estiloEstado[row.nombreEstado]}">${estadosCompra[row.estado]
+          }</b>`;
       },
     },
     {
@@ -59,17 +59,15 @@ var tableCompras = $("#tableCompras").DataTable({
       data: null,
       render: function (data, type, row) {
         return `<div class="d-flex gap-2 justify-content-center">
-                  <button class="btn btn-outline-primary" onclick="seleccionarCompra(${
-                    data.id_compra_enc
-                  }, 1)" data-bs-target="#detallesModal" data-bs-toggle="modal" title="Ver Detalles"><i class="bi bi-eye"></i></button>
-                  ${
-                    [estadosCompra[row.estado]].includes("Pendiente")
-                      ? `
-                    <button class="btn btn-outline-warning" data-bs-target="#detallesModal" data-bs-toggle="modal"  onclick="seleccionarCompra(${data.id_compra_enc}, 2)" title="Editar Compra"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-outline-danger"  onclick="cancelarCompra(${data.id_compra_enc})" title="Cancelar Compra"><i class="bi bi-x-circle"></i></button>
-                      `
-                      : ""
-                  }
+                  <button class="btn btn-outline-primary" onclick="seleccionarCompra(${data.id_compra_enc
+          }, 1)" data-bs-target="#detallesModal" data-bs-toggle="modal" title="Ver Detalles"><i class="bi bi-eye"></i></button>
+                  ${[estadosCompra[row.estado]].includes("Pendiente")
+            ? `
+                <button class="btn btn-outline-warning" data-bs-target="#detallesModal" data-bs-toggle="modal"  onclick="seleccionarCompra(${data.id_compra_enc}, 2)" title="Editar Compra"><i class="bi bi-pencil"></i></button>
+                <button class="btn btn-outline-danger"  onclick="cancelarCompra(${data.id_compra_enc})" title="Cancelar Compra"><i class="bi bi-x-circle"></i></button>
+                `
+            : row.estado != 8 ? `<button class="btn btn-outline-success" onclick="confirmarCompra(${data.id_compra_enc}, 8)" title="Confirmar Entrega"><i class="bi bi-check-circle"></i></button>` : ''
+          }
                 </div>`;
       },
     },
@@ -91,30 +89,30 @@ function seleccionarCompra(id, tp) {
       success: function (data) {
         var cadena = "";
         let numProductos = 0;
+        var subtotal = 0
 
         $("#btnActualizar").attr("hidden", "");
         $("#tituloModal").text(`Detalles de Compra - ${id}`);
-        $("#totalCompra").val(
-          data[0].totalCompra.replace(/\B(?=(\d{3})+(?!\d))/g, ".")
-        );
         $("#fecha").val(data[0].fecha_compra);
         $("#hora").val(data[0].hora_compra);
         $("#estado").val(`${estadosCompra[data[0].estado]}`);
+        $('#obser').removeAttr('hidden')
 
         for (let i = 0; i < data.length; i++) {
           cadena += `
           <tr class="text-center">
           <td class="text-capitalize">${data[i].nombre}</td>
-            <td>${
-              data[i].cantidad
+          <td>${data[i].cantidad
             } <small class="text-secondary">c/u</small></td>
             <td>${formatearCantidad(data[i].precio)}</td>
             <td>${formatearCantidad(data[i].subtotal)}</td>
-            <td>${data[i].observacion == null || '' ? estadosCompra[data[0].estado] : data[i].observacion}</td>
+            <td>${data[i].observacion == null || '' ? estadosCompra[data[0].estado] : [estadosCompra[row.estado]]}</td>
             </tr>
             `;
           numProductos = Number(data[i].cantidad) + numProductos;
+          subtotal = Number(subtotal) + Number(data[i].subtotal)
         }
+        $("#totalCompra").val(subtotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
         $("#bodyTel").html(cadena);
         $("#nProduc").val(numProductos);
       },
@@ -140,7 +138,7 @@ function seleccionarCompra(id, tp) {
         $("#fecha").val(data[0].fecha_compra);
         $("#hora").val(data[0].hora_compra);
         $("#estado").val(`${estadosCompra[data[0].estado]}`);
-
+        $('#obser').attr('hidden', '')
         for (let i = 0; i < data.length; i++) {
           cadena += `
             <tr class="text-center" id="${data[i].id_compra_det}">
@@ -148,14 +146,12 @@ function seleccionarCompra(id, tp) {
                 ${data[i].nombre}
               </td>
               <td> 
-                <input class="text-center" value="${
-                  data[i].cantidad
-                }" type="number">
+                <input class="text-center" value="${data[i].cantidad
+            }" type="number">
               </td>
               <td>
-                <input class="text-center" id="precio" value="${
-                  data[i].precio
-                }" type="number" hidden>
+                <input class="text-center" id="precio" value="${data[i].precio
+            }" type="number" hidden>
                 ${formatearCantidad(data[i].precio)}
               </td>
               <td>
@@ -233,3 +229,25 @@ $("#btnActualizar").click(function (e) {
     });
   }
 });
+
+function confirmarCompra(id, estado) {
+  $.ajax({
+    url: `${url}cambEstadoCompra`,
+    type: 'POST',
+    dataType: 'JSON',
+    data: { id, estado },
+    success: function (res) { 
+      if(res == 1){
+          Swal.fire({
+            title: `¡Entrega confirmada!`,
+            html: "<p>Gracias por comprar con <b>Asoca</b> te esperamos pronto :)</p><small>¡Disfruta de tus productos!</small>",
+            icon: "success",
+            showCancelButton: true,
+            showConfirmButton: false,
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Cerrar",
+          })
+      }
+    }
+  })
+}

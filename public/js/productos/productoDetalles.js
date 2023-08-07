@@ -1,14 +1,14 @@
 const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
   showConfirmButton: false,
   timer: 2000,
-  timerProgressBar: true,
   didOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
+    toast.style.position = "fixed";
+    toast.style.top = "10px"; 
+    
   },
 });
+
 id = $("#idProduc").val();
 $.ajax({
   url: `${url}buscarProducto`,
@@ -63,7 +63,7 @@ $("#btnAddCar").on("click", function (e) {
   } else {
     objProducto = carrito.filter((item) => item.id == idProduc)[0];
     if (objProducto != undefined) {
-      const { cantidad } = objProducto;
+      // const { cantidad } = objProducto;
       let nuevaCant = Number(cantidad) + Number(objProducto.cantidad);
       carrito.filter((item) => item.id == idProduc)[0].cantidad = nuevaCant;
     } else {
@@ -78,7 +78,7 @@ $("#btnAddCar").on("click", function (e) {
     }
     Toast.fire({
       icon: `success`,
-      title: `¡Se ha agregado el producto ${nomProduc}!`,
+      title: `¡Se ha agregado el producto "${nomProduc}"!`,
     });
     recargaCarrito();
     $("#cantidad").val("");

@@ -79,6 +79,8 @@ $routes->post('/cancelCompra', 'Compras::cancelCompra');
 $routes->post('/actuaDetCompra', 'Compras::actuaDetCompra');
 
 $routes->get('/adminCompras', 'Compras::administrarCompras');
+$routes->post('/confirProduc', 'Compras::confirProduc');
+$routes->post('/cambEstadoCompra', 'Compras::cambEstadoCompra');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

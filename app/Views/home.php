@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="<?= base_url('css/home.css') ?>">
-<div class="contenedor">
+<main class="contenedor">
     <div class="contenedor-productos mt-5">
         <!-- PRODUCTOS DINAMICOS -->
     </div>
-</div>
+</main>
 
 <script>
     $.ajax({
@@ -24,7 +24,7 @@
                     res.forEach(element => {
                         var foto = `${url}imagenesProducto/${element.nombre_img}`;
                         cadena += `
-                        <a href="<?= base_url('verDetallesProducto/') ?>${element.id_producto}" class="card mb-3 producto">
+                        <article onclick="window.location.href='<?= base_url('verDetallesProducto/') ?>${element.id_producto}'" class="card mb-3 producto">
                             <div class="row g-0">
                                 <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
                                     <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
@@ -35,7 +35,7 @@
                                     
                                 </div>
                             </div>
-                        </a>`
+                        </article>`
                     });
                     break;
             }

@@ -69,7 +69,7 @@
                                 <th>Cantidad</th>
                                 <th>Precio</th>
                                 <th>Subtotal(Produc)</th>
-                                <th>Observación</th>
+                                <th id="obser">Observación</th>
                             </tr>
                         </thead>
                         <tbody id="bodyTel">

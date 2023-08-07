@@ -38,6 +38,7 @@
         <div class="body-M">
             <div class="modal-content">
                 <div class="modal-header">
+                    <input type="number" id="idCompra" hidden>
                     <h1 class="modal-title fs-5" id="tituloModal">Detalles de Compra</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -86,7 +87,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnActualizar" type="button" class="btn btn-success" data-bs-dismiss="modal">Actualizar</button>
+                    <button id="btnConfirmar" type="button" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
                 </div>
             </div>
         </div>
