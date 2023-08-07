@@ -231,23 +231,38 @@ $("#btnActualizar").click(function (e) {
 });
 
 function confirmarCompra(id, estado) {
-  $.ajax({
-    url: `${url}cambEstadoCompra`,
-    type: 'POST',
-    dataType: 'JSON',
-    data: { id, estado },
-    success: function (res) { 
-      if(res == 1){
-          Swal.fire({
-            title: `¡Entrega confirmada!`,
-            html: "<p>Gracias por comprar con <b>Asoca</b> te esperamos pronto :)</p><small>¡Disfruta de tus productos!</small>",
-            icon: "success",
-            showCancelButton: true,
-            showConfirmButton: false,
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Cerrar",
-          })
-      }
+  Swal.fire({
+    title: `¿Desea confirmar la entrega de su compra?"`,
+    html: "¡Asoca no responde por errores en su confirmación!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí",
+    showCancelButton: true,
+  }).then((respon) => {
+    if (respon.isConfirmed) {
+      $.ajax({
+        url: `${url}cambEstadoCompra`,
+        type: 'POST',
+        dataType: 'JSON',
+        data: { id, estado },
+        success: function (res) {
+          if (res == 1) {
+            Swal.fire({
+              title: `¡Entrega confirmada!`,
+              html: "<p>Gracias por comprar con <b>Asoca</b> te esperamos pronto :)</p><small>¡Disfruta de tus productos!</small>",
+              icon: "success",
+              showCancelButton: true,
+              showConfirmButton: false,
+              cancelButtonColor: "#d33",
+              cancelButtonText: "Cerrar",
+            })
+            tableCompras.ajax.reload(null, false)
+          }
+        }
+      })
     }
   })
+
 }

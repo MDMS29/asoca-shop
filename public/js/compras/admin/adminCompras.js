@@ -211,6 +211,7 @@ $("#btnConfirmar").click(function (e) {
     },
     success: function (res) {
       if (res == 1) {
+        tableCompras.ajax.reload(null,false)
         for (let i = 0; i < productosConfirmar.length; i++) {
           $.ajax({
             url: `${url}confirProduc`,
