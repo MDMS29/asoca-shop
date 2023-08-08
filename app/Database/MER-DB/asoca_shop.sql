@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-07-2023 a las 03:16:06
+-- Tiempo de generación: 09-08-2023 a las 01:10:13
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -61,6 +61,7 @@ CREATE TABLE `tbl_compras_det` (
   `cantidad` smallint(4) NOT NULL,
   `precio` int(8) NOT NULL,
   `subtotal` int(8) NOT NULL,
+  `observacion` varchar(200) DEFAULT NULL,
   `estado` char(1) NOT NULL DEFAULT 'A',
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
@@ -70,11 +71,11 @@ CREATE TABLE `tbl_compras_det` (
 -- Volcado de datos para la tabla `tbl_compras_det`
 --
 
-INSERT INTO `tbl_compras_det` (`id_compra_det`, `id_compra_enc`, `id_producto`, `cantidad`, `precio`, `subtotal`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
-(1, 1, 1, 3, 4567, 13701, 'A', '2023-07-30 00:01:56', 4),
-(2, 1, 2, 4, 127, 508, 'A', '2023-07-30 00:01:56', 4),
-(3, 1, 3, 1, 123333, 123333, 'A', '2023-07-30 00:01:56', 4),
-(4, 1, 4, 1, 78945, 78945, 'A', '2023-07-30 00:01:56', 4);
+INSERT INTO `tbl_compras_det` (`id_compra_det`, `id_compra_enc`, `id_producto`, `cantidad`, `precio`, `subtotal`, `observacion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, 1, 1, 6, 4567, 27402, NULL, '8', '2023-08-07 23:34:34', 4),
+(2, 1, 3, 3, 123333, 369999, NULL, '5', '2023-08-07 23:22:39', 4),
+(3, 2, 2, 3, 127, 381, NULL, '5', '2023-08-07 23:42:02', 4),
+(4, 3, 4, 3, 78945, 236835, NULL, 'A', '2023-08-08 01:14:24', 4);
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,9 @@ CREATE TABLE `tbl_compras_enc` (
   `subtotal` int(8) NOT NULL,
   `fecha_compra` date NOT NULL,
   `hora_compra` time NOT NULL,
-  `estado` char(1) NOT NULL,
+  `fecha_confir` date DEFAULT NULL,
+  `hora_confir` time DEFAULT NULL,
+  `estado` smallint(2) NOT NULL,
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -98,8 +101,10 @@ CREATE TABLE `tbl_compras_enc` (
 -- Volcado de datos para la tabla `tbl_compras_enc`
 --
 
-INSERT INTO `tbl_compras_enc` (`id_compra_enc`, `usuario_comprador`, `metodo_pago`, `subtotal`, `fecha_compra`, `hora_compra`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
-(1, 4, NULL, 216487, '2023-07-29', '07:01:56', 'P', '2023-07-30 00:01:56', 4);
+INSERT INTO `tbl_compras_enc` (`id_compra_enc`, `usuario_comprador`, `metodo_pago`, `subtotal`, `fecha_compra`, `hora_compra`, `fecha_confir`, `hora_confir`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, 4, NULL, 397401, '2023-08-07', '06:15:52', '2023-08-07', '06:37:51', 8, '2023-08-07 23:37:51', 4),
+(2, 4, NULL, 381, '2023-08-07', '06:39:49', '2023-08-07', '06:42:37', 8, '2023-08-07 23:42:37', 4),
+(3, 4, NULL, 78945, '2023-08-07', '08:07:02', NULL, NULL, 7, '2023-08-08 01:07:02', 4);
 
 -- --------------------------------------------------------
 
@@ -177,7 +182,8 @@ INSERT INTO `tbl_modulos` (`id_modulo`, `modulo`, `url`, `icon`, `id_rol`, `id_a
 (1, 'Usuarios', 'usuarios', 'bi bi-people-fill', 1, 1, 'A', '2023-07-15 03:18:01', 3),
 (2, 'Clientes', 'clientes', 'bi bi-person-lines-fill', 1, 2, 'A', '2023-07-15 03:18:28', 3),
 (3, 'Administrar Productos', 'adminProduc', 'bi bi-box-seam-fill', 1, 3, 'A', '2023-07-15 03:19:12', 3),
-(4, 'Mis Compras', 'comprasRealizadas', 'bi bi-bag-check-fill', 2, 4, 'A', '2023-07-22 04:54:30', 3);
+(4, 'Mis Compras', 'comprasRealizadas', 'bi bi-bag-check-fill', 2, 4, 'A', '2023-07-22 04:54:30', 3),
+(5, 'Administrar Compras', 'adminCompras', 'bi bi-bag-check-fill', 1, 4, 'A', '2023-07-30 18:38:57', 3);
 
 -- --------------------------------------------------------
 
@@ -203,7 +209,17 @@ INSERT INTO `tbl_param_det` (`id_param_det`, `id_param_enc`, `nombre`, `resumen`
 (1, 1, 'Cédula de Ciudadanía', 'CC', 'A', '2023-06-30 00:01:47', 1),
 (2, 1, 'Cedula Extranjera', 'CE', 'A', '2023-07-15 03:11:51', 3),
 (3, 2, 'Administrador', 'Admin', 'A', '2023-07-22 04:12:52', 3),
-(4, 2, 'Cliente', 'Cli', 'A', '2023-07-22 04:13:11', 3);
+(4, 2, 'Cliente', 'Cli', 'A', '2023-07-22 04:13:11', 3),
+(5, 4, 'Confirmado', 'Acep', 'A', '2023-07-30 16:49:00', 3),
+(6, 4, 'Cancelado', 'Cance', 'A', '2023-07-30 16:49:00', 3),
+(7, 4, 'Pendiente', 'Pen', 'A', '2023-07-30 16:49:51', 3),
+(8, 4, 'Entregado', 'Entre', 'A', '2023-07-30 16:49:51', 3),
+(9, 5, 'Moda', 'Moda', 'A', '2023-07-30 20:08:06', 3),
+(10, 5, 'Belleza', 'Belle', 'A', '2023-07-30 20:08:06', 3),
+(11, 5, 'Hogar', 'Hogar', 'A', '2023-07-30 20:08:06', 3),
+(12, 5, 'Accesorios', 'Acces', 'A', '2023-07-30 20:08:06', 3),
+(13, 5, 'Tecnologia', 'Tecno', 'A', '2023-07-30 20:08:06', 3),
+(14, 5, 'Gourmet', 'Gourm', 'A', '2023-07-30 20:08:06', 3);
 
 -- --------------------------------------------------------
 
@@ -226,7 +242,9 @@ CREATE TABLE `tbl_param_enc` (
 INSERT INTO `tbl_param_enc` (`id_param_enc`, `nombre`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
 (1, 'Tipo Documento', 'A', '2023-06-30 00:01:00', 1),
 (2, 'Tipo Usuario', 'A', '2023-07-15 03:10:54', 3),
-(3, 'Tipo Telefono', 'A', '2023-07-15 03:10:54', 3);
+(3, 'Tipo Telefono', 'A', '2023-07-15 03:10:54', 3),
+(4, 'Estado de Compra', 'A', '2023-07-30 16:48:06', 3),
+(5, 'Categoria Productos', 'A', '2023-07-30 20:03:42', 3);
 
 -- --------------------------------------------------------
 
@@ -318,7 +336,7 @@ CREATE TABLE `tbl_usuarios` (
   `foto` varchar(45) DEFAULT NULL,
   `contrasena` varchar(200) NOT NULL,
   `duracion` varchar(15) NOT NULL,
-  `estado` varchar(1) NOT NULL,
+  `estado` varchar(1) NOT NULL DEFAULT 'A',
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -328,8 +346,9 @@ CREATE TABLE `tbl_usuarios` (
 --
 
 INSERT INTO `tbl_usuarios` (`id_usuario`, `id_rol`, `tipo_user`, `nombre_p`, `nombre_s`, `apellido_p`, `apellido_s`, `tipo_documento`, `n_documento`, `direccion`, `foto`, `contrasena`, `duracion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
-(3, 1, 3, 'Root', NULL, 'Asoca', 'Shop', 1, '123123', 'Calle 68 #16b -14', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', '0', 'A', '2023-07-27 14:56:37', 1),
-(4, 2, 4, 'Nuevo', '...', 'Cliente', 'Prueba', NULL, '147852', NULL, 'fotoUser/default.png', '$2y$10$3J8srY6iUqVA4brOCzAzoei1f71jccF80zBInW/tAGiKSOxyomw7S', '', '', '2023-07-22 09:38:58', 0);
+(3, 1, 3, 'Root', 'Jose', 'Asoca', 'Shop', 1, '123123', '\'', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', '0', 'A', '2023-07-30 18:03:20', 1),
+(4, 2, 4, 'Nuevo', '...', 'Cliente', 'Prueba', 1, '147852', 'kra 8', 'fotoUser/default.png', '$2y$10$hyCb7Ka02l4E4H0oc.MaH.aqL61n4pSmEfd4TdYuX300YFz/UvLa2', '', 'A', '2023-07-30 21:28:29', 0),
+(5, 2, 4, 'Moises', 'David', 'Mazo', 'Solano', 1, '1130266003', 'Calle 68 #16B-14', 'fotoUser/default.png', '$2y$10$EYGYMsV1a13CZ6LxMGZ/6u0b1/zB65hRGpphHBcqmHk1SiNscKIXW', '', 'A', '2023-07-30 17:54:07', 0);
 
 -- --------------------------------------------------------
 
@@ -376,7 +395,8 @@ ALTER TABLE `tbl_compras_det`
 -- Indices de la tabla `tbl_compras_enc`
 --
 ALTER TABLE `tbl_compras_enc`
-  ADD PRIMARY KEY (`id_compra_enc`);
+  ADD PRIMARY KEY (`id_compra_enc`),
+  ADD KEY `estado` (`estado`);
 
 --
 -- Indices de la tabla `tbl_correos`
@@ -460,13 +480,13 @@ ALTER TABLE `tbl_compras_det`
 -- AUTO_INCREMENT de la tabla `tbl_compras_enc`
 --
 ALTER TABLE `tbl_compras_enc`
-  MODIFY `id_compra_enc` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_compra_enc` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_correos`
 --
 ALTER TABLE `tbl_correos`
-  MODIFY `id_correo` smallint(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_correo` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_img_producto`
@@ -478,19 +498,19 @@ ALTER TABLE `tbl_img_producto`
 -- AUTO_INCREMENT de la tabla `tbl_modulos`
 --
 ALTER TABLE `tbl_modulos`
-  MODIFY `id_modulo` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_modulo` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_param_det`
 --
 ALTER TABLE `tbl_param_det`
-  MODIFY `id_param_det` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_param_det` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_param_enc`
 --
 ALTER TABLE `tbl_param_enc`
-  MODIFY `id_param_enc` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_param_enc` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_productos`
@@ -508,17 +528,23 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT de la tabla `tbl_telefonos`
 --
 ALTER TABLE `tbl_telefonos`
-  MODIFY `id_telefono` smallint(2) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_telefono` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `id_usuario` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_usuario` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `tbl_compras_enc`
+--
+ALTER TABLE `tbl_compras_enc`
+  ADD CONSTRAINT `estado` FOREIGN KEY (`estado`) REFERENCES `tbl_param_det` (`id_param_det`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tbl_correos`
