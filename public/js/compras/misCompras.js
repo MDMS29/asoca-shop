@@ -219,8 +219,8 @@ $("#btnActualizar").click(function (e) {
         precio,
       },
       success: function (data) {
-        tableCompras.ajax.reload(null, false);
         if (data == 1) {
+          tableCompras.ajax.reload(null, false);
           return mostrarMensaje("success", "¡Su compra ha sido actualizada!");
         } else {
           return mostrarMensaje("error", "¡Ha ocurrido un error!");

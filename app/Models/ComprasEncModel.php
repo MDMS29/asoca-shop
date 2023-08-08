@@ -25,9 +25,8 @@ class ComprasEncModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
-    
     public function obtenerComprasRealizadas($estado, $usuario){
-        $this->select('tbl_compras_enc.id_compra_enc, tbl_compras_enc.subtotal, tbl_compras_enc.fecha_compra, tbl_compras_enc.hora_compra, SUM(tbl_compras_det.cantidad) as numProductos, tbl_compras_enc.estado, tbl_param_det.nombre as nombreEstado, concat(tbl_usuarios.nombre_p, " " , tbl_usuarios.nombre_s, " ", tbl_usuarios.apellido_p, " ", tbl_usuarios.apellido_s) as comprador, tbl_usuarios.direccion');
+        $this->select('tbl_compras_enc.id_compra_enc,tbl_compras_enc.fecha_compra, tbl_compras_enc.hora_compra, SUM(tbl_compras_det.cantidad) as numProductos, tbl_compras_enc.estado, tbl_param_det.nombre as nombreEstado, concat(tbl_usuarios.nombre_p, " " , tbl_usuarios.nombre_s, " ", tbl_usuarios.apellido_p, " ", tbl_usuarios.apellido_s) as comprador, tbl_usuarios.direccion, SUM(tbl_compras_det.cantidad * precio) as subtotal ');
         $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_compras_enc.estado');
         $this->join('tbl_compras_det', 'tbl_compras_enc.id_compra_enc = tbl_compras_det.id_compra_enc');
         $this->join('tbl_usuarios', 'tbl_usuarios.id_usuario = tbl_compras_enc.usuario_comprador');
