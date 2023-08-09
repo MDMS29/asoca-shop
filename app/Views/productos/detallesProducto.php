@@ -18,7 +18,7 @@
                 <div class="d-flex flex-column justify-content-between contenedor-info">
                     <h3 class="text-capitalize"><?= $producto[0]['nombre'] ?></h3>
                     <p class="descripcion"><?= $producto[0]['descripcion'] ?></p>
-                    <p class="">Calificación: <?= $producto[0]['valoracion'] ?></p>
+                    <p >Calificación: <span id="calificacion" class="fs-5 text-warning"></span></p>
                     <div class="d-flex justify-content-around cont-precio-cant">
                         <div>
                             <p>Precio: </p>
@@ -28,7 +28,7 @@
                         </div>
                         <div>
                             <p for="cantidad">Cantidad:</p>
-                            <input type="text" name="cantidad" class="form-control" id="cantidad" minlength="1" maxlength="<?= $producto[0]['cantidad_actual'] ?>" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                            <input type="number" name="cantidad" class="form-control text-center" id="cantidad" value="0">
                         </div>
                     </div>
                     <div class="w-100">
@@ -40,6 +40,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="contenedor-similares mb-3">
+            <h3 class="text-center w-100">Productos similares</h3>
+        </div>
+        <div class="contenedor-comentarios mb-3">
+            <h3 class="text-center w-100">Comentarios</h3>
+            <div class="mt-2 mb-3">
+                <form >
+                    <textarea placeholder="Ingrese su comentario..." name="insertComent" id="insertComent" cols="30" rows="2" class="form-control"></textarea>
+                    <button class="btn btn-success mt-2" id="btnEnvComen">Enviar</button>
+                </form>
+            </div>
+            <ul class="listado-comentarios">
+                <!-- LISTADO DINAMICO -->
+            </ul>
         </div>
     </div>
 </div>

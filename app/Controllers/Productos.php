@@ -6,14 +6,16 @@ use App\Controllers\BaseController;
 
 use App\Models\ProductosModel;
 use App\Models\ImgProductoModel;
+use App\Models\ValoracionModel;
 
 class Productos extends BaseController
 {
-    protected $producto, $imgProducto;
+    protected $producto, $imgProducto, $valoracion;
     public function __construct()
     {
         $this->producto = new ProductosModel();
         $this->imgProducto = new ImgProductoModel();
+        $this->valoracion = new ValoracionModel();
     }
     public function obtenerProductos()
     {
@@ -149,5 +151,11 @@ class Productos extends BaseController
         header("Content-Type: image/png");
         header("Content-Length: " . filesize($rutaCompleta));
         fpassthru($fp);
+    }
+    public function obtenerComentarios(){
+        $id = $this->request->getPost('id');
+        $estado = $this->request->getPost('estado');
+        $res = $this->valoracion->obtenerComentarios($id, $estado);
+        return json_encode($res);
     }
 }

@@ -6,12 +6,14 @@ p.descripcion {
   -webkit-line-clamp: 5;
   overflow: hidden;
 }
+
 .swiper {
   margin-left: 0 !important;
   margin-right: 0 !important;
   width: 600px;
   height: 500px;
 }
+
 .contenedor-producto {
   display: flex;
   justify-content: space-around;
@@ -19,6 +21,7 @@ p.descripcion {
   padding: 50px;
   border-radius: 20px;
 }
+
 .swiper-slide img {
   width: 600px;
   height: 500px;
@@ -34,51 +37,101 @@ p.descripcion {
   p.descripcion {
     width: 450px;
   }
+
   .swiper {
     width: 450px;
   }
 }
+
 @media (max-width: 992px) {
   .contenedor-producto {
     justify-content: center;
     flex-direction: column;
     gap: 2rem;
   }
+
   .swiper {
-    width:100%;
+    width: 100%;
     height: 450px;
   }
+
   .swiper-slide img {
     width: 100%;
   }
+
   .contenedor-info {
     padding: 0 30px;
     width: 100%;
     gap: .8rem;
   }
+
   p.descripcion {
     width: 100%;
   }
 }
-@media (max-width: 768px) {
-}
+
+@media (max-width: 768px) {}
+
 @media (max-width: 576px) {
   p.descripcion {
     -webkit-line-clamp: 7;
   }
-  .info-adicional{
+
+  .info-adicional {
     display: flex;
     flex-direction: column;
     text-align: center;
   }
-  .cont-precio-cant{
+
+  .cont-precio-cant {
     flex-direction: column;
     text-align: start;
   }
+
   .contenedor-info {
     padding: 0;
   }
+
   .swiper {
     height: 400px;
   }
+  #btnEnvComen{
+    width: 100%;
+  }
+}
+
+.contenedor-similares {
+  display: flex;
+  background-color: white;
+  padding: 50px;
+  border-radius: 20px;
+}
+
+/*COMENTARIOS*/
+.contenedor-comentarios {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  max-height: 1000px;
+  overflow-y: auto;
+}
+.contenedor-comentarios .listado-comentarios {
+  padding: 0;
+  list-style: none;
+}
+.listado-comentarios .comentario{
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgb(169 166 166 / 18%);
+}
+.comentario .p-comentario{
+  overflow-y: auto;
+  max-height: 150px;
+}
+.comentario .fecha{
+  width: 100%;
+  text-align: end;
+}
+.comentario .fotoUsuario{
+  border-radius: 100%;
 }
