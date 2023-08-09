@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-08-2023 a las 01:10:13
+-- Tiempo de generación: 09-08-2023 a las 06:15:56
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -256,11 +256,11 @@ CREATE TABLE `tbl_productos` (
   `id_producto` smallint(2) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `descripcion` text NOT NULL,
+  `categoria` smallint(2) NOT NULL,
   `cantidad_actual` smallint(4) NOT NULL,
   `cantidad_vendida` smallint(4) NOT NULL,
   `precio` int(4) NOT NULL,
   `fecha_public` date NOT NULL,
-  `valoracion` tinyint(4) NOT NULL,
   `estado` char(1) NOT NULL DEFAULT 'A',
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
@@ -270,11 +270,11 @@ CREATE TABLE `tbl_productos` (
 -- Volcado de datos para la tabla `tbl_productos`
 --
 
-INSERT INTO `tbl_productos` (`id_producto`, `nombre`, `descripcion`, `cantidad_actual`, `cantidad_vendida`, `precio`, `fecha_public`, `valoracion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
-(1, 'Prueba de js', 'sjsjsjsjjs', 8, 0, 4567, '2023-07-20', 0, 'A', '2023-07-20 20:22:05', 3),
-(2, 'gato pandillero', 'daña esto daña lo otro el gayo dañadorr con increibles movimientos de karate', 4, 0, 127, '2023-07-20', 0, 'A', '2023-07-20 20:20:40', 3),
-(3, 'Otros productos mas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur vehicula neque. Curabitur dictum rhoncus ligula non condimentum. Quisque ut mollis odio, quis euismod neque. Nullam pretium ante cursus justo varius sagittis. Proin semper egestas odio ac mollis. Aenean venenatis pretium enim, eu mattis nunc. Vestibulum egestas varius odio eget pretium. Cras in eleifend nunc. Suspendisse sodales, mauris vitae pellentesque euismod, erat orci convallis nisi, in molestie ex quam et urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ullamcorper ex eu lacus rhoncus congue. Duis ultricies, est non ultricies rutrum, metus justo sodales nibh, ut semper elit mi ullamcorper urna.', 3, 0, 123333, '2023-07-20', 0, 'A', '2023-07-21 01:44:50', 3),
-(4, 'Otro mas ', 'loreeeeeeeeem', 10, 0, 78945, '2023-07-20', 0, 'A', '2023-07-21 02:35:28', 3);
+INSERT INTO `tbl_productos` (`id_producto`, `nombre`, `descripcion`, `categoria`, `cantidad_actual`, `cantidad_vendida`, `precio`, `fecha_public`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, 'Prueba de js', 'sjsjsjsjjs', 9, 8, 0, 4567, '2023-07-20', 'A', '2023-08-09 02:08:09', 3),
+(2, 'gato pandillero', 'daña esto daña lo otro el gayo dañadorr con increibles movimientos de karate', 10, 4, 0, 127, '2023-07-20', 'A', '2023-08-09 02:08:14', 3),
+(3, 'Otros productos mas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur vehicula neque. Curabitur dictum rhoncus ligula non condimentum. Quisque ut mollis odio, quis euismod neque. Nullam pretium ante cursus justo varius sagittis. Proin semper egestas odio ac mollis. Aenean venenatis pretium enim, eu mattis nunc. Vestibulum egestas varius odio eget pretium. Cras in eleifend nunc. Suspendisse sodales, mauris vitae pellentesque euismod, erat orci convallis nisi, in molestie ex quam et urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ullamcorper ex eu lacus rhoncus congue. Duis ultricies, est non ultricies rutrum, metus justo sodales nibh, ut semper elit mi ullamcorper urna.', 11, 3, 0, 123333, '2023-07-20', 'A', '2023-08-09 02:08:20', 3),
+(4, 'Otro mas ', 'loreeeeeeeeem', 12, 10, 0, 78945, '2023-07-20', 'A', '2023-08-09 02:08:24', 3);
 
 -- --------------------------------------------------------
 
@@ -349,6 +349,31 @@ INSERT INTO `tbl_usuarios` (`id_usuario`, `id_rol`, `tipo_user`, `nombre_p`, `no
 (3, 1, 3, 'Root', 'Jose', 'Asoca', 'Shop', 1, '123123', '\'', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', '0', 'A', '2023-07-30 18:03:20', 1),
 (4, 2, 4, 'Nuevo', '...', 'Cliente', 'Prueba', 1, '147852', 'kra 8', 'fotoUser/default.png', '$2y$10$hyCb7Ka02l4E4H0oc.MaH.aqL61n4pSmEfd4TdYuX300YFz/UvLa2', '', 'A', '2023-07-30 21:28:29', 0),
 (5, 2, 4, 'Moises', 'David', 'Mazo', 'Solano', 1, '1130266003', 'Calle 68 #16B-14', 'fotoUser/default.png', '$2y$10$EYGYMsV1a13CZ6LxMGZ/6u0b1/zB65hRGpphHBcqmHk1SiNscKIXW', '', 'A', '2023-07-30 17:54:07', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tbl_valoracion_producto`
+--
+
+CREATE TABLE `tbl_valoracion_producto` (
+  `id_valoracion` smallint(4) NOT NULL,
+  `id_producto` smallint(2) NOT NULL,
+  `id_usuario` smallint(2) NOT NULL,
+  `valoracion` tinyint(3) NOT NULL,
+  `comentario` text DEFAULT NULL,
+  `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado` char(1) NOT NULL DEFAULT 'A',
+  `usuario_crea` smallint(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_valoracion_producto`
+--
+
+INSERT INTO `tbl_valoracion_producto` (`id_valoracion`, `id_producto`, `id_usuario`, `valoracion`, `comentario`, `fecha_crea`, `estado`, `usuario_crea`) VALUES
+(1, 2, 5, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis ligula nec est eleifend pulvinar sit amet in nunc. Nam in metus quis magna luctus hendrerit. Quisque mi massa, mollis et enim vel, mattis bibendum nisl. Praesent ut bibendum purus. Fusce sollicitudin feugiat dolor. Nam quis est ut justo ultrices gravida.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis ligula nec est eleifend pulvinar sit amet in nunc. Nam in metus quis magna luctus hendrerit. Quisque mi massa, mollis et enim vel, mattis bibendum nisl. Praesent ut bibendum purus. Fusce sollicitudin feugiat dolor. Nam quis est ut justo ultrices gravida.', '2023-08-09 02:24:50', 'A', 5),
+(2, 2, 3, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur ante sed mattis facilisis. Etiam sit amet urna facilisis, sodales dolor eget, eleifend urna. Donec quis massa sed lectus bibendum semper eget in ante. Sed facilisis nibh in felis venenatis, nec pulvinar velit tincidunt. Fusce hendrerit semper metus in mattis. Aenean accumsan libero et tincidunt tempor. Quisque sollicitudin tellus dolor, eu pretium risus blandit quis. Aliquam rhoncus odio orci, non pulvinar nisl rutrum quis. Maecenas congue nibh sit amet ante semper eleifend. Sed placerat nunc enim, ut dictum neque vestibulum quis.', '2023-08-09 04:12:11', 'A', 3);
 
 -- --------------------------------------------------------
 
@@ -435,7 +460,8 @@ ALTER TABLE `tbl_param_enc`
 -- Indices de la tabla `tbl_productos`
 --
 ALTER TABLE `tbl_productos`
-  ADD PRIMARY KEY (`id_producto`);
+  ADD PRIMARY KEY (`id_producto`),
+  ADD KEY `categoria` (`categoria`);
 
 --
 -- Indices de la tabla `tbl_roles`
@@ -459,6 +485,14 @@ ALTER TABLE `tbl_usuarios`
   ADD PRIMARY KEY (`id_usuario`),
   ADD KEY `tipo_user` (`tipo_user`),
   ADD KEY `rol` (`id_rol`);
+
+--
+-- Indices de la tabla `tbl_valoracion_producto`
+--
+ALTER TABLE `tbl_valoracion_producto`
+  ADD PRIMARY KEY (`id_valoracion`),
+  ADD KEY `id_producto` (`id_producto`),
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -537,6 +571,12 @@ ALTER TABLE `tbl_usuarios`
   MODIFY `id_usuario` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `tbl_valoracion_producto`
+--
+ALTER TABLE `tbl_valoracion_producto`
+  MODIFY `id_valoracion` smallint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -560,6 +600,12 @@ ALTER TABLE `tbl_param_det`
   ADD CONSTRAINT `id_enc` FOREIGN KEY (`id_param_enc`) REFERENCES `tbl_param_enc` (`id_param_enc`) ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `tbl_productos`
+--
+ALTER TABLE `tbl_productos`
+  ADD CONSTRAINT `categoria` FOREIGN KEY (`categoria`) REFERENCES `tbl_param_det` (`id_param_det`) ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `tbl_telefonos`
 --
 ALTER TABLE `tbl_telefonos`
@@ -573,6 +619,13 @@ ALTER TABLE `tbl_telefonos`
 ALTER TABLE `tbl_usuarios`
   ADD CONSTRAINT `rol` FOREIGN KEY (`id_rol`) REFERENCES `tbl_roles` (`id_rol`) ON UPDATE CASCADE,
   ADD CONSTRAINT `tipo_user` FOREIGN KEY (`tipo_user`) REFERENCES `tbl_param_det` (`id_param_det`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `tbl_valoracion_producto`
+--
+ALTER TABLE `tbl_valoracion_producto`
+  ADD CONSTRAINT `id_producto` FOREIGN KEY (`id_producto`) REFERENCES `tbl_productos` (`id_producto`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
