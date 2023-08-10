@@ -152,10 +152,5 @@ class Productos extends BaseController
         header("Content-Length: " . filesize($rutaCompleta));
         fpassthru($fp);
     }
-    public function obtenerComentarios(){
-        $id = $this->request->getPost('id');
-        $estado = $this->request->getPost('estado');
-        $res = $this->valoracion->obtenerComentarios($id, $estado);
-        return json_encode($res);
-    }
+   
 }
