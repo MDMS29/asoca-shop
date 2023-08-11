@@ -123,7 +123,7 @@ function cargarComentarios() {
             <p class="p-comentario">${res[i].comentario}</p>
             <p class="text-secondary fecha">Fecha Publicación: ${res[i].fecha_crea.split(' ')[0]}</p>
             ${res[i].id_usuario == id_usuario
-              ? ` <button class="btn btn-outline-primary">Editar</button>
+              ? ` <button class="btn btn-outline-primary" onclick="editarComentario(${res[i].id_valoracion})">Editar</button>
                   <button class="btn btn-outline-danger">Eliminar</button>` : ''}
            
           </li>
@@ -201,3 +201,16 @@ $('#btnEnvComen').on('click', function (e) {
     }
   })
 })
+function editarComentario(idComentario){
+  $.ajax({
+    url : `${url}buscarComentario`,
+    type: 'POST',
+    dataType: 'JSON',
+    data : {
+      idComentario
+    },
+    success : function(res){
+      console.log(res)
+    }
+  })
+}

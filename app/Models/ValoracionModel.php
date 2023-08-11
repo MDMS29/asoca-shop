@@ -27,13 +27,19 @@ class ValoracionModel extends Model
 
     public function obtenerComentarios($id, $estado)
     {
-        $this->select("tbl_valoracion_producto.id_usuario, comentario, valoracion, concat(tbl_usuarios.nombre_p, ' ', tbl_usuarios.nombre_s, ' ', tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) usuario, tbl_valoracion_producto.fecha_crea");
+        $this->select("id_valoracion, tbl_valoracion_producto.id_usuario, comentario, valoracion, concat(tbl_usuarios.nombre_p, ' ', tbl_usuarios.nombre_s, ' ', tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) usuario, tbl_valoracion_producto.fecha_crea");
         $this->join('tbl_usuarios', 'tbl_usuarios.id_usuario = tbl_valoracion_producto.id_usuario');
         $this->where('tbl_valoracion_producto.id_producto', $id);
         $this->where('tbl_valoracion_producto.comentario !=', 'null');
         $this->where('tbl_valoracion_producto.estado', $estado);
         $this->orderBy('id_valoracion', 'desc');
         $data = $this->findAll();
+        return $data;
+    }
+    public function buscarComentario($id){
+        $this->select('id_valoracion, valoracion, comentario');
+        $this->where('tbl_valoracion_producto.id_valoracion', $id);
+        $data = $this->first();
         return $data;
     }
 }

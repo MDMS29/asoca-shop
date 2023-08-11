@@ -84,6 +84,7 @@ $routes->post('/cambEstadoCompra', 'Compras::cambEstadoCompra');
 
 $routes->post('/obtenerComentarios', 'Comentarios::obtenerComentarios');
 $routes->post('/insertarComen', 'Comentarios::insertar');
+$routes->post('/buscarComentario', 'Comentarios::buscarComentario');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

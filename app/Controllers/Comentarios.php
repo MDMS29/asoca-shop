@@ -43,4 +43,9 @@ class Comentarios extends BaseController
             return json_encode(2);
         }
     }
+    public function buscarComentario() {
+        $id = $this->request->getPost('idComentario');
+        $res = $this->valoracion->buscarComentario($id);
+        return json_encode($res);
+    }
 }

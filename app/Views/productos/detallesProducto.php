@@ -63,7 +63,9 @@
                         </div>
                         <textarea placeholder="Ingrese su comentario..." name="insertComent" id="insertComent" cols="30" rows="2" class="form-control"></textarea>
                         <small class="invalido d-block" id="invalidComen"></small>
-                        <button class="btn btn-success mt-2" id="btnEnvComen">Publicar</button>
+                        <div class="d-flex justify-content-end gap-2">
+                            <button class="btn btn-success mt-2" id="btnEnvComen">Publicar</button>
+                        </div>
                     </form>
                 <?php } else { ?>
                     <p>Inicia sesión y coméntanos que tal este producto... ヾ(≧▽≦*)o</p>
@@ -79,6 +81,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
     var url = '<?= base_url() ?>';
-    var id_usuario = <?= session('id')?>
+    var id_usuario = <?= session('id') ?>
 </script>
 <script src="<?= base_url('js/productos/productoDetalles.js') ?>" type="text/javascript"></script>
