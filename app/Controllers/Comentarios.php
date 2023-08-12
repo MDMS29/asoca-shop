@@ -21,9 +21,11 @@ class Comentarios extends BaseController
         $res = $this->valoracion->obtenerComentarios($id, $estado);
         return json_encode($res);
     }
-    
+
     public function insertar()
     {
+        $id = $this->request->getPost('idComen');
+        $tp = $this->request->getPost('tp');
         $valor = $this->request->getPost('valoracion');
         $comentario = $this->request->getPost('comentario');
         $producto = $this->request->getPost('producto');
@@ -37,15 +39,35 @@ class Comentarios extends BaseController
             'usuario_crea' => $usuario
         ];
 
-        if ($this->valoracion->save($dataValoracion)) {
+        if ($tp == 2) {
+            if ($this->valoracion->update($id, $dataValoracion)) {
+                return json_encode(1);
+            } else {
+                return json_encode(2);
+            }
+        } else {
+
+            if ($this->valoracion->save($dataValoracion)) {
+                return json_encode(1);
+            } else {
+                return json_encode(2);
+            }
+        }
+    }
+    public function buscarComentario()
+    {
+        $id = $this->request->getPost('idComentario');
+        $res = $this->valoracion->buscarComentario($id);
+        return json_encode($res);
+    }
+    public function camEstComen()
+    {
+        $id = $this->request->getPost('idComentario');
+        $estado = $this->request->getPost('estado');
+        if ($this->valoracion->update($id, ['estado' => $estado])) {
             return json_encode(1);
         } else {
             return json_encode(2);
         }
-    }
-    public function buscarComentario() {
-        $id = $this->request->getPost('idComentario');
-        $res = $this->valoracion->buscarComentario($id);
-        return json_encode($res);
     }
 }

@@ -10,7 +10,7 @@
             <div class="contenedor-producto">
                 <div class="swiper">
                     <div class="swiper-wrapper" id="swiper-wrapper">
-                        <!-- FOTOS DINAMICAS -->
+                        <!-- FOTOS DINÁMICAS -->
                     </div>
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
@@ -51,7 +51,6 @@
                     <form>
                         <div class="d-flex gap-2">
                             <p>Valoración: </p>
-                            <input type="hidden" name="valorCom" id="valorCom" value="">
                             <div class="rating">
                                 <i class="bi bi-star-fill star"></i>
                                 <i class="bi bi-star-fill star"></i>
@@ -61,9 +60,13 @@
                             </div>
                             <small class="invalido" id="invalidValor"></small>
                         </div>
+                        <input type="number" name="valorCom" id="valorCom" value="0" hidden>
+                        <input type="number" name="idComen" id="idComen" value="0" hidden>
+                        <input type="number" name="tp" id="tp" value="1" hidden>
                         <textarea placeholder="Ingrese su comentario..." name="insertComent" id="insertComent" cols="30" rows="2" class="form-control"></textarea>
                         <small class="invalido d-block" id="invalidComen"></small>
                         <div class="d-flex justify-content-end gap-2">
+                            <button class="btn btn-danger mt-2" id="btnCancelar" hidden>Cancelar</button>
                             <button class="btn btn-success mt-2" id="btnEnvComen">Publicar</button>
                         </div>
                     </form>
@@ -72,7 +75,7 @@
                 <?php }  ?>
             </div>
             <ul class="listado-comentarios">
-                <!-- LISTADO DINAMICO -->
+                <!-- LISTADO DINÁMICO -->
             </ul>
         </div>
     </div>
@@ -81,6 +84,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
     var url = '<?= base_url() ?>';
-    var id_usuario = <?= session('id') ?>
+    var id_usuario = <?= session('id') != 0 ? session('id') : 0 ?>
 </script>
 <script src="<?= base_url('js/productos/productoDetalles.js') ?>" type="text/javascript"></script>

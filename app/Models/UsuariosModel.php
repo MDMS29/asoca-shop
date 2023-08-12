@@ -14,7 +14,7 @@ class UsuariosModel extends Model
     protected $returnType = 'array'; /* forma en que se retornan los datos */
     protected $useSoftDeletes = false; /* si hay eliminacion fisica de registro */
 
-    protected $allowedFields = ['id_rol', 'nombre_p', 'nombre_s', 'apellido_p', 'apellido_s','tipo_user', 'tipo_documento', 'n_documento', 'direccion','duracion', 'foto', 'contrasena', 'estado', 'fecha_crea', 'usuario_crea']; /* relacion de campos de la tabla */
+    protected $allowedFields = ['id_rol', 'nombre_p', 'nombre_s', 'apellido_p', 'apellido_s','tipo_user', 'tipo_documento', 'n_documento', 'direccion', 'municipio', 'departamento','duracion', 'foto', 'contrasena', 'estado', 'fecha_crea', 'usuario_crea']; /* relacion de campos de la tabla */
 
     protected $useTimestamps = true; /*tipo de tiempo a utilizar */
     protected $createdField = 'fecha_crea'; /*fecha automatica para la creacion */
@@ -41,8 +41,9 @@ class UsuariosModel extends Model
     public function buscarUsuario($id, $nIdenti)
     {
         if ($id != 0) {
-            $this->select('tbl_usuarios.*, tbl_roles.nombre as nombre_rol, tbl_param_det.nombre as tipo_Documento');
-            $this->where('id_usuario', $id);
+            $this->select("tbl_usuarios.*, tbl_telefonos.numero, tbl_roles.nombre as nombre_rol, tbl_param_det.nombre as tipo_Documento, concat(tbl_usuarios.nombre_p,' ', tbl_usuarios.nombre_s, ' ',tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) as nomCompleto");
+            $this->where('tbl_usuarios.id_usuario', $id);
+            $this->join('tbl_telefonos', 'tbl_telefonos.id_usuario = tbl_usuarios.id_usuario');
             $this->join('tbl_roles', 'tbl_roles.id_rol = tbl_usuarios.id_rol');
             $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_usuarios.tipo_documento');
         } elseif ($nIdenti != 0) {
@@ -52,7 +53,7 @@ class UsuariosModel extends Model
         } elseif ($id != 0 && $nIdenti != 0) {
 
             $this->select('tbl_usuarios.*');
-            $this->where('id_usuario', $id);
+            $this->where('tbl_usuarios.id_usuario', $id);
             $this->where('n_documento', $nIdenti);
         }
         $data = $this->first();

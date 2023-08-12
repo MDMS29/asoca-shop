@@ -124,7 +124,7 @@ function cargarComentarios() {
             <p class="text-secondary fecha">Fecha Publicación: ${res[i].fecha_crea.split(' ')[0]}</p>
             ${res[i].id_usuario == id_usuario
               ? ` <button class="btn btn-outline-primary" onclick="editarComentario(${res[i].id_valoracion})">Editar</button>
-                  <button class="btn btn-outline-danger">Eliminar</button>` : ''}
+                  <button class="btn btn-outline-danger" onclick="eliminarComentario(${res[i].id_valoracion})">Eliminar</button>` : ''}
            
           </li>
         `
@@ -156,6 +156,8 @@ $('#btnEnvComen').on('click', function (e) {
   e.preventDefault();
   valoracion = $('#valorCom').val()
   comentario = $('#insertComent').val()
+  idComen = $('#idComen').val()
+  tp = $('#tp').val()
 
   if (valoracion == '') {
     $('#invalidValor').text('* Valor invalido *')
@@ -173,44 +175,120 @@ $('#btnEnvComen').on('click', function (e) {
     type: 'POST',
     dataType: 'JSON',
     data: {
+      idComen,
+      tp,
       valoracion,
       comentario,
       producto: id
     },
     success: function (res) {
+      cargarComentarios()
       if (res == 1) {
-        cargarComentarios()
-        Toast.fire({
-          icon: `success`,
-          title: `¡Comentario agregado con éxito!`,
-        });
+        if (tp == 2) {
+          Toast.fire({
+            icon: `success`,
+            title: `¡Se ha actualizado el comentario!`,
+          });
+        } else {
+          Toast.fire({
+            icon: `success`,
+            title: `¡Comentario agregado con éxito!`,
+          });
+        }
       } else {
         Toast.fire({
           icon: `error`,
           title: `¡Ha ocurrido un error!`,
         });
       }
+      $('#tp').val(1)
+      $('#valorCom').val(0)
+      $('#insertComent').val('')
+      $('#idComen').val(0)
+      $('#btnEnvComen').text('Publicar')
+      $('#btnCancelar').attr('hidden', '')
       stars.forEach(function (star, index) {
-        for (let i = 0; i <= index; i++) {
+        for (let i = 0; i <= 5; i++) {
           stars[i].classList.remove('checked')
         }
-
-        $('#valorCom').val(0)
-        $('#insertComent').val('')
       })
     }
   })
 })
-function editarComentario(idComentario){
+function editarComentario(idComentario) {
   $.ajax({
-    url : `${url}buscarComentario`,
+    url: `${url}buscarComentario`,
     type: 'POST',
     dataType: 'JSON',
-    data : {
+    data: {
       idComentario
     },
-    success : function(res){
-      console.log(res)
+    success: function (res) {
+      $('#valorCom').val(res.valoracion)
+      $('#tp').val(2)
+      $('#insertComent').val(res.comentario)
+      $('#idComen').val(res.id_valoracion)
+      $('#btnEnvComen').text('Actualizar')
+      $('#btnCancelar').removeAttr('hidden')
+      stars.forEach(function (star, index) {
+        index = res.valoracion
+        for (let i = 0; i <= index; i++) {
+          stars[i].classList.add('checked')
+        }
+      })
     }
   })
+}
+
+$('#insertComent').on('input', () => $('#insertComent').val() != '' ? $('#btnCancelar').removeAttr('hidden') : $('#btnCancelar').attr('hidden', ''))
+
+$('#btnCancelar').click(function (e) {
+  e.preventDefault()
+  $('#tp').val(1)
+  $('#valorCom').val(0)
+  $('#insertComent').val('')
+  $('#idComen').val(0)
+  $('#btnEnvComen').text('Publicar')
+  $('#btnCancelar').attr('hidden', '')
+  stars.forEach(function (star, index) {
+    for (let i = 0; i <= 5; i++) {
+      stars[i].classList.remove('checked')
+    }
+  })
+})
+
+function eliminarComentario(idComentario) {
+  Swal.fire({
+    title: "¿Desea eliminar este Comentario?",
+    // text: "¡Esta acción puede causar errores!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Eliminar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "POST",
+        url: `${url}camEstComen`,
+        data: {
+          idComentario,
+          estado: "I",
+        },
+      }).done(function (res) {
+        cargarComentarios()
+        if (res == 1) {
+          Toast.fire({
+            icon: `success`,
+            title: `¡Se ha eliminado el comentario!`,
+          });
+        } else {
+          Toast.fire({
+            icon: `error`,
+            title: `¡Ha ocurrido un error!`,
+          });
+        }
+      });
+    }
+  });
 }

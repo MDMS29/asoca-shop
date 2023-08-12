@@ -57,6 +57,12 @@ var tableClientes = $("#tableClientes").DataTable({
       data: "direccion",
     },
     {
+      data: "departamento",
+    },
+    {
+      data: "municipio",
+    },
+    {
       data: null,
       render: function (data, type, row) {
         return `<div class="d-flex gap-2 justify-content-center">

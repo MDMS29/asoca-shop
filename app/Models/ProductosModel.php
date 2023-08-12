@@ -27,10 +27,11 @@ class ProductosModel extends Model
 
     public function obtenerProductos($estado)
     {
-        $this->select('tbl_productos.id_producto, tbl_param_det.nombre as categoria, tbl_productos.nombre, descripcion, cantidad_actual, precio, fecha_public, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador, tbl_img_producto.nombre_img');
+        $this->select('tbl_productos.id_producto, tbl_param_det.nombre as categoria, tbl_productos.nombre, descripcion, cantidad_actual, precio, fecha_public, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador, tbl_img_producto.nombre_img, CAST(AVG(tbl_valoracion_producto.valoracion) AS INT) as valoracion');
         $this->join('tbl_usuarios', 'tbl_usuarios.id_usuario = tbl_productos.usuario_crea');
         $this->join('tbl_img_producto', 'tbl_img_producto.id_producto = tbl_productos.id_producto');
         $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_productos.categoria');
+        $this->join('tbl_valoracion_producto', 'tbl_valoracion_producto.id_producto = tbl_productos.id_producto', 'left');
         $this->where('tbl_productos.estado', $estado);
         $this->groupBy('tbl_productos.id_producto');
         $data = $this->findAll();

@@ -8,16 +8,18 @@ use App\Models\UsuariosModel;
 use App\Models\RolesModel;
 use App\Models\ModulosModel;
 use App\Models\ParamDetModel;
+use App\Models\TelefonosModel;
 
 class Usuarios extends BaseController
 {
-    protected $usuarios, $roles, $modulos, $param;
+    protected $usuarios, $roles, $modulos, $param, $telefonos;
     public function __construct()
     {
         $this->usuarios = new UsuariosModel();
         $this->roles = new RolesModel();
         $this->modulos = new ModulosModel();
         $this->param = new ParamDetModel();
+        $this->telefonos = new TelefonosModel();
     }
 
     public function login()
@@ -155,13 +157,16 @@ class Usuarios extends BaseController
         $apellidoP = $this->request->getPost('apellidoP');
         $apellidoS = $this->request->getPost('apellidoS');
         $direccion = $this->request->getPost('direccion');
+        $departamento = $this->request->getPost('departamento');
+        $municipio = $this->request->getPost('municipio');
+        $telefono = $this->request->getPost('telefono');
         $tipoDoc = $this->request->getPost('tipoDoc');
         $nIdenti = $this->request->getPost('nIdenti');
         $rol = $this->request->getVar('rol');
         $contra = $this->request->getVar('contra');
 
         $foto = $this->request->getFile('foto');
-        $res = $this->usuarios->buscarUsuario($idUser, 0);
+        $res = $this->usuarios->buscarUsuario($idUser, $nIdenti);
 
         if ($foto == null && $tp == 1) {
             $rutaImagen = 'fotoUser/default.png';
@@ -190,6 +195,8 @@ class Usuarios extends BaseController
                 'apellido_p' => $apellidoP,
                 'apellido_s' => $apellidoS,
                 'direccion' => $direccion,
+                'departamento' => $departamento,
+                'municipio' => $municipio,
                 'foto' => $rutaImagen,
                 'contrasena' => $contra
             ];
@@ -208,12 +215,25 @@ class Usuarios extends BaseController
                 'apellido_p' => $apellidoP,
                 'apellido_s' => $apellidoS,
                 'direccion' => $direccion,
+                'departamento' => $departamento,
+                'municipio' => $municipio,
                 'foto' => $rutaImagen,
                 'contrasena' => password_hash($contra, PASSWORD_DEFAULT)
             ];
-            if($this->usuarios->save($usuarioSave)){
-                return json_encode(1);
-            }else{
+            if ($this->usuarios->save($usuarioSave)) {
+                $idUsuario = $this->usuarios->getInsertID();
+                if ($this->telefonos->save([
+                    'id_usuario' => $idUsuario,
+                    'numero' => $telefono,
+                    'tipo_tel' => 'C',
+                    'prioridad_tel' => 'P',
+                    'usuario_crea' => 3
+                ])) {
+                    return json_encode(1);
+                } else {
+                    return json_encode(2);
+                }
+            } else {
                 return json_encode(2);
             };
         }
@@ -299,10 +319,12 @@ class Usuarios extends BaseController
         echo view('usuarios/eliminados', $data);
         echo view('components/footer');
     }
-    // public function contadorUsuarios()
-    // {
-    //     $id = $this->request->getPost('id');
-    //     $res = $this->usuarios->contadorUsuarios($id);
-    //     return json_encode($res);
-    // }
+    public function perfil($id)
+    {
+        $usuario = $this->usuarios->buscarUsuario($id, 0);
+        $data = ['usuario' => $usuario];
+        echo view('components/navbar');
+        echo view('usuarios/perfil', $data);
+        echo view('components/footer');
+    }
 }

@@ -54,17 +54,17 @@
 
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="#"> <i class="bi bi-person-fill-gear"></i> Perfil</a>
+                            <a class="dropdown-item" href="<?= base_url('perfil') . '/' . session('id') ?>"> <i class="bi bi-person-fill-gear"></i> Perfil</a>
                         </li>
                         <li>
                             <button class="dropdown-item" onclick="salir()"><i class="bi bi-box-arrow-right"></i> Cerrar
-                                Sesion </button>
+                                Sesión </button>
                         </li>
                     </ul>
                 </div>
             <?php } else { ?>
                 <button class="btn btn-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
-                    Iniciar Sesion
+                    Iniciar Sesión
                 </button>
 
                 <button class="btn" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop">
@@ -98,7 +98,7 @@
             </li>
         </ul> -->
         <ul id="listaProductos">
-            <!-- LISTA DINAMICA -->
+            <!-- LISTA DINÁMICA -->
         </ul>
         <a href="<?= base_url() . 'verDetallesCompra' ?>" class="btn btn-danger fw-semibold btnDetalle">Más Detalles</a>
     </aside>
@@ -152,7 +152,7 @@
 <!-- MODAL REGISTRO DE CLIENTE -->
 <form id="formularioRegistro">
     <div class="modal fade" id="modalRegistroCliente" aria-hidden="true" aria-labelledby="modalRegistroCliente" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row justify-content-center">
@@ -165,28 +165,42 @@
                                 </div>
 
                                 <form class="row g-3 needs-validation" novalidate>
-                                    <div class="col-12">
-                                        <label for="yourName" class="form-label">Primer Nombre</label>
-                                        <input type="text" name="name" class="form-control" id="primerNom" required>
+                                    <div class="col-12 d-flex gap-2 flex-wrap">
+                                        <div class="flex-grow-1">
+
+                                            <label for="yourName" class="form-label">Primer Nombre</label>
+                                            <input type="text" name="name" class="form-control" id="primerNom" required>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <label for="yourName" class="form-label">Segundo Nombre</label>
+                                            <input type="text" name="name" class="form-control" id="segundoNom">
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <label for="yourName" class="form-label">Segundo Nombre</label>
-                                        <input type="text" name="name" class="form-control" id="segundoNom">
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="yourName" class="form-label">Primer Apellido</label>
-                                        <input type="text" name="name" class="form-control" id="primerApe" required>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="yourName" class="form-label">Segundo Apellido</label>
-                                        <input type="text" name="name" class="form-control" id="segundoApe">
+                                    <div class="col-12 d-flex gap-2 flex-wrap">
+                                        <div class="flex-grow-1">
+                                            <label for="yourName" class="form-label">Primer Apellido</label>
+                                            <input type="text" name="name" class="form-control" id="primerApe" required>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <label for="yourName" class="form-label">Segundo Apellido</label>
+                                            <input type="text" name="name" class="form-control" id="segundoApe">
+                                        </div>
                                     </div>
 
-                                    <div class="col-12">
-                                        <label for="usuario" class="form-label">Documento</label>
-                                        <div class="input-group has-validation">
-                                            <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                            <input type="text" name="usuario" class="form-control" id="documento" required>
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <div class="flex-grow-1">
+                                            <label for="usuario" class="form-label">Documento</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                                <input type="text" name="usuario" class="form-control" id="documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <label for="usuario" class="form-label">Teléfono</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                                <input type="text" name="usuario" class="form-control" id="telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-12">
@@ -203,16 +217,31 @@
                                             <input type="text" class="form-control" id="numFinal" required>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                    </div>
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <div class="flex-grow-3">
+                                            <label for="departamento" class="form-label">Departamento</label>
+                                            <select name="departamento" class="form-control" id="departamento">
+                                                <!-- SELECT DINÁMICO -->
+                                            </select>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <label for="municipio" class="form-label">Municipio</label>
+                                            <select name="municipio" class="form-control" id="municipio">
+                                                <option value="" selected>-- Seleccione  --</option>
+                                                <!-- SELECT DINÁMICO -->
+                                            </select>
 
-                                    <div class="col-12">
-                                        <label for="yourPassword" class="form-label">Contraseña</label>
-                                        <input type="password" name="password" class="form-control" id="contrasenaRegis" required>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <label for="yourPassword" class="form-label">Confirmar Contraseña</label>
-                                        <input type="password" name="password" class="form-control" id="confirContrasena" required>
+                                    <div class="d-flex gap-2 flex-wrap">
+                                        <div class="flex-grow-1">
+                                            <label for="yourPassword" class="form-label">Contraseña</label>
+                                            <input type="password" name="password" class="form-control" id="contrasenaRegis" required>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <label for="yourPassword" class="form-label">Confirmar Contraseña</label>
+                                            <input type="password" name="password" class="form-control" id="confirContrasena" required>
+                                        </div>
                                     </div>
                                     <small class="invalido" id="msgContra"></small>
 
@@ -330,14 +359,18 @@
             email = $("#email").val();
             nIdenti = $("#documento").val();
             contra = $("#contrasenaRegis").val();
-            
-            
+
+
             calkra = $("#calkra").val();
             numCalkra = $("#numCalkra").val();
             numero = $("#numero").val();
             numFinal = $("#numFinal").val();
-
+            
             direccion = `${calkra} ${numCalkra} #${numero}-${numFinal}`
+            
+            departamento = $("#departamento").val();
+            municipio = $("#municipio").val();
+            telefono = $("#telefono").val();
 
             try {
                 $.ajax({
@@ -353,13 +386,16 @@
                         apellidoP,
                         apellidoS,
                         direccion,
+                        departamento,
+                        municipio,
+                        telefono,
                         nIdenti,
                         rol: 2,
                         contra,
                     },
                 }).done(function(res) {
                     if (res == 1) {
-                        mostrarMensaje('success', '¡Usuario creado con exito, ya puedes ingresar!')
+                        mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
 
                         setTimeout(() => {
                             window.location.reload();

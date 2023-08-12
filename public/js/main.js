@@ -1,4 +1,7 @@
 var carrito = [];
+var departamentos = [];
+var municipios = [];
+
 carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 let objProducto = {
   id: 0,
@@ -8,6 +11,35 @@ let objProducto = {
   img: "",
 };
 
+const cargarApiMunicipios = async () => {
+  try {
+    const data = await fetch('https://www.datos.gov.co/resource/xdk5-pm3f.json');
+    const res = await data.json();
+    const departamentosSet = new Set(); // Conjunto para almacenar departamentos únicos
+    const municipiosSet = new Set();
+
+    res.forEach(item => {
+      departamentosSet.add(item.departamento);
+      municipiosSet.add({
+        departamento: item.departamento,
+        municipio: item.municipio
+      });
+    });
+
+    departamentos = Array.from(departamentosSet); // Convertir el conjunto a un array
+    municipios = Array.from(municipiosSet);
+
+    var cadena = ''
+    cadena = ` <option value="">-- Seleccione --</option>`
+    for (let i = 0; i < departamentos.length; i++) {
+      cadena += ` <option value="${departamentos[i]}">${departamentos[i]}</option>`
+    }
+    $('#departamento').html(cadena)
+  } catch (error) {
+    console.log(error);
+  }
+}
+cargarApiMunicipios();
 
 const formatearCantidad = (cantidad) => {
   return Number(cantidad).toLocaleString("es-CO", {
@@ -49,8 +81,8 @@ const recargaCarrito = () => {
   var cadena = "";
   localStorage.setItem("carrito", JSON.stringify(carrito));
   $("#numProducs").text(`${carrito?.length}`);
-  carrito.length == 0 ? $('.btnDetalle').attr('hidden',  '') : $('.btnDetalle').removeAttr('hidden')
-  
+  carrito.length == 0 ? $('.btnDetalle').attr('hidden', '') : $('.btnDetalle').removeAttr('hidden')
+
   if (carrito.length == 0) {
     cadena += `
     <li class="text-center d-flex flex-column justify-content-center align-items-center p-3 gap-5 h-100 m-0"> 
@@ -91,3 +123,18 @@ function eliminarProducCar(id) {
   carrito = carrito.filter((item) => item.id != id);
   recargaCarrito();
 }
+
+
+$('#departamento').on('change', function () {
+  const departamento = $('#departamento').val()
+  const municipio = municipios.filter(item => item.departamento == departamento)
+
+  var cadena = ''
+  cadena = ` <option value="">-- Seleccione --</option>`
+  for (let i = 0; i < municipio.length; i++) {
+    cadena += ` <option value="${municipio[i].municipio}">${municipio[i].municipio}</option>`
+  }
+
+  $('#municipio').html(cadena)
+})
+
