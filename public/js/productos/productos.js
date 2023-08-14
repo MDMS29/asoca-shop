@@ -39,6 +39,9 @@ var tableProductos = $("#tableProductos").DataTable({
       data: "nombre",
     },
     {
+      data: "categoria",
+    },
+    {
       data: null,
       render: function (data, type, row) {
         return `<div style="max-width: 300px !important;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;"><span>${row.descripcion}</span></div>`;
@@ -99,6 +102,7 @@ function seleccionarProducto(id, tp) {
         $("#tp").val(tp);
         $("#nombre").val(res[0]["nombre"]);
         $("#nombreEdit").val(res[0]["nombre"]);
+        $("#categoria").val(res[0]["categoria"]);
         $("#descripcion").val(res[0]["descripcion"]);
         $("#precio").val(res[0]["precio"]);
         $("#cantidad").val(res[0]["cantidad_actual"]);
@@ -115,6 +119,7 @@ function seleccionarProducto(id, tp) {
     $("#tp").val(tp);
     $("#nombre").val("");
     $("#nombreEdit").val("");
+    $("#categoria").val("");
     $("#descripcion").val("");
     $("#precio").val("");
     $("#cantidad").val("");
@@ -151,20 +156,23 @@ $("#formularioProductos").submit(function (e) {
   id = $("#id").val();
   tp = $("#tp").val();
   nombre = $("#nombre").val();
+  categoria = $("#categoria").val();
   descripcion = $("#descripcion").val();
   precio = $("#precio").val();
   cantidad = $("#cantidad").val();
   fecha = $("#fecha").val();
-  if ([nombre, descripcion, precio, cantidad].includes("") || !validProduc) {
+  if ([nombre, categoria, descripcion, precio, cantidad].includes("") || !validProduc) {
     return mostrarMensaje("error", "¡Hay campos vacios o invalidos!");
   } else {
     var formData = new FormData();
     formData.append("id", id);
     formData.append("tp", tp);
     formData.append("nombre", nombre);
+    formData.append("categoria", categoria);
     formData.append("descripcion", descripcion);
     formData.append("precio", precio);
     formData.append("cantidad", cantidad);
+    formData.append("fecha", fecha);
     formData.append("foto", $("#fileInput")[0].files[0]);
     formData.append("foto1", $("#fileInput1")[0].files[0]);
     formData.append("foto2", $("#fileInput2")[0].files[0]);

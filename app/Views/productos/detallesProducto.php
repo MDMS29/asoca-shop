@@ -16,7 +16,10 @@
                     <div class="swiper-button-next"></div>
                 </div>
                 <div class="d-flex flex-column justify-content-between contenedor-info">
-                    <h3 class="text-capitalize"><?= $producto[0]['nombre'] ?></h3>
+                    <div>
+                        <h3 class="text-capitalize"><?= $producto[0]['nombre'] ?></h3>
+                        <small id="smCate" class="text-secondary"> - <?= $producto[0]['nomCate'] ?> - </small>
+                    </div>
                     <p class="descripcion"><?= $producto[0]['descripcion'] ?></p>
                     <p>Calificación: <span id="calificacion" class="fs-5 text-warning"></span></p>
                     <div class="d-flex justify-content-around cont-precio-cant">

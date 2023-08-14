@@ -46,4 +46,12 @@ class ParamDetModel extends Model
         $data = $this->findAll();
         return $data;
     }
+    public function obtenerCategoriaProd($estado)
+    {
+        $this->select('id_param_det as id, nombre');
+        $this->where('id_param_enc', '5');
+        $this->where('estado', $estado);
+        $data = $this->findAll();
+        return $data;
+    }
 }

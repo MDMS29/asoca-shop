@@ -39,8 +39,9 @@ class ProductosModel extends Model
     }
     public function buscarProducto($id, $nombre, $idUser)
     {
-        $this->select('tbl_productos.id_producto, nombre, descripcion, categoria, cantidad_actual, precio, fecha_public, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador, tbl_img_producto.nombre_img');
+        $this->select('tbl_productos.id_producto, tbl_productos.nombre, descripcion, categoria, tbl_param_det.nombre as nomCate, cantidad_actual, precio, fecha_public, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador, tbl_img_producto.nombre_img');
         $this->join('tbl_usuarios' ,'tbl_usuarios.id_usuario = tbl_productos.usuario_crea');
+        $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_productos.categoria');
         $this->join('tbl_img_producto', 'tbl_img_producto.id_producto = tbl_productos.id_producto');
         if($nombre != ''){
             $this->where('tbl_productos.nombre', $nombre);

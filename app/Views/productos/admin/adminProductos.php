@@ -4,7 +4,7 @@
         <h2 class="text-center mb-4"><i class="bi bi-box-seam-fill fs-1"></i> Administrar Productos</h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
-                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a> - <a class="toggle-vis btn" data-column="2">Descripción</a> - <a class="toggle-vis btn" data-column="6">Valoración</a>
+                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a>  - <a class="toggle-vis btn" data-column="2">Categoría</a> - <a class="toggle-vis btn" data-column="3">Descripción</a> - <a class="toggle-vis btn" data-column="7">Valoración</a>
             </div>
 
             <div class="my-3">
@@ -17,6 +17,7 @@
                     <tr>
                         <th scope="col" class="text-center">#</th>
                         <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Categoría</th>
                         <th scope="col" class="text-center">Descripción</th>
                         <th scope="col" class="text-center">Cantidad</th>
                         <th scope="col" class="text-center">Precio</th>
@@ -59,11 +60,20 @@
                     <div class="modal-body">
                         <form>
                             <div class="d-flex column-gap-3" style="width: 100%">
-                                <div class="mb-3" style="width: 100%">
+                                <div class="mb-3 flex-grow-1" style="width: 100%">
                                     <label for="nombre" class="col-form-label">Nombre:</label>
                                     <input type="text" name="nombre" class="form-control" id="nombre" oninput="this.value = this.value.replace(/[^a-zA-Zñáéíóú ]/,'')">
                                     <input type="text" name="nombreEdit" class="form-control" id="nombreEdit" hidden>
                                     <small class="invalido" id="msgNombre"></small>
+                                </div>
+                                <div class="mb-3 flex-grow-1" style="width: 100%">
+                                    <label for="nombre" class="col-form-label">Categoría:</label>
+                                    <select name="categoria" class="form-select" id="categoria">
+                                        <option value="">-- Seleccione --</option>
+                                        <?php foreach($categorias as $cate){?>
+                                            <option value="<?= $cate['id']?>"><?= $cate['nombre']?></option>
+                                        <?php }?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="d-flex column-gap-3" style="width: 100%">

@@ -7,15 +7,17 @@ use App\Controllers\BaseController;
 use App\Models\ProductosModel;
 use App\Models\ImgProductoModel;
 use App\Models\ValoracionModel;
+use App\Models\ParamDetModel;
 
 class Productos extends BaseController
 {
-    protected $producto, $imgProducto, $valoracion;
+    protected $producto, $imgProducto, $valoracion, $param;
     public function __construct()
     {
         $this->producto = new ProductosModel();
         $this->imgProducto = new ImgProductoModel();
         $this->valoracion = new ValoracionModel();
+        $this->param = new ParamDetModel();
     }
     public function obtenerProductos()
     {
@@ -25,8 +27,10 @@ class Productos extends BaseController
     }
     public function adminProductos()
     {
+        $categoria = $this->param->obtenerCategoriaProd('A');
+        $data = ['categorias' => $categoria];
         echo view('components/navbar');
-        echo view('productos/admin/adminProductos');
+        echo view('productos/admin/adminProductos', $data);
         echo view('components/footer');
     }
     public function buscarProducto()
@@ -41,26 +45,27 @@ class Productos extends BaseController
         $id = $this->request->getPost('id');
         $tp = $this->request->getPost('tp');
         $nombre = $this->request->getPost('nombre');
+        $categoria = $this->request->getPost('categoria');
         $descripcion = $this->request->getPost('descripcion');
         $precio = $this->request->getPost('precio');
         $cantidad = $this->request->getPost('cantidad');
         $fecha = $this->request->getPost('fecha');
-
         $foto = $this->request->getFile('foto');
         $foto1 = $this->request->getFile('foto1');
         $foto2 = $this->request->getFile('foto2');
 
         $fotos = ['foto' => $foto, 'foto1' => $foto1, 'foto2' => $foto2];
 
+        
         $dataProducto = [
             'nombre' => $nombre,
             'descripcion' => $descripcion,
+            'categoria' => $categoria,
             'cantidad_actual' =>  $cantidad,
             'precio' =>  $precio,
             'fecha_public' =>  $fecha == '' ? date('Y-m-d') : $fecha,
             'usuario_crea' => session('id')
         ];
-
         if ($tp == 2) {
             if ($this->producto->update($id, $dataProducto)) {
                 return json_encode(1);
@@ -73,8 +78,7 @@ class Productos extends BaseController
                 foreach ($fotos as $foto) {
                     $item = $item + 1;
                     if ($foto->isValid() && !$foto->hasMoved()) {
-
-                        $newName = $id . $foto->getName() ; //Nombre de imagen
+                        $newName = $id . $foto->getName(); //Nombre de imagen
                         $uploadPath = 'fotoProductos';
                         if (!is_dir($uploadPath)) { // Verificar si el directorio existe, si no, crearlo
                             mkdir($uploadPath, 0777, true);
@@ -152,5 +156,4 @@ class Productos extends BaseController
         header("Content-Length: " . filesize($rutaCompleta));
         fpassthru($fp);
     }
-   
 }

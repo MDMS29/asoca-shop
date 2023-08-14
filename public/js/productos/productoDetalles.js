@@ -58,12 +58,11 @@ $("#btnAddCar").on("click", function (e) {
   cantidad = $("#cantidad").val();
   imgProduc = $("#imgProduc").val();
 
-  if ([cantidad].includes("")) {
+  if (cantidad == 0 || cantidad == '') {
     return mostrarMensaje("error", "¡Ingrese una cantidad valida!");
   } else {
     objProducto = carrito.filter((item) => item.id == idProduc)[0];
     if (objProducto != undefined) {
-      // const { cantidad } = objProducto;
       let nuevaCant = Number(cantidad) + Number(objProducto.cantidad);
       carrito.filter((item) => item.id == idProduc)[0].cantidad = nuevaCant;
     } else {
@@ -81,7 +80,7 @@ $("#btnAddCar").on("click", function (e) {
       title: `¡Se ha agregado el producto "${nomProduc}"!`,
     });
     recargaCarrito();
-    $("#cantidad").val("");
+    $("#cantidad").val("0");
   }
 });
 
@@ -109,7 +108,6 @@ function cargarComentarios() {
       if (res.length == 0) {
         cadena = '<li class="comentario"><p>(～￣▽￣)～ Se el primero en comentar...</p></li>'
       } else {
-
         for (let i = 0; i < res.length; i++) {
           cadena += `
           <li class="comentario mt-3">
@@ -130,8 +128,8 @@ function cargarComentarios() {
         `
           valor = Number(valor) + Number(res[i].valoracion)
         }
+        valor = Math.round(valor / res.length)
       }
-      valor = Math.round(valor / res.length)
       $('#calificacion').text(`${puntuacion(valor)} ${valor}`)
       $('.listado-comentarios').html(cadena)
     }
