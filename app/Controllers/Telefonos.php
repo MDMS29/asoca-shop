@@ -25,10 +25,10 @@ class Telefonos extends BaseController
         $usuarioCrea = session('id');
         $data = [
             'id_usuario' => $idUsu,
-            'numero' =>"1231231231",
+            'numero' => $numero,
             'tipo_tel' => $tipoTel,
             'prioridad_tel' => $prioridad,
-            'usuario_crea' => $usuarioCrea
+            'usuario_crea' => $usuarioCrea == 0 ? 3 : session('id')
         ];
         if ($tp == 2) {
             if (strpos($idTele, 'e')) {
@@ -48,6 +48,8 @@ class Telefonos extends BaseController
         } else {
             if ($this->telefonos->save($data)) {
                 return json_encode(1);
+            }else{
+                return json_encode(2);
             }
         }
     }

@@ -159,7 +159,6 @@ class Usuarios extends BaseController
         $direccion = $this->request->getPost('direccion');
         $departamento = $this->request->getPost('departamento');
         $municipio = $this->request->getPost('municipio');
-        $telefono = $this->request->getPost('telefono');
         $tipoDoc = $this->request->getPost('tipoDoc');
         $nIdenti = $this->request->getPost('nIdenti');
         $rol = $this->request->getVar('rol');
@@ -222,17 +221,7 @@ class Usuarios extends BaseController
             ];
             if ($this->usuarios->save($usuarioSave)) {
                 $idUsuario = $this->usuarios->getInsertID();
-                if ($this->telefonos->save([
-                    'id_usuario' => $idUsuario,
-                    'numero' => $telefono,
-                    'tipo_tel' => 'C',
-                    'prioridad_tel' => 'P',
-                    'usuario_crea' => 3
-                ])) {
-                    return json_encode(1);
-                } else {
-                    return json_encode(2);
-                }
+                return json_encode($idUsuario);
             } else {
                 return json_encode(2);
             };

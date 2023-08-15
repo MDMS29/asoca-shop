@@ -28,9 +28,9 @@
 <body class="d-flex">
     <header class="fixed-top d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
-            <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark">
-                <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo tienda" width="50">
-                <h5 class="fw-semibold m-0">Asoca</h5>
+            <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark p-2">
+                <img src="<?= base_url('img/logo.png') ?>" alt="logo tienda" width="120">
+                <!-- <h5 class="fw-semibold m-0">Asoca</h5> -->
             </a>
             <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
 
@@ -189,17 +189,35 @@
 
                                     <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
+                                            <label for="usuario" class="form-label">Tipo Documento</label>
+                                            <select class="form-select" name="tipoDocumento" id="tipoDocumento">
+                                                <option value="">-- Seleccione --</option>
+                                                <?php foreach ($tipoDocs as $doc) { ?>
+                                                    <option value="<?= $doc['id'] ?>"><?= $doc['nombre'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="flex-grow-1">
                                             <label for="usuario" class="form-label">Documento</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">#</span>
                                                 <input type="text" name="usuario" class="form-control" id="documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
-                                            <label for="usuario" class="form-label">Teléfono</label>
+                                            <label for="telefono" class="form-label">Teléfono</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">#</span>
                                                 <input type="text" name="usuario" class="form-control" id="telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <label for="correo" class="form-label">Correo</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="email" name="correo" class="form-control" id="correo" required>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +235,7 @@
                                             <input type="text" class="form-control" id="numFinal" required>
                                         </div>
                                     </div>
-                                    <div class="d-flex gap-2 flex-wrap">
+                                    <div class="">
                                         <div class="flex-grow-3">
                                             <label for="departamento" class="form-label">Departamento</label>
                                             <select name="departamento" class="form-control" id="departamento">
@@ -227,7 +245,7 @@
                                         <div class="flex-grow-1">
                                             <label for="municipio" class="form-label">Municipio</label>
                                             <select name="municipio" class="form-control" id="municipio">
-                                                <option value="" selected>-- Seleccione  --</option>
+                                                <option value="" selected>-- Seleccione --</option>
                                                 <!-- SELECT DINÁMICO -->
                                             </select>
 
@@ -357,6 +375,7 @@
             apellidoP = $("#primerApe").val();
             apellidoS = $("#segundoApe").val();
             email = $("#email").val();
+            tipoDocumento = $("#tipoDocumento").val();
             nIdenti = $("#documento").val();
             contra = $("#contrasenaRegis").val();
 
@@ -365,9 +384,9 @@
             numCalkra = $("#numCalkra").val();
             numero = $("#numero").val();
             numFinal = $("#numFinal").val();
-            
+
             direccion = `${calkra} ${numCalkra} #${numero}-${numFinal}`
-            
+
             departamento = $("#departamento").val();
             municipio = $("#municipio").val();
             telefono = $("#telefono").val();
@@ -386,20 +405,41 @@
                         apellidoP,
                         apellidoS,
                         direccion,
+                        tipoDoc: tipoDocumento,
                         departamento,
                         municipio,
-                        telefono,
                         nIdenti,
                         rol: 2,
                         contra,
                     },
                 }).done(function(res) {
-                    if (res == 1) {
-                        mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
+                    if (res != 2) {
+                        $.ajax({
+                            url: `${url}insertarTelefono`,
+                            type: "POST",
+                            data: {
+                                tp: 1,
+                                idUsuario: res,
+                                idTele: 0,
+                                numero: telefono,
+                                prioridad: 'P',
+                                tipoUsu: 4,
+                                tipoTel: 15
+                            },
+                            dataType: "json",
 
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 3000)
+                            success: function(res) {
+                                if (res == 1) {
+                                    mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
+                                } else {
+
+                                    mostrarMensaje("error", "¡Ha ocurrido un error!");
+                                }
+                            },
+                        });
+                        // setTimeout(() => {
+                        //     window.location.reload();
+                        // }, 3000)
                     } else {
                         $("#contrasena").val("");
                         $("#invalid-feedback").text("¡Usuario o Contraseña incorrectos!");

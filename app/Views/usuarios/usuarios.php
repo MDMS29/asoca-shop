@@ -97,7 +97,7 @@
                                 <div class="mb-3" style="width: 100%">
                                     <label for="telefono" class="col-form-label">Telefono:</label>
                                     <div class="d-flex">
-                                        <input type="number" name="telefono" class="form-control" id="telefono" disabled>
+                                        <input type="text" name="telefono" class="form-control" id="telefonoPrin" disabled>
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#agregarTelefono" data-bs-target="#staticBackdrop" class="btn" style="border:none;background-color:gray;color:white;" title="Agregar Telefono">+</button>
                                     </div>
                                 </div>

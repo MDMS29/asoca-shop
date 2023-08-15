@@ -316,7 +316,7 @@ function seleccionarUsuario(id, tp) {
     $("#apellidoS").val("");
     $("#tipoDoc").val(1);
     $("#nIdenti").val("");
-    $("#telefono").val("");
+    $("#telefonoPrin").val("");
     $("#email").val("");
     $("#rol").val("");
     $("#contra").val("");
@@ -414,7 +414,7 @@ $("#formularioUsuarios").on("submit", function (e) {
   apellidoS = $("#apellidoS").val();
   tipoDoc = $("#tipoDoc").val();
   nIdenti = $("#nIdenti").val();
-  telefono = $("#telefono").val();
+  telefono = $("#telefonoPrin").val();
   correo = $("#correo").val();
   rol = $("#rol").val();
   contra = $("#contra").val();
@@ -625,7 +625,7 @@ $("#telefonoAdd").on("input", function (e) {
 // Funcion para mostrar telefonos en la tabla.
 function guardarTelefono() {
   principal = telefonos.filter((tel) => tel.prioridad == "P");
-  $("#telefono").val(principal[0]?.numero);
+  $("#telefonoPrin").val(principal[0]?.numero);
   var cadena;
   if (telefonos.length == 0) {
     cadena += ` <tr class="text-center">
@@ -637,7 +637,7 @@ function guardarTelefono() {
       cadena += ` <tr class="text-center" id='${telefonos[i].id}'>
                                 <td>${telefonos[i].numero}</td>
                                 <td id=${telefonos[i].tipo}>${
-        telefonos[i].tipo == 4 ? "Celular" : "Fijo"
+        telefonos[i].tipo == 15 ? "Celular" : "Fijo"
       }</td>
                                 <td id=${telefonos[i].prioridad}>${
         telefonos[i].prioridad == "S" ? "Secundaria" : "Principal"
