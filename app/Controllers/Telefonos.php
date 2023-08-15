@@ -25,7 +25,7 @@ class Telefonos extends BaseController
         $usuarioCrea = session('id');
         $data = [
             'id_usuario' => $idUsu,
-            'numero' => $numero,
+            'numero' =>"1231231231",
             'tipo_tel' => $tipoTel,
             'prioridad_tel' => $prioridad,
             'usuario_crea' => $usuarioCrea
