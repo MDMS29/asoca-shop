@@ -20,3 +20,20 @@
   /* box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.329); */
   transform: scale(1.01);
 }
+
+.container>.card:nth-child(even) {
+  align-self: flex-end;
+}
+
+.card-title, hr{
+  color: #715B64;
+}
+
+#card-categoria{
+  background-color: transparent;
+}
+
+.btn-primary{
+  background-color: #89937C;
+  border-color: #89937C;
+}
