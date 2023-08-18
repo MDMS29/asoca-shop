@@ -63,13 +63,10 @@
                     </ul>
                 </div>
             <?php } else { ?>
-                <button class="btn btn-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
-                    Iniciar Sesión
+                <button class="btn btn-outline-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
+                    Iniciar Sesión | Registrarse
                 </button>
 
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop">
-                    Registrarse
-                </button>
             <?php } ?>
 
         </div>
@@ -100,7 +97,7 @@
         <ul id="listaProductos">
             <!-- LISTA DINÁMICA -->
         </ul>
-        <a href="<?= base_url() . 'verDetallesCompra' ?>" class="btn btn-danger fw-semibold btnDetalle">Más Detalles</a>
+        <a href="<?= base_url('detalles-compra')  ?>" class="btn btn-danger fw-semibold btnDetalle">Más Detalles</a>
     </aside>
 </body>
 
@@ -129,7 +126,7 @@
 
                                     <div class="col-12">
                                         <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required autocomplete>
+                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required>
                                     </div>
 
                                     <div class="col-12 my-3">
@@ -168,60 +165,54 @@
                                     <div class="col-12 d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
 
-                                            <label for="yourName" class="form-label">Primer Nombre</label>
-                                            <input type="text" name="name" class="form-control" id="primerNom" required>
+                                            <label for="primerNom" class="form-label">Primer Nombre</label>
+                                            <input type="text" name="primerNom" class="form-control" id="primerNom" placeholder="Ingrese su Primer Nombre" required autocomplete="true">
                                         </div>
                                         <div class="flex-grow-1">
-                                            <label for="yourName" class="form-label">Segundo Nombre</label>
-                                            <input type="text" name="name" class="form-control" id="segundoNom">
+                                            <label for="segundoNom" class="form-label">Segundo Nombre</label>
+                                            <input type="text" name="segundoNom" class="form-control" id="segundoNom"  placeholder="Ingrese su Segundo Nombre" autocomplete="true">
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
-                                            <label for="yourName" class="form-label">Primer Apellido</label>
-                                            <input type="text" name="name" class="form-control" id="primerApe" required>
+                                            <label for="primerApe" class="form-label">Primer Apellido</label>
+                                            <input type="text" name="name" class="form-control" id="primerApe" placeholder="Ingrese su Primer Apellido" autocomplete="true">
                                         </div>
                                         <div class="flex-grow-1">
-                                            <label for="yourName" class="form-label">Segundo Apellido</label>
-                                            <input type="text" name="name" class="form-control" id="segundoApe">
+                                            <label for="segundoApe" class="form-label">Segundo Apellido</label>
+                                            <input type="text" name="name" class="form-control" id="segundoApe"  placeholder="Ingrese su Segundo Apellido" required autocomplete="true">
                                         </div>
                                     </div>
 
                                     <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
-                                            <label for="usuario" class="form-label">Tipo Documento</label>
+                                            <label for="tipoDocumento" class="form-label">Tipo Documento</label>
                                             <select class="form-select" name="tipoDocumento" id="tipoDocumento">
                                                 <option value="">-- Seleccione --</option>
-                                                <?php foreach ($tipoDocs as $doc) { ?>
-                                                    <option value="<?= $doc['id'] ?>"><?= $doc['nombre'] ?></option>
-                                                <?php } ?>
+                                                <option value="1">Cédula de Ciudadanía</option>
+                                                <option value="2">Cédula Extranjera</option>
+                                                <!-- < ?php foreach ($tipoDocs as $doc) { ?>
+                                                    <option value="< ?= $doc['id'] ?>">< ?= $doc['nombre'] ?></option>
+                                                < ?php } ?> -->
                                             </select>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <label for="usuario" class="form-label">Documento</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                                <input type="text" name="usuario" class="form-control" id="documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
-                                            </div>
+                                            <label for="documento" class="form-label">Documento</label>
+                                            <input type="text"name="documento" class="form-control" id="documento"  placeholder="Ingrese su N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
                                         </div>
                                     </div>
                                     <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
                                             <label for="telefono" class="form-label">Teléfono</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                                <input type="text" name="usuario" class="form-control" id="telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
-                                            </div>
+                                            <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese su N° Telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="correo" class="form-label">Correo</label>
-                                            <div class="input-group has-validation">
-                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="email" name="correo" class="form-control" id="correo" required>
-                                            </div>
+                                            <input type="email" name="correo" placeholder="Ingrese su Correo Electrónico" class="form-control" id="correo" required>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <!-- <div class="col-12">
                                         <label for="usuario" class="form-label">Dirección</label>
                                         <div class="input-group has-validation">
                                             <select class="input-group-text text-center" id="calkra">
@@ -234,31 +225,31 @@
                                             <span class="input-group-text" id="inputGroupPrepend">-</span>
                                             <input type="text" class="form-control" id="numFinal" required>
                                         </div>
-                                    </div>
-                                    <div class="">
+                                    </div> -->
+                                    <!-- <div class="">
                                         <div class="flex-grow-3">
                                             <label for="departamento" class="form-label">Departamento</label>
                                             <select name="departamento" class="form-control" id="departamento">
-                                                <!-- SELECT DINÁMICO -->
+                                                SELECT DINÁMICO
                                             </select>
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="municipio" class="form-label">Municipio</label>
                                             <select name="municipio" class="form-control" id="municipio">
                                                 <option value="" selected>-- Seleccione --</option>
-                                                <!-- SELECT DINÁMICO -->
+                                                 SELECT DINÁMICO 
                                             </select>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
-                                            <label for="yourPassword" class="form-label">Contraseña</label>
-                                            <input type="password" name="password" class="form-control" id="contrasenaRegis" required>
+                                            <label for="contrasenaRegis" class="form-label">Contraseña</label>
+                                            <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis"  placeholder="Ingrese su Contraseña" required>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <label for="yourPassword" class="form-label">Confirmar Contraseña</label>
-                                            <input type="password" name="password" class="form-control" id="confirContrasena" required>
+                                            <label for="confirContrasena" class="form-label">Confirmar Contraseña</label>
+                                            <input type="password"  name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
                                         </div>
                                     </div>
                                     <small class="invalido" id="msgContra"></small>

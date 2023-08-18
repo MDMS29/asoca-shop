@@ -8,7 +8,7 @@
             </div>
 
             <div class="my-3">
-                <a href="<?= base_url('adminProduc') ?>" class="btn btn-primary"> <i class="bi bi-box-seam-fill "></i> Productos</a>
+                <a href="<?= base_url('admin-productos') ?>" class="btn btn-primary"> <i class="bi bi-box-seam-fill "></i> Productos</a>
             </div>
 
             <table class="table table-striped" id="tableProductos" width="100%" cellspacing="0">

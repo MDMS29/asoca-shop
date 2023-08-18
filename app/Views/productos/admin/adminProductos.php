@@ -9,7 +9,7 @@
 
             <div class="my-3">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarProducto" onclick="seleccionarProducto(0,1)"><i class="bi bi-plus-lg"></i> Agregar</button>
-                <a href="<?= base_url('adminProductosEliminados') ?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
+                <a href="<?= base_url('admin-productos-eliminados') ?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
             </div>
 
             <table class="table table-striped" id="tableProductos" width="100%" cellspacing="0">

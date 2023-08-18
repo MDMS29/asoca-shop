@@ -1,6 +1,5 @@
 var carrito = [];
-var departamentos = [];
-var municipios = [];
+
 
 carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 let objProducto = {
@@ -10,36 +9,6 @@ let objProducto = {
   cantidad: 0,
   img: "",
 };
-
-const cargarApiMunicipios = async () => {
-  try {
-    const data = await fetch('https://www.datos.gov.co/resource/xdk5-pm3f.json');
-    const res = await data.json();
-    const departamentosSet = new Set(); // Conjunto para almacenar departamentos únicos
-    const municipiosSet = new Set();
-
-    res.forEach(item => {
-      departamentosSet.add(item.departamento);
-      municipiosSet.add({
-        departamento: item.departamento,
-        municipio: item.municipio
-      });
-    });
-
-    departamentos = Array.from(departamentosSet); // Convertir el conjunto a un array
-    municipios = Array.from(municipiosSet);
-
-    var cadena = ''
-    cadena = ` <option value="">-- Seleccione --</option>`
-    for (let i = 0; i < departamentos.length; i++) {
-      cadena += ` <option value="${departamentos[i]}">${departamentos[i]}</option>`
-    }
-    $('#departamento').html(cadena)
-  } catch (error) {
-    console.log(error);
-  }
-}
-cargarApiMunicipios();
 
 const formatearCantidad = (cantidad) => {
   return Number(cantidad).toLocaleString("es-CO", {

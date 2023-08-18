@@ -41,7 +41,7 @@ $routes->post('/buscarUsuario/(:num)/(:num)', 'Usuarios::buscarUsuario/$1/$2');
 $routes->post('/camEstUsuario', 'Usuarios::cambiarEstado');
 $routes->post('/camContraUser', 'Usuarios::cambiarContrasena');
 
-$routes->get('/usuEliminados', 'Usuarios::eliminados');
+$routes->get('/usuarios-eliminados', 'Usuarios::eliminados');
 
 $routes->get('/clientes', 'Clientes::index');
 
@@ -57,28 +57,28 @@ $routes->post('/obtenerEmailUser/(:num)', 'Email::obtenerEmailUser/$1');
 $routes->post('/buscarEmail/(:any)/(:num)', 'Email::buscarEmail/$1/$2');
 $routes->post('/eliminarEmail/(:num)', 'Email::eliminarEmail/$1');
 
-$routes->get('/adminProduc', 'Productos::adminProductos');
+$routes->get('/admin-productos', 'Productos::adminProductos');
 $routes->post('/obtenerProductos', 'Productos::obtenerProductos');
 $routes->post('/buscarProducto', 'Productos::buscarProducto');
 $routes->post('/insertarProducto', 'Productos::insertar');
 $routes->post('/camEstProducto', 'Productos::cambiarEstado');
 
-$routes->get('/adminProductosEliminados', 'Productos::adminProductosEliminados');
-$routes->get('/verDetallesProducto/(:num)', 'Productos::verDetallesProducto/$1');
+$routes->get('/admin-productos-eliminados', 'Productos::adminProductosEliminados');
+$routes->get('/detalles-producto/(:num)', 'Productos::verDetallesProducto/$1');
 
 $routes->post('/urlImg', 'Productos::urlImg');
 $routes->get('/imagenesProducto/(:any)', 'Productos::imagenesProducto/$1');
 
-$routes->get('/verDetallesCompra', 'Compras::verDetallesCompra');
+$routes->get('/detalles-compra', 'Compras::verDetallesCompra');
 $routes->post('/confirCompra', 'Compras::insertar');
 
-$routes->get('/comprasRealizadas', 'Compras::verComprasRealizadas');
+$routes->get('/compras-realizadas', 'Compras::verComprasRealizadas');
 $routes->post('/obtenerComprasRealizadas', 'Compras::obtenerComprasRealizadas');
 $routes->post('/detallesCompra', 'Compras::detallesCompra');
 $routes->post('/cancelCompra', 'Compras::cancelCompra');
 $routes->post('/actuaDetCompra', 'Compras::actuaDetCompra');
 
-$routes->get('/adminCompras', 'Compras::administrarCompras');
+$routes->get('/admin-compras', 'Compras::administrarCompras');
 $routes->post('/confirProduc', 'Compras::confirProduc');
 $routes->post('/cambEstadoCompra', 'Compras::cambEstadoCompra');
 

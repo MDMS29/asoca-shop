@@ -24,7 +24,7 @@
                     res.forEach(element => {
                         var foto = `${url}imagenesProducto/${element.nombre_img}`;
                         cadena += `
-                        <article onclick="window.location.href='<?= base_url('verDetallesProducto/') ?>${element.id_producto}'" class="card mb-3 producto">
+                        <article onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card mb-3 producto">
                             <div class="row g-0">
                                 <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
                                     <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">

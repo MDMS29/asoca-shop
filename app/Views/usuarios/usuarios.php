@@ -9,7 +9,7 @@
 
             <div class="my-3">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarUsuario" onclick="seleccionarUsuario(0,1)"><i class="bi bi-plus-lg"></i> Agregar</button>
-                <a href="<?= base_url('usuEliminados') ?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
+                <a href="<?= base_url('usuarios-eliminados') ?>" class="btn btn-danger"> <i class="bi bi-trash3-fill"></i> Eliminados</a>
             </div>
 
             <table class="table table-striped" id="tableUsuarios" width="100%" cellspacing="0">

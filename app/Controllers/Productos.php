@@ -120,7 +120,7 @@ class Productos extends BaseController
     public function adminProductosEliminados()
     {
         echo view('components/navbar');
-        echo view('productos/adminProductosEliminados');
+        echo view('productos/admin/adminProductosEliminados');
         echo view('components/footer');
     }
     public function verDetallesProducto($id)
