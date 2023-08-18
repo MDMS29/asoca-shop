@@ -1,5 +1,37 @@
 var carrito = [];
+var departamentos = [];
+var municipios = [];
 
+
+const cargarApiMunicipios = async () => {
+  try {
+    const data = await fetch('https://www.datos.gov.co/resource/xdk5-pm3f.json');
+    const res = await data.json();
+    const departamentosSet = new Set(); // Conjunto para almacenar departamentos únicos
+    const municipiosSet = new Set();
+
+    res.forEach(item => {
+      departamentosSet.add(item.departamento);
+      municipiosSet.add({
+        departamento: item.departamento,
+        municipio: item.municipio
+      });
+    });
+
+    departamentos = Array.from(departamentosSet); // Convertir el conjunto a un array
+    municipios = Array.from(municipiosSet);
+
+    var cadena = ''
+    cadena = ` <option value="">-- Seleccione --</option>`
+    for (let i = 0; i < departamentos.length; i++) {
+      cadena += ` <option value="${departamentos[i]}">${departamentos[i]}</option>`
+    }
+    $('#departamento').html(cadena)
+  } catch (error) {
+    console.log(error);
+  }
+}
+cargarApiMunicipios();
 
 carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 let objProducto = {
@@ -77,8 +109,7 @@ const recargaCarrito = () => {
             </div>
             <div class="d-flex mt-1">
               <a href="${url}verDetallesCompra" class="flex-grow-1 btn btn-primary" style="color:white !important;border-radius:0;"><i class="bi bi-pencil-square"></i> Editar</a>
-              <button onclick="eliminarProducCar(${element.id
-        })" class="flex-grow-1 btn btn-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
+              <button onclick="eliminarProducCar(${element.id})" class="flex-grow-1 btn btn-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
             </div>
           </li>
           `;

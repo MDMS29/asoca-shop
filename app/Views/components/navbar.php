@@ -212,36 +212,36 @@
                                             <input type="email" name="correo" placeholder="Ingrese su Correo Electrónico" class="form-control" id="correo" required>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-12">
+                                   <div class="col-12">
                                         <label for="usuario" class="form-label">Dirección</label>
                                         <div class="input-group has-validation">
                                             <select class="input-group-text text-center" id="calkra">
                                                 <option value="Kra">Kra</option>
                                                 <option value="Calle">Calle</option>
                                             </select>
-                                            <input type="text" class="form-control" id="numCalkra" required>
+                                            <input type="text" class="form-control" id="numCalkra" placeholder="ej: 12A" required>
                                             <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                            <input type="text" class="form-control" id="numero" required>
+                                            <input type="text" class="form-control" id="numero" placeholder="ej: 34B" required>
                                             <span class="input-group-text" id="inputGroupPrepend">-</span>
-                                            <input type="text" class="form-control" id="numFinal" required>
+                                            <input type="text" class="form-control" id="numFinal" placeholder="ej: 56" required>
                                         </div>
-                                    </div> -->
-                                    <!-- <div class="">
+                                    </div> 
+                                    <div class="">
                                         <div class="flex-grow-3">
                                             <label for="departamento" class="form-label">Departamento</label>
                                             <select name="departamento" class="form-control" id="departamento">
-                                                SELECT DINÁMICO
+                                                <!-- SELECT DINÁMICO -->
                                             </select>
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="municipio" class="form-label">Municipio</label>
                                             <select name="municipio" class="form-control" id="municipio">
                                                 <option value="" selected>-- Seleccione --</option>
-                                                 SELECT DINÁMICO 
+                                                 <!-- SELECT DINÁMICO  -->
                                             </select>
 
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
                                             <label for="contrasenaRegis" class="form-label">Contraseña</label>
