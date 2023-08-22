@@ -310,8 +310,10 @@ class Usuarios extends BaseController
     }
     public function perfil($id)
     {
+        $locale = $this->request->getLocale();
+        echo $locale;
         $usuario = $this->usuarios->buscarUsuario($id, 0);
-        $data = ['usuario' => $usuario];
+        $data = ['usuario' => $usuario, 'ruta' => $locale];
         echo view('components/navbar');
         echo view('usuarios/perfil', $data);
         echo view('components/footer');

@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="d-flex">
+<body class="d-flex relative">
     <header class="fixed-top d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
             <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark p-2">
@@ -170,7 +170,7 @@
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="segundoNom" class="form-label">Segundo Nombre</label>
-                                            <input type="text" name="segundoNom" class="form-control" id="segundoNom"  placeholder="Ingrese su Segundo Nombre" autocomplete="true">
+                                            <input type="text" name="segundoNom" class="form-control" id="segundoNom" placeholder="Ingrese su Segundo Nombre" autocomplete="true">
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex gap-2 flex-wrap">
@@ -180,7 +180,7 @@
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="segundoApe" class="form-label">Segundo Apellido</label>
-                                            <input type="text" name="name" class="form-control" id="segundoApe"  placeholder="Ingrese su Segundo Apellido" required autocomplete="true">
+                                            <input type="text" name="name" class="form-control" id="segundoApe" placeholder="Ingrese su Segundo Apellido" required autocomplete="true">
                                         </div>
                                     </div>
 
@@ -198,7 +198,7 @@
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="documento" class="form-label">Documento</label>
-                                            <input type="text"name="documento" class="form-control" id="documento"  placeholder="Ingrese su N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                            <input type="text" name="documento" class="form-control" id="documento" placeholder="Ingrese su N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
                                         </div>
                                     </div>
                                     <div class="d-flex gap-2 flex-wrap">
@@ -212,7 +212,7 @@
                                             <input type="email" name="correo" placeholder="Ingrese su Correo Electrónico" class="form-control" id="correo" required>
                                         </div>
                                     </div>
-                                   <div class="col-12">
+                                    <div class="col-12">
                                         <label for="usuario" class="form-label">Dirección</label>
                                         <div class="input-group has-validation">
                                             <select class="input-group-text text-center" id="calkra">
@@ -225,7 +225,7 @@
                                             <span class="input-group-text" id="inputGroupPrepend">-</span>
                                             <input type="text" class="form-control" id="numFinal" placeholder="ej: 56" required>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="">
                                         <div class="flex-grow-3">
                                             <label for="departamento" class="form-label">Departamento</label>
@@ -237,7 +237,7 @@
                                             <label for="municipio" class="form-label">Municipio</label>
                                             <select name="municipio" class="form-control" id="municipio">
                                                 <option value="" selected>-- Seleccione --</option>
-                                                 <!-- SELECT DINÁMICO  -->
+                                                <!-- SELECT DINÁMICO  -->
                                             </select>
 
                                         </div>
@@ -245,11 +245,11 @@
                                     <div class="d-flex gap-2 flex-wrap">
                                         <div class="flex-grow-1">
                                             <label for="contrasenaRegis" class="form-label">Contraseña</label>
-                                            <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis"  placeholder="Ingrese su Contraseña" required>
+                                            <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis" placeholder="Ingrese su Contraseña" required>
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="confirContrasena" class="form-label">Confirmar Contraseña</label>
-                                            <input type="password"  name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
+                                            <input type="password" name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
                                         </div>
                                     </div>
                                     <small class="invalido" id="msgContra"></small>
@@ -365,7 +365,7 @@
             nombreS = $("#segundoNom").val();
             apellidoP = $("#primerApe").val();
             apellidoS = $("#segundoApe").val();
-            email = $("#email").val();
+            correo = $("#correo").val();
             tipoDocumento = $("#tipoDocumento").val();
             nIdenti = $("#documento").val();
             contra = $("#contrasenaRegis").val();
@@ -419,18 +419,33 @@
                             },
                             dataType: "json",
 
-                            success: function(res) {
-                                if (res == 1) {
-                                    mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
-                                } else {
-
-                                    mostrarMensaje("error", "¡Ha ocurrido un error!");
-                                }
+                            success: function(r) {
+                                $.ajax({
+                                    url: `${url}insertarCorreo`,
+                                    type: "POST",
+                                    data: {
+                                        tp: 1,
+                                        idCorreo: 0,
+                                        idUsuario: res,
+                                        correo: correo,
+                                        prioridad: 'P',
+                                    },
+                                    dataType: "json",
+                                    success: function(data) {
+        
+                                        if (data == 1) {
+                                            mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
+                                            $('#modalRegistroCliente').modal('hide')
+                                        } else {
+                                            mostrarMensaje("error", "¡Ha ocurrido un error!");
+                                        }
+                                    }
+                                })
                             },
                         });
-                        // setTimeout(() => {
-                        //     window.location.reload();
-                        // }, 3000)
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000)
                     } else {
                         $("#contrasena").val("");
                         $("#invalid-feedback").text("¡Usuario o Contraseña incorrectos!");

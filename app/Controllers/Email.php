@@ -21,13 +21,12 @@ class Email extends BaseController
         $idUsu = $this->request->getPost('idUsuario');
         $email = $this->request->getPost('correo');
         $prioridad = $this->request->getPost('prioridad');
-        $usuarioCrea = session('id');
+        $usuarioCrea = session('id') != 0 ? session('id') : 3;
         $data = [
             'id_usuario' => $idUsu,
             'correo' => $email,
             'prioridad_crr' => $prioridad,
             'usuario_crea' => $usuarioCrea
-            
         ];
         if ($tp == 2) {
             if (strpos($idCorreo, 'e')) { 

@@ -30,9 +30,9 @@ class UsuariosModel extends Model
         $this->select('tbl_usuarios.*, tbl_param_det.resumen as doc_res, tbl_roles.nombre as nombre_rol');
         $this->join('tbl_roles', 'tbl_roles.id_rol = tbl_usuarios.id_rol');
         $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_usuarios.tipo_documento');
-        // $this->orderBy('tbl_usuarios.id_usuario', 'desc');
+        $this->orderBy('tbl_usuarios.id_usuario', 'desc');
         $this->where('tbl_usuarios.tipo_user', $tipoUser);
-        // $this->where('tbl_usuarios.estado', $estado);
+        $this->where('tbl_usuarios.estado', $estado);
         $data = $this->findAll();
         return $data;
     }
@@ -41,8 +41,9 @@ class UsuariosModel extends Model
     public function buscarUsuario($id, $nIdenti)
     {
         if ($id != 0) {
-            $this->select("tbl_usuarios.*, tbl_telefonos.numero, tbl_roles.nombre as nombre_rol, tbl_param_det.nombre as tipo_Documento, concat(tbl_usuarios.nombre_p,' ', tbl_usuarios.nombre_s, ' ',tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) as nomCompleto");
-            $this->join('tbl_telefonos', 'tbl_telefonos.id_usuario = tbl_usuarios.id_usuario');
+            $this->select("tbl_usuarios.*,tbl_correos.correo, tbl_telefonos.numero, tbl_roles.nombre as nombre_rol, tbl_param_det.nombre as tipo_Documento, concat(tbl_usuarios.nombre_p,' ', tbl_usuarios.nombre_s, ' ',tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) as nomCompleto");
+            $this->join('tbl_correos', 'tbl_correos.id_usuario = tbl_usuarios.id_usuario', 'left');
+            $this->join('tbl_telefonos', 'tbl_telefonos.id_usuario = tbl_usuarios.id_usuario', 'left');
             $this->join('tbl_roles', 'tbl_roles.id_rol = tbl_usuarios.id_rol');
             $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_usuarios.tipo_documento');
             $this->where('tbl_usuarios.id_usuario', $id);

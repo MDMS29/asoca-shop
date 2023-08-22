@@ -415,7 +415,7 @@ $("#formularioUsuarios").on("submit", function (e) {
   tipoDoc = $("#tipoDoc").val();
   nIdenti = $("#nIdenti").val();
   telefono = $("#telefonoPrin").val();
-  correo = $("#correo").val();
+  let correo = $("#email").val();
   rol = $("#rol").val();
   contra = $("#contra").val();
   confirContra = $("#confirContra").val();
@@ -482,11 +482,11 @@ $("#formularioUsuarios").on("submit", function (e) {
       correos.forEach((correo) => {
         //Insertar Correos
         formData.append("tp", tp);
-        formData.append("idUsuario", data);
         formData.append("idCorreo", correo.id);
+        formData.append("idUsuario", data);
         formData.append("correo", correo.correo);
         formData.append("prioridad", correo.prioridad);
-        formData.append("tipoUsu", 7);
+        // formData.append("tipoUsu", 7);
         $.ajax({
           url: `${url}insertarCorreo`,
           type: "POST",
@@ -636,21 +636,16 @@ function guardarTelefono() {
     for (let i = 0; i < telefonos.length; i++) {
       cadena += ` <tr class="text-center" id='${telefonos[i].id}'>
                                 <td>${telefonos[i].numero}</td>
-                                <td id=${telefonos[i].tipo}>${
-        telefonos[i].tipo == 15 ? "Celular" : "Fijo"
-      }</td>
-                                <td id=${telefonos[i].prioridad}>${
-        telefonos[i].prioridad == "S" ? "Secundaria" : "Principal"
-      }</td>  
+                                <td id=${telefonos[i].tipo}>${telefonos[i].tipo == 15 ? "Celular" : "Fijo"
+        }</td>
+                                <td id=${telefonos[i].prioridad}>${telefonos[i].prioridad == "S" ? "Secundaria" : "Principal"
+        }</td>  
           <td>
-              <button class="btn  btn-outline-primary" id="btnEditarTel${
-                telefonos[i].id
-              }" onclick="editarTelefono('${
-        telefonos[i].id
-      }')" title="Editar Telefono"> <i class="bi bi-pencil-square"></i> </button>
-              <button class="btn  btn-outline-danger" onclick="eliminarTel('${
-                telefonos[i].id
-              }')"><i class="bi bi-trash3-fill"></i></td>
+              <button class="btn  btn-outline-primary" id="btnEditarTel${telefonos[i].id
+        }" onclick="editarTelefono('${telefonos[i].id
+        }')" title="Editar Telefono"> <i class="bi bi-pencil-square"></i> </button>
+              <button class="btn  btn-outline-danger" onclick="eliminarTel('${telefonos[i].id
+        }')"><i class="bi bi-trash3-fill"></i></td>
                             </tr>`;
     }
   }
@@ -771,16 +766,13 @@ function guardarCorreo() {
     for (let i = 0; i < correos.length; i++) {
       cadena += ` <tr class="text-center" id='c${correos[i].id}'>
                       <td>${correos[i].correo}</td>
-                      <td id=${correos[i].prioridad} >${
-        correos[i].prioridad == "S" ? "Secundaria" : "Principal"
-      }</td>
+                      <td id=${correos[i].prioridad} >${correos[i].prioridad == "S" ? "Secundaria" : "Principal"
+        }</td>
                       <td>
-                          <button class="btn btn-outline-primary" onclick="editarCorreo('${
-                            correos[i].id
-                          }')" title="Editar Correo"><i class="bi bi-pencil-square"></i></button>
-                          <button class="btn btn-outline-danger" onclick="eliminarCorreo('${
-                            correos[i].id
-                          }')"><i class="bi bi-trash3-fill"></i> </button>
+                          <button class="btn btn-outline-primary" onclick="editarCorreo('${correos[i].id
+        }')" title="Editar Correo"><i class="bi bi-pencil-square"></i></button>
+                          <button class="btn btn-outline-danger" onclick="eliminarCorreo('${correos[i].id
+        }')"><i class="bi bi-trash3-fill"></i> </button>
                       </td>
                   </tr>`;
     }

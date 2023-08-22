@@ -108,7 +108,7 @@ const recargaCarrito = () => {
               </div>
             </div>
             <div class="d-flex mt-1">
-              <a href="${url}verDetallesCompra" class="flex-grow-1 btn btn-primary" style="color:white !important;border-radius:0;"><i class="bi bi-pencil-square"></i> Editar</a>
+              <a href="${url}detalles-compra" class="flex-grow-1 btn btn-primary" style="color:white !important;border-radius:0;"><i class="bi bi-pencil-square"></i> Editar</a>
               <button onclick="eliminarProducCar(${element.id})" class="flex-grow-1 btn btn-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
             </div>
           </li>
