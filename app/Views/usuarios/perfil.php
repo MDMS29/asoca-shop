@@ -7,10 +7,10 @@
                     <div class="card mb-4">
                         <div class="card-body text-center">
                             <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                            <h5 class="my-3"><?= $usuario['nombre_p'] . ' ' . $usuario['apellido_p']?></h5>
-                            <p class="text-muted mb-1"><?= $usuario['nombre_rol']?></p>
+                            <h5 class="my-3"><?= $usuario['nombre_p'] ?></h5>
+                            <!-- <p class="text-muted mb-1">< ?= $usuario['nombre_rol']?></p> -->
                             <div class="d-flex justify-content-center mb-2">
-                                <button type="button" class="btn btn-primary">Actualizar Perfil</button>
+                                <button type="button" class="btn btn-primary" onclick="">Actualizar Perfil</button>
                                 <button type="button" class="btn btn-outline-primary ms-1">Cambiar Contraseña</button>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                     <p class="mb-0">Nombre Completo</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><?= $usuario['nomCompleto'] ?></p>
+                                    <!-- <p class="text-muted mb-0">< ?= $usuario['nomCompleto'] ?></p> -->
                                 </div>
                             </div>
                             <hr>
@@ -77,7 +77,7 @@
                                     <p class="mb-0">Teléfono</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><?= $usuario['numero'] ?></p>
+                                    <!-- <p class="text-muted mb-0">< ?= $usuario['numero'] ?></p> -->
                                 </div>
                             </div>
                             <hr>
@@ -86,7 +86,7 @@
                                     <p class="mb-0">Dirección</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p class="text-muted mb-0"><?= $usuario['direccion'] ?></p>
+                                    <!-- <p class="text-muted mb-0">< ?= $usuario['direccion'] ?></p> -->
                                 </div>
                             </div>
                         </div>

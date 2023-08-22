@@ -42,16 +42,16 @@ class UsuariosModel extends Model
     {
         if ($id != 0) {
             $this->select("tbl_usuarios.*, tbl_telefonos.numero, tbl_roles.nombre as nombre_rol, tbl_param_det.nombre as tipo_Documento, concat(tbl_usuarios.nombre_p,' ', tbl_usuarios.nombre_s, ' ',tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) as nomCompleto");
-            $this->where('tbl_usuarios.id_usuario', $id);
             $this->join('tbl_telefonos', 'tbl_telefonos.id_usuario = tbl_usuarios.id_usuario');
             $this->join('tbl_roles', 'tbl_roles.id_rol = tbl_usuarios.id_rol');
             $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_usuarios.tipo_documento');
+            $this->where('tbl_usuarios.id_usuario', $id);
         } elseif ($nIdenti != 0) {
             $this->select("tbl_usuarios.*, concat(tbl_usuarios.nombre_p,' ', tbl_usuarios.nombre_s, ' ',tbl_usuarios.apellido_p, ' ', tbl_usuarios.apellido_s) as nomCompleto, tbl_roles.nombre as nombre_rol, tbl_roles.id_rol as idRol");
             $this->where('n_documento', $nIdenti);
             $this->join('tbl_roles', 'tbl_roles.id_rol = tbl_usuarios.id_rol');
         } elseif ($id != 0 && $nIdenti != 0) {
-
+            
             $this->select('tbl_usuarios.*');
             $this->where('tbl_usuarios.id_usuario', $id);
             $this->where('n_documento', $nIdenti);
