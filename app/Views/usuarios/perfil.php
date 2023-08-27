@@ -6,7 +6,7 @@
                     <div class="card mb-4">
                         <div class="card-body text-center">
                             <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-                            <h5 class="my-3"><?= $usuario['nombre_p'] . ' ' . $usuario['apellido_p'] ?></h5>
+                            <h5 class="my-3 fw-semibold"><?= $usuario['nombre_p'] . ' ' . $usuario['apellido_p'] ?></h5>
                             <p class="text-muted mb-1"><?= $usuario['nombre_rol'] ?></p>
                             <div class="d-flex justify-content-center mb-2">
                                 <button type="button" class="btn btn-primary" data-bs-target="#modalActualizarPerfil" data-bs-toggle="modal" onclick="seleccionarUsuario(<?= $usuario['id_usuario'] ?>)">Actualizar Perfil</button>

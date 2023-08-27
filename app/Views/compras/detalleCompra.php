@@ -1,14 +1,14 @@
 <link rel="stylesheet" href="<?= base_url('css/compras/detallesCompra.css') ?>">
 <div class="contenedor">
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2>Detalles de Compra</h2>
+        <h2 class="fw-semibold">Detalles de Compra</h2>
         <div class="d-flex gap-5">
             <div id="contenedorListado">
                 <input type="number" id="id" value="0" hidden>
                 <!-- LISTADO DINAMICO -->
             </div>
             <div class="precioTotal">
-                <h4 class="text-center p-3"><i class="bi bi-basket2-fill"></i> Total Productos</h4>
+                <h4 class="text-center p-3 fw-semibold"> Total Productos</h4>
                 <div id="info" class="d-flex justify-content-around flex-column h-100 p-4">
                     <!-- INFORMACION DINAMICA -->
                 </div>
@@ -42,7 +42,7 @@
                             <label>Precio: </label>
                             <p>${formatearCantidad(element.precio)} COP</p>
                             <p>Cantidad: 
-                                <input class="cantidad" id="${element.id}" class="text-center" type="number" value="${element.cantidad}" style="width:70px"/>
+                                <input class="cantidad px-2" id="${element.id}" class="text-center" type="number" value="${element.cantidad}" style="width:70px"/>
                                 <small class="invalido" id="in${element.id}"></small>
                             </p>
                         </div>
@@ -50,7 +50,7 @@
                     <div class="d-flex mt-1">
                     <button onclick="eliminarProducCar(${
                         element.id
-                    })" class="flex-grow-1 btn btn-outline-danger" style="border-radius:0;"><i class="bi bi-trash3-fill"></i> Eliminar</button>
+                    })" class="flex-grow-1 btn text-danger fs-5" style="border-radius:0;" title="Eliminar Producto"><i class="bi bi-trash3-fill"></i></button>
                     </div>
                 </div>`;
                 precioProduc = Number(element.precio) * Number(element.cantidad);

@@ -9,7 +9,6 @@ const Toast = Swal.mixin({
 
   },
 });
-
 $.ajax({
   url: `${url}buscarProducto`,
   type: "POST",
@@ -36,6 +35,7 @@ $.ajax({
                         <img src="${foto}" class="d-block" alt="imagen producto">
                     </div> `;
       $("#swiper-wrapper").html(cadena);
+
       const swiper = new Swiper(".swiper", {
         autoplay: {
           delay: 2500,
@@ -47,6 +47,8 @@ $.ajax({
           prevEl: ".swiper-button-prev",
         },
       });
+
+
     }
   },
 });
@@ -83,7 +85,55 @@ $("#btnAddCar").on("click", function (e) {
     $("#cantidad").val("0");
   }
 });
+$.ajax({
+  url: `${url}obtenerProductos`,
+  type: 'POST',
+  dataType: 'json',
+  data: {
+    estado: 'A'
+  },
+  success: function (res) {
+    var cadena = '';
+    switch (res.length) {
+      case 0:
+        cadena += `<div class="container text-center">NO HAY PRODUCTOS EN ESTE MOMENTO</div>`
+        break;
 
+      default:
+        res.forEach(element => {
+          var foto = `${url}imagenesProducto/${element.nombre_img}`;
+          cadena += `
+                  <article onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card mb-3 producto">
+                      <div class="row g-0">
+                          <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
+                              <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
+                          </div>
+                          <div class="card-body text-center">
+                              <h5 class="card-title text-capitalize fw-bold" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
+                              <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
+                              <small class="text-secondary">-${element.categoria}-</small>
+                          </div>
+                      </div>
+                  </article>`
+        });
+        break;
+    }
+
+    $('#swiper-similares').html(cadena)
+
+    const swiper2 = new Swiper(".swiper-similares", {
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      direction: "horizontal",
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  }
+})
 const puntuacion = (rating) => {
   const startIcon = '★'
   const emptyIcon = '☆'
@@ -92,7 +142,6 @@ const puntuacion = (rating) => {
   const empty = emptyIcon.repeat(total - rating)
   return stars + empty
 }
-
 function cargarComentarios() {
   $.ajax({
     url: `${url}obtenerComentarios`,
@@ -136,7 +185,6 @@ function cargarComentarios() {
   });
 }
 cargarComentarios()
-
 const stars = document.querySelectorAll('.star')
 stars.forEach(function (star, index) {
   star.addEventListener('click', function () {
@@ -149,7 +197,6 @@ stars.forEach(function (star, index) {
     $('#valorCom').val(index + 1)
   })
 })
-
 $('#btnEnvComen').on('click', function (e) {
   e.preventDefault();
   valoracion = $('#valorCom').val()
@@ -237,7 +284,6 @@ function editarComentario(idComentario) {
     }
   })
 }
-
 $('#insertComent').on('input', () => $('#insertComent').val() != '' ? $('#btnCancelar').removeAttr('hidden') : $('#btnCancelar').attr('hidden', ''))
 
 $('#btnCancelar').click(function (e) {
@@ -254,7 +300,6 @@ $('#btnCancelar').click(function (e) {
     }
   })
 })
-
 function eliminarComentario(idComentario) {
   Swal.fire({
     title: "¿Desea eliminar este Comentario?",

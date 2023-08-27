@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="<?= base_url('css/navbar.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo-asoca-s.png') ?>">
     <link rel="stylesheet" href="<?= base_url('bootstrap-5/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('dataTable/dataTables.bootstrap5.min.css') ?>" />
 
@@ -29,8 +28,8 @@
     <header class="fixed-top d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center gap-3">
             <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark p-2">
-                <img src="<?= base_url('img/logo.png') ?>" alt="logo tienda" width="120">
-                <!-- <h5 class="fw-semibold m-0">Asoca</h5> -->
+                <!-- <img src="< ?= base_url('img/logo.png') ?>" alt="logo tienda" width="120"> -->
+                <h2 class="fw-semibold m-0"><i class="bi bi-flower3"></i>Asoca</h2>
             </a>
             <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
 
@@ -38,8 +37,8 @@
 
         <div class="d-flex gap-2">
             <div class="d-flex align-items-center gap-3">
-                <button class="btn text-primary" id="btnCarrito" style="transition: hover .2s ease-in ; border-radius:35%;">
-                    <i class="bi bi-cart4 fs-5"></i>
+                <button class="btn text-dark" id="btnCarrito" style="transition: hover .2s ease-in;">
+                    <i class="bi bi-cart fs-5"></i>
                     <span id="numProducs">0</span>
                 </button>
                 <?php if (session('id') != 0) { ?>
@@ -49,7 +48,7 @@
             <?php if (session('id') != 0) { ?>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-fill text-secondary" style="background-color: black;border-radius:100%; padding:3px 8px"></i>
+                        <i class="bi bi-person text-dark fs-5 outline-none"></i>
                     </button>
 
                     <ul class="dropdown-menu">
@@ -292,7 +291,6 @@ if (session('id') != 0) { ?>
     <?php if (session('id') != 0) { ?>
 
     <?php } else { ?>
-
         function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
             input = $(`#${inputMsg}`)
             contra = $(`#${inputContra}`).val()

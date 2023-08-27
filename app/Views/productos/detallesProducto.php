@@ -17,7 +17,7 @@
                 </div>
                 <div class="d-flex flex-column justify-content-between contenedor-info">
                     <div>
-                        <h3 class="text-capitalize"><?= $producto[0]['nombre'] ?></h3>
+                        <h3 class="text-capitalize fw-semibold"><?= $producto[0]['nombre'] ?></h3>
                         <small id="smCate" class="text-secondary"> - <?= $producto[0]['nomCate'] ?> - </small>
                     </div>
                     <p class="descripcion"><?= $producto[0]['descripcion'] ?></p>
@@ -45,10 +45,18 @@
             </div>
         </div>
         <div class="contenedor-similares mb-3">
-            <h3 class="text-center w-100">Productos similares</h3>
+            <h2 class="text-center w-100 fw-semibold">Productos Similares</h2>
+            <div class="swiper-similares">
+                <div class="swiper-wrapper" id="swiper-similares">
+                    <!-- PRODUCTOS DINÁMICOS -->
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
         </div>
         <div class="contenedor-comentarios mb-3">
-            <h3 class="text-center w-100">Comentarios</h3>
+            <h3 class="text-center w-100 fw-semibold">Comentarios</h3>
             <div class="mt-2 mb-3">
                 <?php if (session('id') != 0) { ?>
                     <form>

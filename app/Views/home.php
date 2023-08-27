@@ -30,7 +30,7 @@
                                     <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
                                 </div>
                                 <div class="card-body text-center">
-                                    <h5 class="card-title text-capitalize" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
+                                    <h5 class="card-title text-capitalize fw-bold" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
                                     <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
                                     <small class="text-secondary">-${element.categoria}-</small>
                                 </div>
