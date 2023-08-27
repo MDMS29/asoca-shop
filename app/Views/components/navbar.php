@@ -100,161 +100,162 @@
         <a href="<?= base_url('detalles-compra')  ?>" class="btn btn-danger fw-semibold btnDetalle">Más Detalles</a>
     </aside>
 </body>
-
-<!-- MODAL INICIAR SESION -->
-<form id="formularioLogin">
-    <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row justify-content-center">
-                        <div class="card mb-3" style="border:none;">
-                            <div class="card-body">
-                                <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Inicia Sesion</h5>
-                                    <p class="text-center small">Ingresa tu usuario y contraseña para ingresar</p>
-                                    <div class="w-100 text-center"><span id="invalid-feedback"></span></div>
-                                </div>
-                                <form class="row g-3">
-                                    <div class="col-12">
-                                        <label for="usuario" class="form-label">Usuario</label>
-                                        <div class="input-group has-validation">
-                                            <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                            <input type="text" name="usuario" class="form-control" id="usuario" required>
+<?php
+if (session('id') != 0) { ?>
+<?php } else { ?>
+    <!-- MODAL INICIAR SESION -->
+    <form id="formularioLogin">
+        <div class="modal fade" id="modalIniciarSesion" aria-hidden="true" aria-labelledby="modalIniciarSesion" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="card mb-3" style="border:none;">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Inicia Sesion</h5>
+                                        <p class="text-center small">Ingresa tu usuario y contraseña para ingresar</p>
+                                        <div class="w-100 text-center"><span id="invalid-feedback"></span></div>
+                                    </div>
+                                    <form class="row g-3">
+                                        <div class="col-12">
+                                            <label for="usuario" class="form-label">Usuario</label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                                <input type="text" name="usuario" class="form-control" id="usuario" required>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <label for="contrasena" class="form-label">Contraseña</label>
-                                        <input type="password" name="contrasena" class="form-control" id="contrasena" required>
-                                    </div>
+                                        <div class="col-12">
+                                            <label for="contrasena" class="form-label">Contraseña</label>
+                                            <input type="password" name="contrasena" class="form-control" id="contrasena" required>
+                                        </div>
 
-                                    <div class="col-12 my-3">
-                                        <input class="btn btn-primary w-100" type="submit" value="Ingresar">
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="small mb-0">¿No tienes una cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop" class="btn text-primary">
-                                                Crear cuenta</button></p>
-                                    </div>
-                                </form>
+                                        <div class="col-12 my-3">
+                                            <input class="btn btn-primary w-100" type="submit" value="Ingresar">
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="small mb-0">¿No tienes una cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalRegistroCliente" data-bs-target="#staticBackdrop" class="btn text-primary">
+                                                    Crear cuenta</button></p>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
-
-<!-- MODAL REGISTRO DE CLIENTE -->
-<form id="formularioRegistro">
-    <div class="modal fade" id="modalRegistroCliente" aria-hidden="true" aria-labelledby="modalRegistroCliente" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row justify-content-center">
-                        <div class="card mb-3" style="border:none;">
-                            <div class="card-body">
-                                <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Crea tu Cuenta</h5>
-                                    <p class="text-center small">Ingresa tus detalles personales para crear una cuenta
-                                    </p>
-                                </div>
-
-                                <form class="row g-3 needs-validation" novalidate>
-                                    <div class="col-12 d-flex gap-2 flex-wrap">
-                                        <div class="flex-grow-1">
-
-                                            <label for="primerNom" class="form-label">Primer Nombre</label>
-                                            <input type="text" name="primerNom" class="form-control" id="primerNom" placeholder="Ingrese su Primer Nombre" required autocomplete="true">
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <label for="segundoNom" class="form-label">Segundo Nombre</label>
-                                            <input type="text" name="segundoNom" class="form-control" id="segundoNom" placeholder="Ingrese su Segundo Nombre" autocomplete="true">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 d-flex gap-2 flex-wrap">
-                                        <div class="flex-grow-1">
-                                            <label for="primerApe" class="form-label">Primer Apellido</label>
-                                            <input type="text" name="name" class="form-control" id="primerApe" placeholder="Ingrese su Primer Apellido" autocomplete="true">
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <label for="segundoApe" class="form-label">Segundo Apellido</label>
-                                            <input type="text" name="name" class="form-control" id="segundoApe" placeholder="Ingrese su Segundo Apellido" required autocomplete="true">
-                                        </div>
+    </form>
+    <!-- MODAL REGISTRO DE CLIENTE -->
+    <form id="formularioRegistro">
+        <div class="modal fade" id="modalRegistroCliente" aria-hidden="true" aria-labelledby="modalRegistroCliente" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="card mb-3" style="border:none;">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Crea tu Cuenta</h5>
+                                        <p class="text-center small">Ingresa tus detalles personales para crear una cuenta
+                                        </p>
                                     </div>
 
-                                    <div class="d-flex gap-2 flex-wrap">
-                                        <div class="flex-grow-1">
-                                            <label for="tipoDocumento" class="form-label">Tipo Documento</label>
-                                            <select class="form-select" name="tipoDocumento" id="tipoDocumento">
-                                                <option value="">-- Seleccione --</option>
-                                                <option value="1">Cédula de Ciudadanía</option>
-                                                <option value="2">Cédula Extranjera</option>
-                                                <!-- < ?php foreach ($tipoDocs as $doc) { ?>
+                                    <form class="row g-3 needs-validation" novalidate>
+                                        <div class="col-12 d-flex gap-2 flex-wrap">
+                                            <div class="flex-grow-1">
+
+                                                <label for="primerNom" class="form-label">Primer Nombre</label>
+                                                <input type="text" name="primerNom" class="form-control" id="primerNom" placeholder="Ingrese su Primer Nombre" required autocomplete="true">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <label for="segundoNom" class="form-label">Segundo Nombre</label>
+                                                <input type="text" name="segundoNom" class="form-control" id="segundoNom" placeholder="Ingrese su Segundo Nombre" autocomplete="true">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex gap-2 flex-wrap">
+                                            <div class="flex-grow-1">
+                                                <label for="primerApe" class="form-label">Primer Apellido</label>
+                                                <input type="text" name="name" class="form-control" id="primerApe" placeholder="Ingrese su Primer Apellido" autocomplete="true">
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <label for="segundoApe" class="form-label">Segundo Apellido</label>
+                                                <input type="text" name="name" class="form-control" id="segundoApe" placeholder="Ingrese su Segundo Apellido" required autocomplete="true">
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <div class="flex-grow-1">
+                                                <label for="tipoDocumento" class="form-label">Tipo Documento</label>
+                                                <select class="form-select" name="tipoDocumento" id="tipoDocumento">
+                                                    <option value="">-- Seleccione --</option>
+                                                    <option value="1">Cédula de Ciudadanía</option>
+                                                    <option value="2">Cédula Extranjera</option>
+                                                    <!-- < ?php foreach ($tipoDocs as $doc) { ?>
                                                     <option value="< ?= $doc['id'] ?>">< ?= $doc['nombre'] ?></option>
                                                 < ?php } ?> -->
-                                            </select>
+                                                </select>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <label for="documento" class="form-label">Documento</label>
+                                                <input type="text" name="documento" class="form-control" id="documento" placeholder="Ingrese su N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                            </div>
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <label for="documento" class="form-label">Documento</label>
-                                            <input type="text" name="documento" class="form-control" id="documento" placeholder="Ingrese su N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex gap-2 flex-wrap">
-                                        <div class="flex-grow-1">
-                                            <label for="telefono" class="form-label">Teléfono</label>
-                                            <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese su N° Telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <div class="flex-grow-1">
+                                                <label for="telefono" class="form-label">Teléfono</label>
+                                                <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese su N° Telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
 
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <label for="correo" class="form-label">Correo</label>
+                                                <input type="email" name="correo" placeholder="Ingrese su Correo Electrónico" class="form-control" id="correo" required>
+                                            </div>
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <label for="correo" class="form-label">Correo</label>
-                                            <input type="email" name="correo" placeholder="Ingrese su Correo Electrónico" class="form-control" id="correo" required>
+                                        <div class="col-12">
+                                            <label for="usuario" class="form-label">Dirección</label>
+                                            <div class="input-group has-validation">
+                                                <select class="input-group-text text-center" id="calkra">
+                                                    <option value="Kra">Kra</option>
+                                                    <option value="Calle">Calle</option>
+                                                </select>
+                                                <input type="text" class="form-control" id="numCalkra" placeholder="ej: 12A" required>
+                                                <span class="input-group-text" id="inputGroupPrepend">#</span>
+                                                <input type="text" class="form-control" id="numero" placeholder="ej: 34B" required>
+                                                <span class="input-group-text" id="inputGroupPrepend">-</span>
+                                                <input type="text" class="form-control" id="numFinal" placeholder="ej: 56" required>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <label for="usuario" class="form-label">Dirección</label>
-                                        <div class="input-group has-validation">
-                                            <select class="input-group-text text-center" id="calkra">
-                                                <option value="Kra">Kra</option>
-                                                <option value="Calle">Calle</option>
-                                            </select>
-                                            <input type="text" class="form-control" id="numCalkra" placeholder="ej: 12A" required>
-                                            <span class="input-group-text" id="inputGroupPrepend">#</span>
-                                            <input type="text" class="form-control" id="numero" placeholder="ej: 34B" required>
-                                            <span class="input-group-text" id="inputGroupPrepend">-</span>
-                                            <input type="text" class="form-control" id="numFinal" placeholder="ej: 56" required>
-                                        </div>
-                                    </div>
-                                    <div class="">
-                                        <div class="flex-grow-3">
-                                            <label for="departamento" class="form-label">Departamento</label>
-                                            <select name="departamento" class="form-control" id="departamento">
-                                                <!-- SELECT DINÁMICO -->
-                                            </select>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <label for="municipio" class="form-label">Municipio</label>
-                                            <select name="municipio" class="form-control" id="municipio">
-                                                <option value="" selected>-- Seleccione --</option>
-                                                <!-- SELECT DINÁMICO  -->
-                                            </select>
+                                        <div class="">
+                                            <div class="flex-grow-3">
+                                                <label for="departamento" class="form-label">Departamento</label>
+                                                <select name="departamento" class="form-control" id="departamento">
+                                                    <!-- SELECT DINÁMICO -->
+                                                </select>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <label for="municipio" class="form-label">Municipio</label>
+                                                <select name="municipio" class="form-control" id="municipio">
+                                                    <option value="" selected>-- Seleccione --</option>
+                                                    <!-- SELECT DINÁMICO  -->
+                                                </select>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex gap-2 flex-wrap">
-                                        <div class="flex-grow-1">
-                                            <label for="contrasenaRegis" class="form-label">Contraseña</label>
-                                            <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis" placeholder="Ingrese su Contraseña" required>
+                                        <div class="d-flex gap-2 flex-wrap">
+                                            <div class="flex-grow-1">
+                                                <label for="contrasenaRegis" class="form-label">Contraseña</label>
+                                                <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis" placeholder="Ingrese su Contraseña" required>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <label for="confirContrasena" class="form-label">Confirmar Contraseña</label>
+                                                <input type="password" name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
+                                            </div>
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <label for="confirContrasena" class="form-label">Confirmar Contraseña</label>
-                                            <input type="password" name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
-                                        </div>
-                                    </div>
-                                    <small class="invalido" id="msgContra"></small>
+                                        <small class="invalido" id="msgContra"></small>
 
-                                    <!-- <div class="col-12">
+                                        <!-- <div class="col-12">
                                         <div class="form-check">
                                             <input class="form-check-input" name="terms" type="checkbox" value=""
                                                 id="acceptTerms" required>
@@ -262,23 +263,24 @@
                                                     href="#">terminos y condiciones</a></label>
                                         </div>
                                     </div> -->
-                                    <div class="col-12 mt-3">
-                                        <button class="btn btn-primary w-100" type="submit">Crear Cuenta</button>
-                                    </div>
-                                    <div class="col-12">
-                                        <p class="small mb-0">¿Ya tienes cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalIniciarSesion " data-bs-target="#staticBackdrop" class="btn text-primary">
-                                                Ingresa</button></p>
-                                    </div>
-                                </form>
+                                        <div class="col-12 mt-3">
+                                            <button class="btn btn-primary w-100" type="submit">Crear Cuenta</button>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="small mb-0">¿Ya tienes cuenta? <button type="button" data-bs-toggle="modal" data-bs-target="#modalIniciarSesion " data-bs-target="#staticBackdrop" class="btn text-primary">
+                                                    Ingresa</button></p>
+                                        </div>
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+<?php } ?>
 
 <script src="<?= base_url('js/jquery.min.js') ?>"></script>
 <script src="<?= base_url('js/swalfire.js') ?>"></script>
@@ -432,7 +434,7 @@
                                     },
                                     dataType: "json",
                                     success: function(data) {
-        
+
                                         if (data == 1) {
                                             mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
                                             $('#modalRegistroCliente').modal('hide')

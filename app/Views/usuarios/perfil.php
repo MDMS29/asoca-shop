@@ -10,7 +10,7 @@
                             <p class="text-muted mb-1"><?= $usuario['nombre_rol'] ?></p>
                             <div class="d-flex justify-content-center mb-2">
                                 <button type="button" class="btn btn-primary" data-bs-target="#modalActualizarPerfil" data-bs-toggle="modal" onclick="seleccionarUsuario(<?= $usuario['id_usuario'] ?>)">Actualizar Perfil</button>
-                                <button type="button" class="btn btn-outline-primary ms-1">Cambiar Contraseña</button>
+                                <!-- <button type="button" class="btn btn-outline-primary ms-1">Cambiar Contraseña</button> -->
                             </div>
                         </div>
                     </div>
@@ -156,9 +156,8 @@
                         <div class="card mb-3" style="border:none;">
                             <div class="card-body">
                                 <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Crea tu Cuenta</h5>
-                                    <p class="text-center small">Ingresa tus detalles personales para crear una cuenta
-                                    </p>
+                                    <h5 class="card-title text-center pb-0 fs-4">Actualiza tu Cuenta</h5>
+                                    <p class="text-center small">Edita tus detalles personales</p>
                                 </div>
 
                                 <form class="row g-3 needs-validation" novalidate>
@@ -205,7 +204,8 @@
                                         <div class="flex-grow-1">
                                             <label for="telefono" class="form-label">Teléfono</label>
                                             <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese su N° Telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
-
+                                            <input type="number" id="idTel" value="0" hidden>
+                                            <input type="number" id="idCorreo" value="0" hidden>
                                         </div>
                                         <div class="flex-grow-1">
                                             <label for="correo" class="form-label">Correo</label>
@@ -213,7 +213,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <label for="usuario" class="form-label">Dirección</label>
+                                        <label for="calkra" class="form-label">Dirección</label>
                                         <div class="input-group has-validation">
                                             <select class="input-group-text text-center" id="calkra">
                                                 <option value="Kra">Kra</option>
@@ -243,7 +243,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 mt-3">
-                                        <button class="btn btn-primary w-100" type="submit">Crear Cuenta</button>
+                                        <button class="btn btn-primary w-100" type="submit">Actualizar</button>
                                     </div>
                                 </form>
                             </div>
@@ -261,14 +261,47 @@
             url: `${url}buscarUsuario/${id}/0`,
             type: 'POST',
             dataType: 'json',
-            data : {},
-            success : function(res){
-                console.log(res)
+            data: {},
+            success: function(res) {
+                $("#primerNom").val(res[0].nombre_p);
+                $("#segundoNom").val(res[0].nombre_s);
+                $("#primerApe").val(res[0].apellido_p);
+                $("#segundoApe").val(res[0].apellido_s);
+                $("#correo").val(res[0].correo);
+                $("#tipoDocumento").val(res[0].tipo_documento);
+                $("#documento").val(res[0].n_documento);
+                $("#idTel").val(res[0].id_telefono == null ? 0 : res[0].id_telefono);
+                $("#idCorreo").val(res[0].id_correo == null ? 0 : res[0].id_correo);
+
+                const calkra = res[0].direccion.split(' ')[0]
+                const num1 = res[0].direccion.split('#')[1].split('-')
+                const num2 = res[0].direccion.split('Calle' || 'Kra')[1].split('#')[0]
+
+
+                $("#calkra").val(calkra);
+                $("#numCalkra").val(num2);
+                $("#numero").val(num1[0]);
+                $("#numFinal").val(num1[1]);
+
+                $("#departamento").val(res[0].departamento);
+
+                const municipio = municipios.filter(item => item.departamento == res[0].departamento)
+
+                var cadena = ''
+                cadena = ` <option value="">-- Seleccione --</option>`
+                for (let i = 0; i < municipio.length; i++) {
+                    cadena += ` <option value="${municipio[i].municipio}">${municipio[i].municipio}</option>`
+                }
+
+                $('#municipio').html(cadena)
+                $("#municipio").val(res[0].municipio);
+
+                $("#telefono").val(res[0].numero);
             }
         })
     }
 
-    $("#formularioRegistro").on("submit", function(e) {
+    $("#formularioActualizar").on("submit", function(e) {
         e.preventDefault();
         nombreP = $("#primerNom").val();
         nombreS = $("#segundoNom").val();
@@ -290,6 +323,9 @@
         departamento = $("#departamento").val();
         municipio = $("#municipio").val();
         telefono = $("#telefono").val();
+        idTel = $("#idTel").val();
+        idCorreo = $("#idCorreo").val();
+
 
         try {
             $.ajax({
@@ -298,7 +334,7 @@
                 dataType: "json",
                 data: {
                     tp: 2,
-                    id: 0,
+                    id: <?= session('id') ?>,
                     tipoUser: 4,
                     nombreP,
                     nombreS,
@@ -320,7 +356,7 @@
                         data: {
                             tp: 2,
                             idUsuario: res,
-                            idTele: 0,
+                            idTele: idTel,
                             numero: telefono,
                             prioridad: 'P',
                             tipoUsu: 4,
@@ -334,16 +370,15 @@
                                 type: "POST",
                                 data: {
                                     tp: 2,
-                                    idCorreo: 0,
+                                    idCorreo: idCorreo,
                                     idUsuario: res,
                                     correo: correo,
                                     prioridad: 'P',
                                 },
                                 dataType: "json",
                                 success: function(data) {
-
                                     if (data == 1) {
-                                        mostrarMensaje('success', '¡Usuario creado con éxito, ya puedes ingresar!')
+                                        mostrarMensaje('success', '¡Se ha actualizado su perfil!')
                                         $('#modalRegistroCliente').modal('hide')
                                     } else {
                                         mostrarMensaje("error", "¡Ha ocurrido un error!");
@@ -354,7 +389,7 @@
                     });
                     setTimeout(() => {
                         window.location.reload();
-                    }, 3000)
+                    }, 2000)
                 } else {
                     $("#contrasena").val("");
                     $("#invalid-feedback").text("¡Usuario o Contraseña incorrectos!");
@@ -367,4 +402,17 @@
             console.log(error);
         }
     });
+
+    $('#departamento').on('change', function() {
+        const departamento = $('#departamento').val()
+        const municipio = municipios.filter(item => item.departamento == departamento)
+
+        var cadena = ''
+        cadena = ` <option value="">-- Seleccione --</option>`
+        for (let i = 0; i < municipio.length; i++) {
+            cadena += ` <option value="${municipio[i].municipio}">${municipio[i].municipio}</option>`
+        }
+
+        $('#municipio').html(cadena)
+    })
 </script>

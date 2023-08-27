@@ -31,7 +31,7 @@ class Telefonos extends BaseController
             'usuario_crea' => $usuarioCrea == 0 ? 3 : session('id')
         ];
         if ($tp == 2) {
-            if (strpos($idTele, 'e')) {
+            if (strpos($idTele, 'e') || $idTele == 0) {
                 $res = $this->telefonos->buscarTelefono($numero, $idUsu);
                 if (!empty($res)) {
                     return json_encode(2);

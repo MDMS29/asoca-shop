@@ -199,8 +199,11 @@ class Usuarios extends BaseController
                 'foto' => $rutaImagen,
                 'contrasena' => $contra
             ];
-            $this->usuarios->update($idUser, $usuarioUpdate);
-            return $idUser;
+            if($this->usuarios->update($idUser, $usuarioUpdate)){
+                return $idUser;
+            }else{
+                return json_encode(2);
+            }
         } else {
             //Insertar datos
             //Si la respuesta esta vacia - guardar
@@ -310,10 +313,8 @@ class Usuarios extends BaseController
     }
     public function perfil($id)
     {
-        $locale = $this->request->getLocale();
-        echo $locale;
         $usuario = $this->usuarios->buscarUsuario($id, 0);
-        $data = ['usuario' => $usuario, 'ruta' => $locale];
+        $data = ['usuario' => $usuario];
         echo view('components/navbar');
         echo view('usuarios/perfil', $data);
         echo view('components/footer');

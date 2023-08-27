@@ -16,7 +16,7 @@ class Email extends BaseController
 
     public function insertar()
     {
-        $tp = $this->request->getPost('tp'); 
+        $tp = $this->request->getPost('tp');
         $idCorreo = $this->request->getVar('idCorreo');
         $idUsu = $this->request->getPost('idUsuario');
         $email = $this->request->getPost('correo');
@@ -29,7 +29,7 @@ class Email extends BaseController
             'usuario_crea' => $usuarioCrea
         ];
         if ($tp == 2) {
-            if (strpos($idCorreo, 'e')) { 
+            if (strpos($idCorreo, 'e') || $idCorreo == 0) {
                 $res = $this->email->buscarEmail($email, $idUsu);
                 if (!empty($res)) {
                     return json_encode(2);
