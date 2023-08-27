@@ -22,7 +22,7 @@ class Productos extends BaseController
     public function obtenerProductos()
     {
         $estado = $this->request->getPost('estado');
-        $res = $this->producto->obtenerProductos($estado);
+        $res = $this->producto->obtenerProductos($estado, 0);
         return json_encode($res);
     }
     public function adminProductos()
@@ -155,5 +155,15 @@ class Productos extends BaseController
         header("Content-Type: image/png");
         header("Content-Length: " . filesize($rutaCompleta));
         fpassthru($fp);
+    }
+    public function productosCategoria(){
+        $id = $this->request->getPost('id');
+        $categoria = $this->request->getPost('categoria');
+        $estado = $this->request->getPost('estado');
+        $res = $this->producto->productosCategoria($id, $categoria, $estado);
+        if(empty($res)){
+            $res = $this->producto->obtenerProductos($estado, $id);
+        }
+        return json_encode($res);
     }
 }

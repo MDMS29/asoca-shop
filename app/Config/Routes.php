@@ -62,6 +62,7 @@ $routes->post('/obtenerProductos', 'Productos::obtenerProductos');
 $routes->post('/buscarProducto', 'Productos::buscarProducto');
 $routes->post('/insertarProducto', 'Productos::insertar');
 $routes->post('/camEstProducto', 'Productos::cambiarEstado');
+$routes->post('/productosCategoria', 'Productos::productosCategoria');
 
 $routes->get('/admin-productos-eliminados', 'Productos::adminProductosEliminados');
 $routes->get('/detalles-producto/(:num)', 'Productos::verDetallesProducto/$1');

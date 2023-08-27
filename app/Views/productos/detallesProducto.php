@@ -8,8 +8,8 @@
     <div id="content" class="p-4 p-md-5 h-100">
         <div class="mb-3">
             <div class="contenedor-producto">
-                <div class="swiper">
-                    <div class="swiper-wrapper" id="swiper-wrapper">
+                <div class="swiper" id="swiper-img">
+                    <div class="swiper-wrapper" id="swiper-wrapper-img">
                         <!-- FOTOS DINÁMICAS -->
                     </div>
                     <div class="swiper-button-prev"></div>
@@ -43,51 +43,51 @@
                     </div>
                 </div>
             </div>
+            <div class="contenedor-comentarios mb-3">
+                <h3 class="text-center w-100 fw-semibold">Comentarios</h3>
+                <div class="mt-2 mb-3">
+                    <?php if (session('id') != 0) { ?>
+                        <form>
+                            <div class="d-flex gap-2">
+                                <p>Valoración: </p>
+                                <div class="rating">
+                                    <i class="bi bi-star-fill star"></i>
+                                    <i class="bi bi-star-fill star"></i>
+                                    <i class="bi bi-star-fill star"></i>
+                                    <i class="bi bi-star-fill star"></i>
+                                    <i class="bi bi-star-fill star"></i>
+                                </div>
+                                <small class="invalido" id="invalidValor"></small>
+                            </div>
+                            <input type="number" name="valorCom" id="valorCom" value="0" hidden>
+                            <input type="number" name="idComen" id="idComen" value="0" hidden>
+                            <input type="number" name="tp" id="tp" value="1" hidden>
+                            <textarea placeholder="Ingrese su comentario..." name="insertComent" id="insertComent" cols="30" rows="2" class="form-control"></textarea>
+                            <small class="invalido d-block" id="invalidComen"></small>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button class="btn btn-danger mt-2" id="btnCancelar" hidden>Cancelar</button>
+                                <button class="btn btn-success mt-2" id="btnEnvComen">Publicar</button>
+                            </div>
+                        </form>
+                    <?php } else { ?>
+                        <p>Inicia sesión y coméntanos que tal este producto... ヾ(≧▽≦*)o</p>
+                    <?php }  ?>
+                </div>
+                <ul class="listado-comentarios">
+                    <!-- LISTADO DINÁMICO -->
+                </ul>
+            </div>
         </div>
+
         <div class="contenedor-similares mb-3">
-            <h2 class="text-center w-100 fw-semibold">Productos Similares</h2>
-            <div class="swiper-similares">
-                <div class="swiper-wrapper" id="swiper-similares">
+            <h2 class="text-center w-100 fw-semibold mb-3">Productos Similares</h2>
+            <div class="swiper" id="swiper-similares">
+                <div class="swiper-wrapper" id="swiper-wrapper-similares">
                     <!-- PRODUCTOS DINÁMICOS -->
                 </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                 <div class="swiper-pagination"></div>
             </div>
 
-        </div>
-        <div class="contenedor-comentarios mb-3">
-            <h3 class="text-center w-100 fw-semibold">Comentarios</h3>
-            <div class="mt-2 mb-3">
-                <?php if (session('id') != 0) { ?>
-                    <form>
-                        <div class="d-flex gap-2">
-                            <p>Valoración: </p>
-                            <div class="rating">
-                                <i class="bi bi-star-fill star"></i>
-                                <i class="bi bi-star-fill star"></i>
-                                <i class="bi bi-star-fill star"></i>
-                                <i class="bi bi-star-fill star"></i>
-                                <i class="bi bi-star-fill star"></i>
-                            </div>
-                            <small class="invalido" id="invalidValor"></small>
-                        </div>
-                        <input type="number" name="valorCom" id="valorCom" value="0" hidden>
-                        <input type="number" name="idComen" id="idComen" value="0" hidden>
-                        <input type="number" name="tp" id="tp" value="1" hidden>
-                        <textarea placeholder="Ingrese su comentario..." name="insertComent" id="insertComent" cols="30" rows="2" class="form-control"></textarea>
-                        <small class="invalido d-block" id="invalidComen"></small>
-                        <div class="d-flex justify-content-end gap-2">
-                            <button class="btn btn-danger mt-2" id="btnCancelar" hidden>Cancelar</button>
-                            <button class="btn btn-success mt-2" id="btnEnvComen">Publicar</button>
-                        </div>
-                    </form>
-                <?php } else { ?>
-                    <p>Inicia sesión y coméntanos que tal este producto... ヾ(≧▽≦*)o</p>
-                <?php }  ?>
-            </div>
-            <ul class="listado-comentarios">
-                <!-- LISTADO DINÁMICO -->
-            </ul>
         </div>
     </div>
 </div>
@@ -95,6 +95,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <script>
     var url = '<?= base_url() ?>';
-    var id_usuario = <?= session('id') != 0 ? session('id') : 0 ?>
+    var id_usuario = <?= session('id') != 0 ? session('id') : 0 ?>;
+    var categoria = <?= $producto[0]['categoria'] ?>;
 </script>
 <script src="<?= base_url('js/productos/productoDetalles.js') ?>" type="text/javascript"></script>

@@ -25,7 +25,7 @@ class ProductosModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
-    public function obtenerProductos($estado)
+    public function obtenerProductos($estado, $id)
     {
         $this->select('tbl_productos.id_producto, tbl_param_det.nombre as categoria, tbl_productos.nombre, descripcion, cantidad_actual, precio, fecha_public, concat(tbl_usuarios.nombre_p, " ", tbl_usuarios.apellido_p) as nomCreador, tbl_img_producto.nombre_img, CAST(AVG(tbl_valoracion_producto.valoracion) AS INT) as valoracion');
         $this->join('tbl_usuarios', 'tbl_usuarios.id_usuario = tbl_productos.usuario_crea');
@@ -33,6 +33,9 @@ class ProductosModel extends Model
         $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_productos.categoria');
         $this->join('tbl_valoracion_producto', 'tbl_valoracion_producto.id_producto = tbl_productos.id_producto', 'left');
         $this->where('tbl_productos.estado', $estado);
+        if($id != 0){
+            $this->where('tbl_productos.id_producto != ', $id);
+        }
         $this->groupBy('tbl_productos.id_producto');
         $data = $this->findAll();
         return $data;
@@ -53,5 +56,20 @@ class ProductosModel extends Model
         $data = $this->findAll();
         return $data;
     }
+    public function productosCategoria($id, $categoria, $estado){
+        $this->select('tbl_productos.id_producto, tbl_param_det.nombre as categoria, tbl_productos.nombre, precio, tbl_img_producto.nombre_img, CAST(AVG(tbl_valoracion_producto.valoracion) AS INT) as valoracion');
+        $this->join('tbl_img_producto', 'tbl_img_producto.id_producto = tbl_productos.id_producto');
+        $this->join('tbl_param_det', 'tbl_param_det.id_param_det = tbl_productos.categoria');
+        $this->join('tbl_valoracion_producto', 'tbl_valoracion_producto.id_producto = tbl_productos.id_producto', 'left');
+        
+        if($id != 0){
+            $this->where('tbl_productos.id_producto !=', $id);
+        }
 
+        $this->where('tbl_productos.categoria', $categoria);
+        $this->where('tbl_productos.estado', $estado);
+        $this->groupBy('tbl_productos.id_producto');
+        $data = $this->findAll();
+        return $data;
+    }
 }

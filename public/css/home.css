@@ -11,9 +11,10 @@
 
 .producto {
   display: flex;
-  border-radius: 25px;
+  border-radius: 15px;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
+  max-width: 300px;
   cursor: pointer;
 }
 .producto:hover {

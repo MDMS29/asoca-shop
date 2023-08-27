@@ -9,6 +9,9 @@ const Toast = Swal.mixin({
 
   },
 });
+
+const crearSwiper = (sliderElm = '', config = {}) => new Swiper(`#${sliderElm}`, config);
+
 $.ajax({
   url: `${url}buscarProducto`,
   type: "POST",
@@ -34,21 +37,9 @@ $.ajax({
       cadena += `<div class="swiper-slide">
                         <img src="${foto}" class="d-block" alt="imagen producto">
                     </div> `;
-      $("#swiper-wrapper").html(cadena);
+      $("#swiper-wrapper-img").html(cadena);
 
-      const swiper = new Swiper(".swiper", {
-        autoplay: {
-          delay: 2500,
-          disableOnInteraction: false,
-        },
-        direction: "horizontal",
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-
-
+      crearSwiper('swiper-img', { autoplay: { delay: 2500, disableOnInteraction: false, }, direction: "horizontal", navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev", }, })
     }
   },
 });
@@ -85,25 +76,28 @@ $("#btnAddCar").on("click", function (e) {
     $("#cantidad").val("0");
   }
 });
+
 $.ajax({
-  url: `${url}obtenerProductos`,
+  url: `${url}productosCategoria`,
   type: 'POST',
   dataType: 'json',
   data: {
+    id:id,
+    categoria,
     estado: 'A'
   },
   success: function (res) {
     var cadena = '';
     switch (res.length) {
       case 0:
-        cadena += `<div class="container text-center">NO HAY PRODUCTOS EN ESTE MOMENTO</div>`
+        cadena += `<p class="container text-center">NO HAY PRODUCTOS SIMILARES</p>`
         break;
 
       default:
         res.forEach(element => {
           var foto = `${url}imagenesProducto/${element.nombre_img}`;
           cadena += `
-                  <article onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card mb-3 producto">
+                  <article onclick="window.location.href='${url}detalles-producto/${element.id_producto}'" class="card swiper-slide">
                       <div class="row g-0">
                           <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
                               <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
@@ -119,19 +113,9 @@ $.ajax({
         break;
     }
 
-    $('#swiper-similares').html(cadena)
+    $('#swiper-wrapper-similares').html(cadena)
 
-    const swiper2 = new Swiper(".swiper-similares", {
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },
-      direction: "horizontal",
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-    });
+    crearSwiper('swiper-similares', {autoplay: { delay: 2500, disableOnInteraction: false, },slidesPerView: 1,spaceBetween: 10,pagination: {el: ".swiper-pagination",clickable: true,},breakpoints: {640: {slidesPerView: 2,spaceBetween: 20,},768: {slidesPerView: 2,spaceBetween: 40,},1024: {slidesPerView: 3,spaceBetween: 50,},1300:{slidesPerView: 4,spaceBetween: 50,}},})
   }
 })
 const puntuacion = (rating) => {
