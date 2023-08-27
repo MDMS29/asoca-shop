@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-08-2023 a las 06:15:56
+-- Tiempo de generación: 28-08-2023 a las 01:03:54
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -116,11 +116,20 @@ CREATE TABLE `tbl_correos` (
   `id_correo` smallint(2) NOT NULL,
   `id_usuario` smallint(2) NOT NULL,
   `correo` varchar(100) NOT NULL,
-  `prioridad_crr` smallint(2) NOT NULL,
-  `estado` char(1) NOT NULL,
+  `prioridad_crr` char(1) NOT NULL,
+  `estado` char(1) NOT NULL DEFAULT 'A',
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_correos`
+--
+
+INSERT INTO `tbl_correos` (`id_correo`, `id_usuario`, `correo`, `prioridad_crr`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, 4, 'aaa@correo.coim', 'P', 'A', '2023-08-27 19:25:21', 4),
+(2, 5, 'mazomoises@gmail.com', 'P', 'A', '2023-08-23 03:57:23', 3),
+(3, 3, 'mazomoises@gmail.com', 'P', 'A', '2023-08-27 08:10:28', 3);
 
 -- --------------------------------------------------------
 
@@ -181,9 +190,9 @@ CREATE TABLE `tbl_modulos` (
 INSERT INTO `tbl_modulos` (`id_modulo`, `modulo`, `url`, `icon`, `id_rol`, `id_accion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
 (1, 'Usuarios', 'usuarios', 'bi bi-people-fill', 1, 1, 'A', '2023-07-15 03:18:01', 3),
 (2, 'Clientes', 'clientes', 'bi bi-person-lines-fill', 1, 2, 'A', '2023-07-15 03:18:28', 3),
-(3, 'Administrar Productos', 'adminProduc', 'bi bi-box-seam-fill', 1, 3, 'A', '2023-07-15 03:19:12', 3),
-(4, 'Mis Compras', 'comprasRealizadas', 'bi bi-bag-check-fill', 2, 4, 'A', '2023-07-22 04:54:30', 3),
-(5, 'Administrar Compras', 'adminCompras', 'bi bi-bag-check-fill', 1, 4, 'A', '2023-07-30 18:38:57', 3);
+(3, 'Administrar Productos', 'admin-productos', 'bi bi-box-seam-fill', 1, 3, 'A', '2023-07-15 03:19:12', 3),
+(4, 'Mis Compras', 'compras-realizadas', 'bi bi-bag-check-fill', 2, 4, 'A', '2023-07-22 04:54:30', 3),
+(5, 'Administrar Compras', 'admin-compras', 'bi bi-bag-check-fill', 1, 4, 'A', '2023-07-30 18:38:57', 3);
 
 -- --------------------------------------------------------
 
@@ -271,10 +280,10 @@ CREATE TABLE `tbl_productos` (
 --
 
 INSERT INTO `tbl_productos` (`id_producto`, `nombre`, `descripcion`, `categoria`, `cantidad_actual`, `cantidad_vendida`, `precio`, `fecha_public`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
-(1, 'Prueba de js', 'sjsjsjsjjs', 9, 8, 0, 4567, '2023-07-20', 'A', '2023-08-09 02:08:09', 3),
-(2, 'gato pandillero', 'daña esto daña lo otro el gayo dañadorr con increibles movimientos de karate', 10, 4, 0, 127, '2023-07-20', 'A', '2023-08-09 02:08:14', 3),
-(3, 'Otros productos mas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur vehicula neque. Curabitur dictum rhoncus ligula non condimentum. Quisque ut mollis odio, quis euismod neque. Nullam pretium ante cursus justo varius sagittis. Proin semper egestas odio ac mollis. Aenean venenatis pretium enim, eu mattis nunc. Vestibulum egestas varius odio eget pretium. Cras in eleifend nunc. Suspendisse sodales, mauris vitae pellentesque euismod, erat orci convallis nisi, in molestie ex quam et urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ullamcorper ex eu lacus rhoncus congue. Duis ultricies, est non ultricies rutrum, metus justo sodales nibh, ut semper elit mi ullamcorper urna.', 11, 3, 0, 123333, '2023-07-20', 'A', '2023-08-09 02:08:20', 3),
-(4, 'Otro mas ', 'loreeeeeeeeem', 12, 10, 0, 78945, '2023-07-20', 'A', '2023-08-09 02:08:24', 3);
+(1, 'Prueba de js', 'sjsjsjsjjs', 10, 8, 0, 4567, '2023-07-20', 'A', '2023-08-27 21:59:25', 3),
+(2, 'gato pandillero', 'daña esto daña lo otro el gayo dañadorr con increibles movimientos de karate', 9, 4, 0, 127, '2023-07-20', 'A', '2023-08-27 22:05:15', 3),
+(3, 'Otros productos mas', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur vehicula neque. Curabitur dictum rhoncus ligula non condimentum. Quisque ut mollis odio, quis euismod neque. Nullam pretium ante cursus justo varius sagittis. Proin semper egestas odio ac mollis. Aenean venenatis pretium enim, eu mattis nunc. Vestibulum egestas varius odio eget pretium. Cras in eleifend nunc. Suspendisse sodales, mauris vitae pellentesque euismod, erat orci convallis nisi, in molestie ex quam et urna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis ullamcorper ex eu lacus rhoncus congue. Duis ultricies, est non ultricies rutrum, metus justo sodales nibh, ut semper elit mi ullamcorper urna.', 9, 3, 0, 123333, '2023-07-20', 'A', '2023-08-27 22:13:03', 3),
+(4, 'Otro mas ', 'loreeeeeeeeem', 10, 10, 0, 78945, '2023-07-20', 'A', '2023-08-27 21:59:36', 3);
 
 -- --------------------------------------------------------
 
@@ -310,11 +319,20 @@ CREATE TABLE `tbl_telefonos` (
   `id_usuario` smallint(2) NOT NULL,
   `numero` varchar(10) NOT NULL,
   `tipo_tel` smallint(2) NOT NULL,
-  `prioridad_tel` smallint(2) NOT NULL,
+  `prioridad_tel` char(1) NOT NULL,
   `estado` char(1) NOT NULL,
   `fecha_crea` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `usuario_crea` smallint(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tbl_telefonos`
+--
+
+INSERT INTO `tbl_telefonos` (`id_telefono`, `id_usuario`, `numero`, `tipo_tel`, `prioridad_tel`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(1, 4, '3004432536', 15, 'P', '', '2023-08-27 19:25:21', 4),
+(2, 5, '3004432536', 15, 'P', '', '2023-08-23 03:57:22', 3),
+(3, 3, '3004432535', 15, 'P', '', '2023-08-27 03:10:41', 3);
 
 -- --------------------------------------------------------
 
@@ -333,6 +351,8 @@ CREATE TABLE `tbl_usuarios` (
   `tipo_documento` smallint(2) DEFAULT NULL,
   `n_documento` varchar(10) DEFAULT NULL,
   `direccion` varchar(100) DEFAULT NULL,
+  `departamento` varchar(70) DEFAULT NULL,
+  `municipio` varchar(70) DEFAULT NULL,
   `foto` varchar(45) DEFAULT NULL,
   `contrasena` varchar(200) NOT NULL,
   `duracion` varchar(15) NOT NULL,
@@ -345,10 +365,10 @@ CREATE TABLE `tbl_usuarios` (
 -- Volcado de datos para la tabla `tbl_usuarios`
 --
 
-INSERT INTO `tbl_usuarios` (`id_usuario`, `id_rol`, `tipo_user`, `nombre_p`, `nombre_s`, `apellido_p`, `apellido_s`, `tipo_documento`, `n_documento`, `direccion`, `foto`, `contrasena`, `duracion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
-(3, 1, 3, 'Root', 'Jose', 'Asoca', 'Shop', 1, '123123', '\'', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', '0', 'A', '2023-07-30 18:03:20', 1),
-(4, 2, 4, 'Nuevo', '...', 'Cliente', 'Prueba', 1, '147852', 'kra 8', 'fotoUser/default.png', '$2y$10$hyCb7Ka02l4E4H0oc.MaH.aqL61n4pSmEfd4TdYuX300YFz/UvLa2', '', 'A', '2023-07-30 21:28:29', 0),
-(5, 2, 4, 'Moises', 'David', 'Mazo', 'Solano', 1, '1130266003', 'Calle 68 #16B-14', 'fotoUser/default.png', '$2y$10$EYGYMsV1a13CZ6LxMGZ/6u0b1/zB65hRGpphHBcqmHk1SiNscKIXW', '', 'A', '2023-07-30 17:54:07', 0);
+INSERT INTO `tbl_usuarios` (`id_usuario`, `id_rol`, `tipo_user`, `nombre_p`, `nombre_s`, `apellido_p`, `apellido_s`, `tipo_documento`, `n_documento`, `direccion`, `departamento`, `municipio`, `foto`, `contrasena`, `duracion`, `estado`, `fecha_crea`, `usuario_crea`) VALUES
+(3, 2, 4, 'Root', 'Dabid', 'Asoca', 'Shop', 1, '123123', 'Calle         68 A         # 16 B - 14 ', 'Atlántico', 'Soledad', NULL, '$2y$10$XgmUvwdPcAvmjGrswIGvnuZ8r7guFRBiV.IRJqn16VfsPvySNHuMy', '0', 'A', '2023-08-27 03:26:18', 1),
+(4, 2, 4, 'ROOT', 'ROOT', 'ROOT', 'ROOT', 1, '111111', 'Kra 11 #11-11', 'Cesar', 'La Gloria', 'fotoUser/default.png', '$2y$10$NUviP5/R9NASJTTmqAgwp.Rc7Jv0maZh8tvn4aHh02FwNzhmSefAq', '', 'A', '2023-08-27 19:25:21', 0),
+(5, 2, 4, 'Moises', 'David', 'Mazo', 'Solano', 1, '1130266003', 'Kra 68 #16B-14', 'Atlántico', 'Soledad', 'fotoUser/default.png', '$2y$10$cfWahXq3CvNU38UwnbDenO2y.1WPFvlErGCUff8d6y68d6jb126pa', '', 'A', '2023-08-23 03:57:22', 0);
 
 -- --------------------------------------------------------
 
@@ -373,7 +393,8 @@ CREATE TABLE `tbl_valoracion_producto` (
 
 INSERT INTO `tbl_valoracion_producto` (`id_valoracion`, `id_producto`, `id_usuario`, `valoracion`, `comentario`, `fecha_crea`, `estado`, `usuario_crea`) VALUES
 (1, 2, 5, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis ligula nec est eleifend pulvinar sit amet in nunc. Nam in metus quis magna luctus hendrerit. Quisque mi massa, mollis et enim vel, mattis bibendum nisl. Praesent ut bibendum purus. Fusce sollicitudin feugiat dolor. Nam quis est ut justo ultrices gravida.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis ligula nec est eleifend pulvinar sit amet in nunc. Nam in metus quis magna luctus hendrerit. Quisque mi massa, mollis et enim vel, mattis bibendum nisl. Praesent ut bibendum purus. Fusce sollicitudin feugiat dolor. Nam quis est ut justo ultrices gravida.', '2023-08-09 02:24:50', 'A', 5),
-(2, 2, 3, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur ante sed mattis facilisis. Etiam sit amet urna facilisis, sodales dolor eget, eleifend urna. Donec quis massa sed lectus bibendum semper eget in ante. Sed facilisis nibh in felis venenatis, nec pulvinar velit tincidunt. Fusce hendrerit semper metus in mattis. Aenean accumsan libero et tincidunt tempor. Quisque sollicitudin tellus dolor, eu pretium risus blandit quis. Aliquam rhoncus odio orci, non pulvinar nisl rutrum quis. Maecenas congue nibh sit amet ante semper eleifend. Sed placerat nunc enim, ut dictum neque vestibulum quis.', '2023-08-09 04:12:11', 'A', 3);
+(2, 2, 3, 5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus consectetur ante sed mattis facilisis. Etiam sit amet urna facilisis, sodales dolor eget, eleifend urna. Donec quis massa sed lectus bibendum semper eget in ante. Sed facilisis nibh in felis venenatis, nec pulvinar velit tincidunt. Fusce hendrerit semper metus in mattis. Aenean accumsan libero et tincidunt tempor. Quisque sollicitudin tellus dolor, eu pretium risus blandit quis. Aliquam rhoncus odio orci, non pulvinar nisl rutrum quis. Maecenas congue nibh sit amet ante semper eleifend. Sed placerat nunc enim, ut dictum neque vestibulum quis.', '2023-08-09 04:12:11', 'A', 3),
+(3, 3, 4, 5, 'Muy buen producto', '2023-08-28 00:21:03', 'A', 4);
 
 -- --------------------------------------------------------
 
@@ -427,9 +448,7 @@ ALTER TABLE `tbl_compras_enc`
 -- Indices de la tabla `tbl_correos`
 --
 ALTER TABLE `tbl_correos`
-  ADD PRIMARY KEY (`id_correo`,`id_usuario`,`prioridad_crr`),
-  ADD KEY `fk_tbl_telefonos_tbl_param_det2_idx` (`prioridad_crr`),
-  ADD KEY `fk_tbl_telefonos_tbl_usuarios1_idx` (`id_usuario`);
+  ADD PRIMARY KEY (`id_correo`);
 
 --
 -- Indices de la tabla `tbl_img_producto`
@@ -473,10 +492,7 @@ ALTER TABLE `tbl_roles`
 -- Indices de la tabla `tbl_telefonos`
 --
 ALTER TABLE `tbl_telefonos`
-  ADD PRIMARY KEY (`id_telefono`,`id_usuario`,`tipo_tel`,`prioridad_tel`),
-  ADD KEY `fk_tbl_telefonos_tbl_param_det1_idx` (`tipo_tel`),
-  ADD KEY `fk_tbl_telefonos_tbl_param_det2_idx` (`prioridad_tel`),
-  ADD KEY `fk_tbl_telefonos_tbl_usuarios1_idx` (`id_usuario`);
+  ADD PRIMARY KEY (`id_telefono`);
 
 --
 -- Indices de la tabla `tbl_usuarios`
@@ -520,7 +536,7 @@ ALTER TABLE `tbl_compras_enc`
 -- AUTO_INCREMENT de la tabla `tbl_correos`
 --
 ALTER TABLE `tbl_correos`
-  MODIFY `id_correo` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_correo` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_img_producto`
@@ -562,19 +578,19 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT de la tabla `tbl_telefonos`
 --
 ALTER TABLE `tbl_telefonos`
-  MODIFY `id_telefono` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_telefono` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_usuarios`
 --
 ALTER TABLE `tbl_usuarios`
-  MODIFY `id_usuario` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_usuario` smallint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tbl_valoracion_producto`
 --
 ALTER TABLE `tbl_valoracion_producto`
-  MODIFY `id_valoracion` smallint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_valoracion` smallint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -587,13 +603,6 @@ ALTER TABLE `tbl_compras_enc`
   ADD CONSTRAINT `estado` FOREIGN KEY (`estado`) REFERENCES `tbl_param_det` (`id_param_det`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `tbl_correos`
---
-ALTER TABLE `tbl_correos`
-  ADD CONSTRAINT `fk_tbl_telefonos_tbl_param_det20` FOREIGN KEY (`prioridad_crr`) REFERENCES `tbl_param_det` (`id_param_det`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_telefonos_tbl_usuarios10` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Filtros para la tabla `tbl_param_det`
 --
 ALTER TABLE `tbl_param_det`
@@ -604,14 +613,6 @@ ALTER TABLE `tbl_param_det`
 --
 ALTER TABLE `tbl_productos`
   ADD CONSTRAINT `categoria` FOREIGN KEY (`categoria`) REFERENCES `tbl_param_det` (`id_param_det`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `tbl_telefonos`
---
-ALTER TABLE `tbl_telefonos`
-  ADD CONSTRAINT `fk_tbl_telefonos_tbl_param_det1` FOREIGN KEY (`tipo_tel`) REFERENCES `tbl_param_det` (`id_param_det`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_telefonos_tbl_param_det2` FOREIGN KEY (`prioridad_tel`) REFERENCES `tbl_param_det` (`id_param_det`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tbl_telefonos_tbl_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `tbl_usuarios`
