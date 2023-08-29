@@ -10,8 +10,6 @@ const Toast = Swal.mixin({
   },
 });
 
-const crearSwiper = (sliderElm = '', config = {}) => new Swiper(`#${sliderElm}`, config);
-
 $.ajax({
   url: `${url}buscarProducto`,
   type: "POST",

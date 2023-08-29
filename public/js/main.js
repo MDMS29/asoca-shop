@@ -137,4 +137,4 @@ $('#departamento').on('change', function () {
 
   $('#municipio').html(cadena)
 })
-
+const crearSwiper = (sliderElm = '', config = {}) => new Swiper(`#${sliderElm}`, config);

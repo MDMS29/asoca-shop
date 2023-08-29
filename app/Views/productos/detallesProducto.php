@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="<?= base_url('css/productos/producto.css') ?>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 <input type="number" id="idProduc" value="<?= $producto[0]['id_producto'] ?>" hidden>
 <input type="text" id="nomProduc" value="<?= $producto[0]['nombre'] ?>" hidden>
 <input type="number" id="precioProduc" value="<?= $producto[0]['precio'] ?>" hidden>
@@ -92,7 +91,7 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 <script>
     var url = '<?= base_url() ?>';
     var id_usuario = <?= session('id') != 0 ? session('id') : 0 ?>;

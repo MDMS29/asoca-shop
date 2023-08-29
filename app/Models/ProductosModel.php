@@ -37,6 +37,7 @@ class ProductosModel extends Model
             $this->where('tbl_productos.id_producto != ', $id);
         }
         $this->groupBy('tbl_productos.id_producto');
+        $this->orderBy('RAND()');
         $data = $this->findAll();
         return $data;
     }

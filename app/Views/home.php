@@ -1,11 +1,58 @@
 <link rel="stylesheet" href="<?= base_url('css/home.css') ?>">
 <main class="contenedor">
-    <div class="contenedor-productos mt-5">
-        <!-- PRODUCTOS DINAMICOS -->
+    <section class="hero mb-5">
+        <!-- IMÁGENES PROMOCIONALES -->
+        <div class="swiper" id="swiper-hero">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">Slide 1</div>
+                <div class="swiper-slide">Slide 2</div>
+                <div class="swiper-slide">Slide 3</div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section class="categorias-home mt-4 mb-5">
+        <!-- CATEGORÍA DE PRODUCTOS -->
+        <h2 class="fw-semibold w-100 text-center mb-4"> - Categorías - </h2>
+        <div class="container-md contenedor-categorias">
+            <?php for ($i = 0; $i < sizeof($categorias); $i++) { ?>
+                <div id="<?= 'item-' . $i ?>">
+                    <img src="<?= base_url('img/categorias/' . $categorias[$i]['nombre'] . '.png') ?>" alt="" class="icon" width="80">
+                    <p> - <?= $categorias[$i]['nombre'] ?> - </p>
+                </div>
+            <?php } ?>
+        </div>
+    </section>
+
+    <div class="p-3" style="background-color: #69385C;">
+        <h2 class="fw-semibold w-100 text-center mb-4 text-white"> - Productos Que Te Pueden Gustar - </h2>
+        <div class="contenedor-productos">
+            <!-- PRODUCTOS DINÁMICOS -->
+        </div>
     </div>
 </main>
 
 <script>
+    crearSwiper('swiper-hero', {
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        slidesPerView: 1,
+        spaceBetween: 30,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    })
+
     $.ajax({
         url: `${url}obtenerProductos`,
         type: 'POST',
@@ -13,7 +60,7 @@
         data: {
             estado: 'A'
         },
-        success: function (res) {
+        success: function(res) {
             var cadena = '';
             switch (res.length) {
                 case 0:
