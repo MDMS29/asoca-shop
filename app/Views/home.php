@@ -33,6 +33,38 @@
             <!-- PRODUCTOS DINÁMICOS -->
         </div>
     </div>
+    <footer>
+        <div class="d-flex justify-content-between p-5">
+            <div class="flex-grow-1">
+                <div style="width: 200px">
+                    <h1 class="fw-semibold text-center m-0">ASOCA</h1>
+                    <p class="border-top border-black text-center">Todo por tu bienestar</p>
+                </div>
+            </div>
+            <div class="flex-grow-1">
+                <div>
+                    <a href="">Inicio</a>
+                    <a href="">Categorías</a>
+                    <a href="">Productos que te pueden gustar</a>
+                </div>
+                <div>
+                    Info Contacto
+                    <br>
+                    Teléfono 3014734903
+                    Correo Electrónico servicioasoca@gmail.com
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between p-3 border-top border-black">
+            <div>
+                &copy; ASOCA - Todos los derechos reservados
+            </div>
+            <div>
+                logo facebook
+                logo instagram
+            </div>
+        </div>
+    </footer>
 </main>
 
 <script>

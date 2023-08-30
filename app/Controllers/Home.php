@@ -20,6 +20,5 @@ class Home extends BaseController
         $data = ['tipoDocs' => $tipoDocs, 'categorias' => $categorias];
         echo view('components/navbar', $data);
         echo view('home');
-        echo view('components/footer');
     }
 }
