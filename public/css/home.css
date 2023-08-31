@@ -99,12 +99,14 @@
     }
   }
 }
-@media(max-width:  730px) {
+
+@media(max-width: 730px) {
   .contenedor-categorias {
     grid-template-columns: repeat(2, 280px);
   }
 }
-@media(max-width:  576px) {
+
+@media(max-width: 576px) {
   .contenedor-categorias {
     grid-template-columns: repeat(2, 180px);
   }
@@ -147,4 +149,22 @@
 #item-5 {
   grid-row-start: 4;
   grid-column-start: 2;
+}
+
+.contenedor-suscripcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+
+  & form {
+    height: 130px;
+    overflow: hidden;
+    padding: 2rem;
+    transition: all 1s;
+  }
+  & form.visible {
+    height: auto;
+    overflow: none;
+  }
 }
