@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<?= base_url('css/home.css') ?>">
 <main class="contenedor">
-    <section class="hero mb-5">
+    <section class="hero mb-5" id="inicio">
         <!-- IMÁGENES PROMOCIONALES -->
         <div class="swiper" id="swiper-hero">
             <div class="swiper-wrapper">
@@ -14,7 +14,7 @@
         </div>
     </section>
 
-    <section class="categorias-home mt-4 mb-5">
+    <section class="categorias-home mt-4 mb-5" id="categorias">
         <!-- CATEGORÍA DE PRODUCTOS -->
         <h2 class="fw-semibold w-100 text-center mb-4"> - Categorías - </h2>
         <div class="container-md contenedor-categorias">
@@ -27,41 +27,43 @@
         </div>
     </section>
 
-    <div class="p-3" style="background-color: #69385C;">
+    <div class="p-3" style="background-color: #69385C;" id="prodc-gust">
         <h2 class="fw-semibold w-100 text-center mb-4 text-white"> - Productos Que Te Pueden Gustar - </h2>
         <div class="contenedor-productos">
             <!-- PRODUCTOS DINÁMICOS -->
         </div>
     </div>
-    <footer>
-        <div class="d-flex justify-content-between p-5">
-            <div class="flex-grow-1">
-                <div style="width: 200px">
+
+    <div>
+        FORMULARIO DE REGISTRO
+    </div>
+
+    <footer style="background-color: #C1AE9F;">
+        <div class="d-flex justify-content-between p-5 flex-wrap">
+            <div class="flex-grow-1 d-flex justify-content-center">
+                <div style="width:200px">
                     <h1 class="fw-semibold text-center m-0">ASOCA</h1>
-                    <p class="border-top border-black text-center">Todo por tu bienestar</p>
+                    <p class="text-center" style="border-top: 1px solid #69385C;">Todo por tu bienestar</p>
                 </div>
             </div>
-            <div class="flex-grow-1">
-                <div>
-                    <a href="">Inicio</a>
-                    <a href="">Categorías</a>
-                    <a href="">Productos que te pueden gustar</a>
+            <div class="flex-grow-1 flex-wrap d-flex gap-5 justify-content-center">
+                <div class="d-flex flex-column">
+                    <p class="m-0 fs-4 fw-semibold" style="color: #69385C;">Conoce más</p>
+                    <a class="text-dark fw-semibold" href="#inicio">Inicio</a>
+                    <a class="text-dark fw-semibold" href="#categorias">Categorías</a>
+                    <a class="text-dark fw-semibold" href="#prodc-gust">Productos de tu gusto</a>
                 </div>
-                <div>
-                    Info Contacto
-                    <br>
-                    Teléfono 3014734903
-                    Correo Electrónico servicioasoca@gmail.com
+                <div class="d-flex flex-column fw-semibold">
+                    <p class="m-0 fs-4" style="color: #69385C;">Info Contacto</p>
+                    <p class="m-0">Teléfono - 3014734903</p>
+                    <!-- <p class="m-0">Correo Electrónico - servicioasoca@gmail.com</p> -->
+                    <p class="m-0">Dirección - Soledad/Atlántico</p>
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between p-3 border-top border-black">
+        <div class="d-flex justify-content-center gap-5 p-3 border-top border-black">
             <div>
                 &copy; ASOCA - Todos los derechos reservados
-            </div>
-            <div>
-                logo facebook
-                logo instagram
             </div>
         </div>
     </footer>
