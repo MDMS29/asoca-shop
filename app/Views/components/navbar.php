@@ -131,7 +131,7 @@ if (session('id') != 0) { ?>
 
                                         <div class="col-12">
                                             <label for="contrasena" class="form-label">Contraseña</label>
-                                            <input type="password" name="contrasena" class="form-control" id="contrasena" required>
+                                            <input type="password" name="contrasena" class="form-control" id="contrasena" required autocomplete="true">
                                         </div>
 
                                         <div class="col-12 my-3">
@@ -249,11 +249,11 @@ if (session('id') != 0) { ?>
                                         <div class="d-flex gap-2 flex-wrap">
                                             <div class="flex-grow-1">
                                                 <label for="contrasenaRegis" class="form-label">Contraseña</label>
-                                                <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis" placeholder="Ingrese su Contraseña" required>
+                                                <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis" placeholder="Ingrese su Contraseña" required autocomplete="true">
                                             </div>
                                             <div class="flex-grow-1">
                                                 <label for="confirContrasena" class="form-label">Confirmar Contraseña</label>
-                                                <input type="password" name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
+                                                <input type="password" name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required autocomplete="true">
                                             </div>
                                         </div>
                                         <small class="invalido" id="msgContra"></small>

@@ -27,6 +27,7 @@ const cargarApiMunicipios = async () => {
       cadena += ` <option value="${departamentos[i]}">${departamentos[i]}</option>`
     }
     $('#departamento').html(cadena)
+    $('#departamentoSub').html(cadena)
   } catch (error) {
     console.log(error);
   }
@@ -124,9 +125,8 @@ function eliminarProducCar(id) {
   recargaCarrito();
 }
 
-
-$('#departamento').on('change', function () {
-  const departamento = $('#departamento').val()
+const cambioDepa = (inputDepa = '', inputMuni = '') => {
+  const departamento = $(`#${inputDepa}`).val()
   const municipio = municipios.filter(item => item.departamento == departamento)
 
   var cadena = ''
@@ -135,6 +135,12 @@ $('#departamento').on('change', function () {
     cadena += ` <option value="${municipio[i].municipio}">${municipio[i].municipio}</option>`
   }
 
-  $('#municipio').html(cadena)
-})
+  $(`#${inputMuni}`).html(cadena)
+}
+
+
+$('#departamento').on('change', () => cambioDepa('departamento', 'municipio'))
+
+
+
 const crearSwiper = (sliderElm = '', config = {}) => new Swiper(`#${sliderElm}`, config);

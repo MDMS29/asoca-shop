@@ -36,32 +36,33 @@
 
     <div class="contenedor-suscripcion">
         <h2 class="w-100 text-center fw-semibold" style="color: #69385C;">¡Suscribete a nuestra tienda!</h2>
+        <p class="text-center small" style="color: #69385C;">¡Sé el primero en recibir las últimas noticias sobre tendencias, promociones y mucho más!</p>
         <form class="row g-3 container" id="formulario-subs">
             <div class="col-12 d-flex gap-2 flex-wrap first-inputs">
                 <div class="flex-grow-1">
-                    <label for="primerNom" class="form-label">Primer Nombre</label>
-                    <input type="text" name="primerNom" class="form-control" id="primerNom" placeholder="Ingrese tu Primer Nombre" required autocomplete="true">
+                    <label for="primerNomSub" class="form-label">Primer Nombre</label>
+                    <input type="text" name="primerNomSub" class="form-control" id="primerNomSub" placeholder="Ingresa tu Primer Nombre" required autocomplete="true">
                 </div>
                 <div class="flex-grow-1">
-                    <label for="segundoNom" class="form-label">Segundo Nombre</label>
-                    <input type="text" name="segundoNom" class="form-control" id="segundoNom" placeholder="Ingrese tu Segundo Nombre" autocomplete="true">
+                    <label for="segundoNomSub" class="form-label">Segundo Nombre</label>
+                    <input type="text" name="segundoNomSub" class="form-control" id="segundoNomSub" placeholder="Ingresa tu Segundo Nombre" autocomplete="true">
                 </div>
             </div>
             <div class="col-12 d-flex gap-2 flex-wrap">
                 <div class="flex-grow-1">
-                    <label for="primerApe" class="form-label">Primer Apellido</label>
-                    <input type="text" name="name" class="form-control" id="primerApe" placeholder="Ingrese tu Primer Apellido" autocomplete="true">
+                    <label for="primerApeSub" class="form-label">Primer Apellido</label>
+                    <input type="text" name="primerApeSub" class="form-control" id="primerApeSub" placeholder="Ingresa tu Primer Apellido" autocomplete="true">
                 </div>
                 <div class="flex-grow-1">
-                    <label for="segundoApe" class="form-label">Segundo Apellido</label>
-                    <input type="text" name="name" class="form-control" id="segundoApe" placeholder="Ingrese tu Segundo Apellido" required autocomplete="true">
+                    <label for="segundoApeSub" class="form-label">Segundo Apellido</label>
+                    <input type="text" name="segundoApeSub" class="form-control" id="segundoApeSub" placeholder="Ingresa tu Segundo Apellido" required autocomplete="true">
                 </div>
             </div>
 
             <div class="d-flex gap-2 flex-wrap">
                 <div class="flex-grow-1">
-                    <label for="tipoDocumento" class="form-label">Tipo Documento</label>
-                    <select class="form-select" name="tipoDocumento" id="tipoDocumento">
+                    <label for="tipoDocSub" class="form-label">Tipo Documento</label>
+                    <select class="form-select" name="tipoDocSub" id="tipoDocSub">
                         <option value="">-- Seleccione --</option>
                         <option value="1">Cédula de Ciudadanía</option>
                         <option value="2">Cédula Extranjera</option>
@@ -71,45 +72,45 @@
                     </select>
                 </div>
                 <div class="flex-grow-1">
-                    <label for="documento" class="form-label">Documento</label>
-                    <input type="text" name="documento" class="form-control" id="documento" placeholder="Ingrese tu N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                    <label for="documentoSub" class="form-label">Documento</label>
+                    <input type="text" name="documentoSub" class="form-control" id="documentoSub" placeholder="Ingresa tu N° Documento" required maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/,'')">
                 </div>
             </div>
             <div class="d-flex gap-2 flex-wrap">
                 <div class="flex-grow-1">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ingrese tu N° Telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
+                    <label for="telefonoSub" class="form-label">Teléfono</label>
+                    <input type="text" name="telefonoSub" class="form-control" id="telefonoSub" placeholder="Ingresa tu N° Telefono" required maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/,'')">
 
                 </div>
                 <div class="flex-grow-1">
-                    <label for="correo" class="form-label">Correo</label>
-                    <input type="email" name="correo" placeholder="Ingrese tu Correo Electrónico" class="form-control" id="correo" required>
+                    <label for="correoSub" class="form-label">Correo</label>
+                    <input type="email" name="correoSub" placeholder="Ingresa tu Correo Electrónico" class="form-control" id="correoSub" required>
                 </div>
             </div>
             <div class="col-12">
                 <label for="usuario" class="form-label">Dirección</label>
                 <div class="input-group has-validation">
-                    <select class="input-group-text text-center" id="calkra">
+                    <select class="input-group-text text-center" id="calkraSub">
                         <option value="Kra">Kra</option>
                         <option value="Calle">Calle</option>
                     </select>
-                    <input type="text" class="form-control" id="numCalkra" placeholder="ej: 12A" required>
+                    <input type="text" class="form-control" id="numCalkraSub" placeholder="ej: 12A" required>
                     <span class="input-group-text" id="inputGroupPrepend">#</span>
-                    <input type="text" class="form-control" id="numero" placeholder="ej: 34B" required>
+                    <input type="text" class="form-control" id="numeroSub" placeholder="ej: 34B" required>
                     <span class="input-group-text" id="inputGroupPrepend">-</span>
-                    <input type="text" class="form-control" id="numFinal" placeholder="ej: 56" required>
+                    <input type="text" class="form-control" id="numFinalSub" placeholder="ej: 56" required>
                 </div>
             </div>
             <div class="">
                 <div class="flex-grow-3">
-                    <label for="departamento" class="form-label">Departamento</label>
-                    <select name="departamento" class="form-control" id="departamento">
+                    <label for="departamentoSub" class="form-label">Departamento</label>
+                    <select name="departamentoSub" class="form-control" id="departamentoSub">
                         <!-- SELECT DINÁMICO -->
                     </select>
                 </div>
                 <div class="flex-grow-1">
-                    <label for="municipio" class="form-label">Municipio</label>
-                    <select name="municipio" class="form-control" id="municipio">
+                    <label for="municipioSub" class="form-label">Municipio</label>
+                    <select name="municipioSub" class="form-control" id="municipioSub">
                         <option value="" selected>-- Seleccione --</option>
                         <!-- SELECT DINÁMICO  -->
                     </select>
@@ -118,20 +119,23 @@
             </div>
             <div class="d-flex gap-2 flex-wrap">
                 <div class="flex-grow-1">
-                    <label for="contrasenaRegis" class="form-label">Contraseña</label>
-                    <input type="password" name="contrasenaRegis" class="form-control" id="contrasenaRegis" placeholder="Ingrese su Contraseña" required>
+                    <label for="contrasenaRegisSub" class="form-label">Contraseña</label>
+                    <input type="password" name="contrasenaRegisSub" class="form-control" id="contrasenaRegisSub" placeholder="Ingrese su Contraseña" required autocomplete="true">
                 </div>
                 <div class="flex-grow-1">
-                    <label for="confirContrasena" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" name="confirContrasena" class="form-control" id="confirContrasena" placeholder="Confirme su Contraseña" required>
+                    <label for="confirContrasenaSub" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" name="confirContrasenaSub" class="form-control" id="confirContrasenaSub" placeholder="Confirme su Contraseña" required autocomplete="true">
                 </div>
             </div>
-            <small class="invalido" id="msgContra"></small>
-
+            <small class="invalido" id="msgContraSub"></small>
+            <button class="btn btn-purple">SUSCRIBIRME</button>
         </form>
     </div>
 
     <footer style="background-color: #C1AE9F;">
+        <span></span>
+        <span></span>
+        <span></span>
         <div class="d-flex justify-content-between p-5 flex-wrap">
             <div class="flex-grow-1 d-flex justify-content-center">
                 <div style="width:200px">
@@ -140,16 +144,16 @@
                 </div>
             </div>
             <div class="flex-grow-1 flex-wrap d-flex gap-5 justify-content-center">
-                <div class="d-flex flex-column fw-semibold">
+                <div class="d-flex flex-column fw-semibold align-items-center">
                     <p class="m-0 fs-4" style="color: #69385C;">Conoce más</p>
                     <a class="text-dark" href="#inicio">Inicio</a>
                     <a class="text-dark" href="#categorias">Categorías</a>
                     <a class="text-dark" href="#prodc-gust">Productos de tu gusto</a>
                 </div>
-                <div class="d-flex flex-column fw-semibold">
+                <div class="d-flex flex-column fw-semibold align-items-center">
                     <p class="m-0 fs-4" style="color: #69385C;">Info Contacto</p>
                     <p class="m-0">Teléfono - 3014734903</p>
-                    <!-- <p class="m-0">Correo Electrónico - servicioasoca@gmail.com</p> -->
+                    <p class="m-0">Correo - servicioasoca@gmail.com</p>
                     <p class="m-0">Dirección - Soledad/Atlántico</p>
                 </div>
             </div>
@@ -179,7 +183,6 @@
             prevEl: ".swiper-button-prev",
         },
     })
-
     $.ajax({
         url: `${url}obtenerProductos`,
         type: 'POST',
@@ -217,6 +220,141 @@
             $('.contenedor-productos').html(cadena)
         }
     })
+    $('.first-inputs').on('click', () => $('#formulario-subs').addClass('visible'))
+    function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
+        input = $(`#${inputMsg}`)
+        contra = $(`#${inputContra}`).val()
+        confirContra = $(`#${inputConfir}`).val()
+        if (tipo == 2) {
+            if (contra == '' && confirContra == '') {
+                input.text('').removeClass().addClass('normal')
+            } else if (contra == confirContra) {
+                input.text('¡Contraseñas validas!').removeClass().addClass('valido')
+            } else if (contra == '') {
+                input.text('¡Ingresa una contraseña!').removeClass().addClass('normal')
+            } else if (confirContra == '') {
+                input.text('').removeClass().addClass('normal')
+            } else if (contra != confirContra) {
+                return input.text('¡Las contraseñas no coinciden!').removeClass().addClass('invalido')
+            }
+        } else {
+            if (contra == '' && confirContra == '') {
+                input.text('').removeClass().addClass('normal')
+            } else if (contra == '' && confirContra) {
+                input.text('¡Ingrese una contraseña!').removeClass().addClass('normal')
+            } else if (confirContra == '') {
+                input.text('').removeClass().addClass('normal')
+            } else if (confirContra && contra == confirContra) {
+                input.text('¡Contraseñas validas!').removeClass().addClass('valido')
+            } else if (confirContra && contra != confirContra) {
+                return input.text('¡Las contraseñas no coinciden!').removeClass().addClass('invalido')
+            }
+        }
+    }
+    $('#confirContrasenaSub').on('input', function(e) {
+        verifiContra(2, 'msgContraSub', 'contrasenaRegisSub', 'confirContrasenaSub')
+    })
+    $('#contrasenaRegisSub').on('input', function(e) {
+        verifiContra(1, 'msgContraSub', 'contrasenaRegisSub', 'confirContrasenaSub')
+    })
+    $('#departamentoSub').on('change', () => cambioDepa('departamentoSub', 'municipioSub'))
+    $("#formulario-subs").on("submit", function(e) {
+        e.preventDefault();
+        nombreP = $("#primerNomSub").val();
+        nombreS = $("#segundoNomSub").val();
+        apellidoP = $("#primerApeSub").val();
+        apellidoS = $("#segundoApeSub").val();
+        correo = $("#correoSub").val();
+        tipoDocumento = $("#tipoDocSub").val();
+        nIdenti = $("#documentoSub").val();
+        contra = $("#contrasenaRegisSub").val();
 
-    $('.first-inputs').on('click', $('#formulario-subs').addClass('visible'))
+
+        calkra = $("#calkraSub").val();
+        numCalkra = $("#numCalkraSub").val();
+        numero = $("#numeroSub").val();
+        numFinal = $("#numFinalSub").val();
+
+        direccion = `${calkra} ${numCalkra} #${numero}-${numFinal}`
+
+        departamento = $("#departamentoSub").val();
+        municipio = $("#municipioSub").val();
+        telefono = $("#telefonoSub").val();
+
+        try {
+            $.ajax({
+                type: "POST",
+                url: `${url}insertUsuario`,
+                dataType: "json",
+                data: {
+                    tp: 1,
+                    id: 0,
+                    tipoUser: 4,
+                    nombreP,
+                    nombreS,
+                    apellidoP,
+                    apellidoS,
+                    direccion,
+                    tipoDoc: tipoDocumento,
+                    departamento,
+                    municipio,
+                    nIdenti,
+                    rol: 2,
+                    contra,
+                },
+            }).done(function(res) {
+                if (res != 2) {
+                    $.ajax({
+                        url: `${url}insertarTelefono`,
+                        type: "POST",
+                        data: {
+                            tp: 1,
+                            idUsuario: res,
+                            idTele: 0,
+                            numero: telefono,
+                            prioridad: 'P',
+                            tipoUsu: 4,
+                            tipoTel: 15
+                        },
+                        dataType: "json",
+
+                        success: function(r) {
+                            $.ajax({
+                                url: `${url}insertarCorreo`,
+                                type: "POST",
+                                data: {
+                                    tp: 1,
+                                    idCorreo: 0,
+                                    idUsuario: res,
+                                    correo: correo,
+                                    prioridad: 'P',
+                                },
+                                dataType: "json",
+                                success: function(data) {
+
+                                    if (data == 1) {
+                                        mostrarMensaje('success', '¡Te has suscrito a nuestra tienda!')
+                                        $('#modalRegistroCliente').modal('hide')
+                                    } else {
+                                        mostrarMensaje("error", "¡Ha ocurrido un error!");
+                                    }
+                                }
+                            })
+                        },
+                    });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000)
+                } else {
+                    $("#contrasena").val("");
+                    $("#invalid-feedback").text("¡Usuario o Contraseña incorrectos!");
+                    setTimeout(() => {
+                        $("#invalid-feedback").text("");
+                    }, 3000);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    });
 </script>
