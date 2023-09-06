@@ -21,7 +21,6 @@ class Compras extends BaseController
     {
         echo view('components/navbar');
         echo view('compras/detalleCompra');
-        echo view('components/footer');
     }
     public function insertar()
     {
@@ -67,7 +66,6 @@ class Compras extends BaseController
         $data = ['estadosCompra' => $param];
         echo view('components/navbar');
         echo view('compras/misCompras', $data);
-        echo view('components/footer');
     }
     public function obtenerComprasRealizadas()
     {
@@ -107,7 +105,6 @@ class Compras extends BaseController
         $data = ['estadosCompra' => $param];
         echo view('components/navbar');
         echo view('compras/admin/administrarCompras', $data);
-        echo view('components/footer');
     }
 
     public function confirProduc()

@@ -1,12 +1,5 @@
 .contenedor-productos {
-  /* display: flex; */
-  gap: 1rem;
-
-  display: grid;
-  grid-auto-rows: 22rem;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-
-  padding: 0 50px;
+  display: flex;
 }
 
 .producto {
@@ -14,7 +7,7 @@
   border-radius: 15px;
   overflow: hidden;
   transition: all 0.5s ease-in-out;
-  max-width: 300px;
+  width: 300px;
   cursor: pointer;
 }
 
@@ -46,13 +39,14 @@
 
 
 .contenedor-categorias {
-  display: grid;
-  justify-content: center;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(2, 350px);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  /* grid-template-rows: repeat(4, 1fr); */
+  /* grid-template-columns: repeat(2, 350px); */
 
   gap: .5rem;
-  height: 400px;
+  /* height: 400px; */
 
   & div {
     display: flex;
@@ -62,6 +56,8 @@
     align-items: center;
     cursor: pointer;
     background-color: white;
+    min-width: 200px;
+    flex-grow: 1;
   }
 
   & div p {
@@ -89,47 +85,6 @@
     padding: 8px;
   }
 
-}
-
-
-
-#item-0 {
-  grid-row-start: 1;
-  grid-column-start: 1;
-}
-
-#item-1 {
-  grid-row-start: 1;
-  grid-column-start: 2;
-}
-
-#item-2 {
-  grid-row-start: 2;
-  grid-column-start: 1;
-
-  grid-row-end: 3;
-  grid-column-end: 2;
-}
-
-#item-3 {
-  grid-row-start: 2;
-  grid-column-start: 2;
-
-  grid-row-end: 4;
-  grid-column-end: 3;
-}
-
-#item-4 {
-  grid-row-start: 3;
-  grid-column-start: 1;
-
-  grid-row-end: 5;
-  grid-column-end: 2;
-}
-
-#item-5 {
-  grid-row-start: 4;
-  grid-column-start: 2;
 }
 
 .contenedor-suscripcion {

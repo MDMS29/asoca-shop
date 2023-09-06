@@ -78,7 +78,6 @@ function salir() {
     },
   });
 }
-
 const recargaCarrito = () => {
   var cadena = "";
   localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -119,12 +118,10 @@ const recargaCarrito = () => {
   $("#listaProductos").html(cadena);
 };
 recargaCarrito();
-
 function eliminarProducCar(id) {
   carrito = carrito.filter((item) => item.id != id);
   recargaCarrito();
 }
-
 const cambioDepa = (inputDepa = '', inputMuni = '') => {
   const departamento = $(`#${inputDepa}`).val()
   const municipio = municipios.filter(item => item.departamento == departamento)
@@ -137,10 +134,6 @@ const cambioDepa = (inputDepa = '', inputMuni = '') => {
 
   $(`#${inputMuni}`).html(cadena)
 }
-
-
 $('#departamento').on('change', () => cambioDepa('departamento', 'municipio'))
-
-
 
 const crearSwiper = (sliderElm = '', config = {}) => new Swiper(`#${sliderElm}`, config);

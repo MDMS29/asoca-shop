@@ -70,7 +70,6 @@ class Clientes extends BaseController
         $data = ['roles' => $roles];
         echo view('components/navbar');
         echo view('clientes/clientes', $data);
-        echo view('components/footer');
     }
 
     // public function perfil($id)

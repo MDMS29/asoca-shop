@@ -31,7 +31,6 @@ class Productos extends BaseController
         $data = ['categorias' => $categoria];
         echo view('components/navbar');
         echo view('productos/admin/adminProductos', $data);
-        echo view('components/footer');
     }
     public function buscarProducto()
     {
@@ -121,7 +120,6 @@ class Productos extends BaseController
     {
         echo view('components/navbar');
         echo view('productos/admin/adminProductosEliminados');
-        echo view('components/footer');
     }
     public function verDetallesProducto($id)
     {
@@ -129,7 +127,6 @@ class Productos extends BaseController
         $data = ['producto' => $res];
         echo view('components/navbar');
         echo view('productos/detallesProducto', $data);
-        echo view('components/footer');
     }
     public function urlImg()
     {

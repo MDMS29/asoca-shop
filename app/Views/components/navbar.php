@@ -5,7 +5,7 @@
     <meta name="description" content="¡La tienda donde encontrarás tus productos ideales!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo-asoca-s.png') ?>">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo.png') ?>">
     <link rel="stylesheet" href="<?= base_url('css/navbar.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -33,7 +33,7 @@
         <div class="d-flex align-items-center gap-3">
             <a href="<?= base_url() ?>" class="d-flex align-items-center gap-3 text-dark p-2">
                 <!-- <img src="< ?= base_url('img/logo.png') ?>" alt="logo tienda" width="120"> -->
-                <h2 class="fw-semibold m-0"><i class="bi bi-flower3"></i>Asoca</h2>
+                <h2 class="fw-semibold m-0"></i>Asoca</h2>
             </a>
             <?= session('id') != 0 ? '<button id="btnMenu" class="btn fs-3"><i class="bi bi-list"></i></button>' : '' ?>
 

@@ -76,7 +76,6 @@ class Usuarios extends BaseController
         $data = ['roles' => $roles, 'tipoTele' => $tipoTele, 'tipoDocs' => $tipoDocs];
         echo view('components/navbar');
         echo view('usuarios/usuarios', $data);
-        echo view('components/footer');
     }
 
     // public function perfil($id)
@@ -309,7 +308,6 @@ class Usuarios extends BaseController
         $data = ['roles' => $roles, 'tipoTele' => $tipoTele, 'tipoDocs' => $tipoDocs];
         echo view('components/navbar');
         echo view('usuarios/eliminados', $data);
-        echo view('components/footer');
     }
     public function perfil($id)
     {
@@ -317,6 +315,5 @@ class Usuarios extends BaseController
         $data = ['usuario' => $usuario];
         echo view('components/navbar');
         echo view('usuarios/perfil', $data);
-        echo view('components/footer');
     }
 }

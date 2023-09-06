@@ -19,9 +19,9 @@
         <h2 class="fw-semibold w-100 text-center mb-4"> - Categorías - </h2>
         <div class="container-md contenedor-categorias">
             <?php for ($i = 0; $i < sizeof($categorias); $i++) { ?>
-                <div id="<?= 'item-' . $i ?>">
+                <div>
                     <img src="<?= base_url('img/categorias/' . $categorias[$i]['nombre'] . '.png') ?>" alt="" class="icon" width="80">
-                    <p> - <?= $categorias[$i]['nombre'] ?> - </p>
+                    <p class="text-capitalize"> - <?= $categorias[$i]['nombre'] ?> - </p>
                 </div>
             <?php } ?>
         </div>
@@ -30,7 +30,13 @@
     <div class="p-3" style="background-color: #69385C;" id="prodc-gust">
         <h2 class="fw-semibold w-100 text-center mb-4 text-white"> - Productos Que Te Pueden Gustar - </h2>
         <div class="contenedor-productos">
-            <!-- PRODUCTOS DINÁMICOS -->
+            <div class="swiper" id="swiper-produc-home">
+                <div class="swiper-wrapper">
+                    <!-- PRODUCTOS DINÁMICOS -->
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
         </div>
     </div>
 
@@ -183,6 +189,7 @@
             prevEl: ".swiper-button-prev",
         },
     })
+    crearSwiper('swiper-produc-home', {autoplay: { delay: 2500, disableOnInteraction: false, },slidesPerView: 1,spaceBetween: 10,pagination: {el: ".swiper-pagination",clickable: true,},breakpoints: {640: {slidesPerView: 2,spaceBetween: 20,},768: {slidesPerView: 2,spaceBetween: 40,},1024: {slidesPerView: 3,spaceBetween: 50,},1300:{slidesPerView: 4,spaceBetween: 50,}},})
     $.ajax({
         url: `${url}obtenerProductos`,
         type: 'POST',
@@ -201,7 +208,7 @@
                     res.forEach(element => {
                         var foto = `${url}imagenesProducto/${element.nombre_img}`;
                         cadena += `
-                        <article onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card mb-3 producto">
+                        <article onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card mb-3 producto swiper-slide">
                             <div class="row g-0">
                                 <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
                                     <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
@@ -217,10 +224,11 @@
                     break;
             }
 
-            $('.contenedor-productos').html(cadena)
+            $('#swiper-produc-home .swiper-wrapper').html(cadena)
         }
     })
     $('.first-inputs').on('click', () => $('#formulario-subs').addClass('visible'))
+
     function verifiContra(tipo, inputMsg, inputContra, inputConfir) {
         input = $(`#${inputMsg}`)
         contra = $(`#${inputContra}`).val()
