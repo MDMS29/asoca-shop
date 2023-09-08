@@ -89,6 +89,10 @@ $routes->post('/buscarComentario', 'Comentarios::buscarComentario');
 $routes->post('/camEstComen', 'Comentarios::camEstComen');
 
 $routes->get('/perfil/(:num)', 'Usuarios::perfil/$1');
+
+
+$routes->get('/categorias/(:alpha)', 'Categorias::obtProductosCategoria/$1');
+$routes->post('/obtenerProductosCate', 'Categorias::productosCategoria');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

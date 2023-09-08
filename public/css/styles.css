@@ -13,6 +13,13 @@
   margin: 0;
   padding: 0;
 }
+.grid-responsive{
+  gap: 1rem;
+  display: grid;
+  grid-auto-rows: 22rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  padding: 0 50px;
+}
 
 button.btn-purple{
   background-color: #69385C;

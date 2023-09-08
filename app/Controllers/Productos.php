@@ -157,7 +157,7 @@ class Productos extends BaseController
         $id = $this->request->getPost('id');
         $categoria = $this->request->getPost('categoria');
         $estado = $this->request->getPost('estado');
-        $res = $this->producto->productosCategoria($id, $categoria, $estado);
+        $res = $this->producto->productosCategoria($id, intval($categoria), $estado);
         if(empty($res)){
             $res = $this->producto->obtenerProductos($estado, $id);
         }

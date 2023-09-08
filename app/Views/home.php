@@ -19,7 +19,7 @@
         <h2 class="fw-semibold w-100 text-center mb-4"> - Categorías - </h2>
         <div class="container-md contenedor-categorias">
             <?php for ($i = 0; $i < sizeof($categorias); $i++) { ?>
-                <div>
+                <div onclick="window.location.href = '<?= base_url('/categorias/'  . $categorias[$i]['nombre'])?>'">
                     <img src="<?= base_url('img/categorias/' . $categorias[$i]['nombre'] . '.png') ?>" alt="" class="icon" width="80">
                     <p class="text-capitalize"> - <?= $categorias[$i]['nombre'] ?> - </p>
                 </div>
@@ -189,7 +189,36 @@
             prevEl: ".swiper-button-prev",
         },
     })
-    crearSwiper('swiper-produc-home', {autoplay: { delay: 2500, disableOnInteraction: false, },slidesPerView: 1,spaceBetween: 10,pagination: {el: ".swiper-pagination",clickable: true,},breakpoints: {640: {slidesPerView: 2,spaceBetween: 20,},768: {slidesPerView: 2,spaceBetween: 40,},1024: {slidesPerView: 3,spaceBetween: 50,},1300:{slidesPerView: 4,spaceBetween: 50,}},})
+    crearSwiper('swiper-produc-home', {
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        slidesPerView: 1,
+        spaceBetween: 10,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 40,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 50,
+            },
+            1300: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+            }
+        },
+    })
     $.ajax({
         url: `${url}obtenerProductos`,
         type: 'POST',
@@ -208,7 +237,7 @@
                     res.forEach(element => {
                         var foto = `${url}imagenesProducto/${element.nombre_img}`;
                         cadena += `
-                        <article onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card mb-3 producto swiper-slide">
+                        <div onclick="window.location.href='<?= base_url('detalles-producto/') ?>${element.id_producto}'" class="card swiper-slide">
                             <div class="row g-0">
                                 <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
                                     <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
@@ -216,10 +245,10 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-capitalize fw-bold" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
                                     <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
-                                    <small class="text-secondary">-${element.categoria}-</small>
+                                    <small class="text-secondary text-capitalize">-${element.categoria}-</small>
                                 </div>
                             </div>
-                        </article>`
+                        </div>`
                     });
                     break;
             }

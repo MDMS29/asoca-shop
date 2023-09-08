@@ -17,7 +17,7 @@
                 <div class="d-flex flex-column justify-content-between contenedor-info">
                     <div>
                         <h3 class="text-capitalize fw-semibold"><?= $producto[0]['nombre'] ?></h3>
-                        <small id="smCate" class="text-secondary"> - <?= $producto[0]['nomCate'] ?> - </small>
+                        <small id="smCate" class="text-secondary text-capitalize"> - <?= $producto[0]['nomCate'] ?> - </small>
                     </div>
                     <p class="descripcion"><?= $producto[0]['descripcion'] ?></p>
                     <p>Calificación: <span id="calificacion" class="fs-5 text-warning"></span></p>

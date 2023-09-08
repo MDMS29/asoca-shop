@@ -103,7 +103,7 @@ $.ajax({
                           <div class="card-body text-center">
                               <h5 class="card-title text-capitalize fw-bold" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
                               <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
-                              <small class="text-secondary">-${element.categoria}-</small>
+                              <small class="text-secondary text-capitalize">-${element.categoria}-</small>
                           </div>
                       </div>
                   </article>`

@@ -67,7 +67,7 @@
                 </div>
             <?php } else { ?>
                 <button class="btn btn-outline-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
-                    Iniciar Sesión | Registrarse
+                    Iniciar Sesión
                 </button>
 
             <?php } ?>
