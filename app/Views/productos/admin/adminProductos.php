@@ -1,7 +1,7 @@
 <div class="contenedor">
     <!-- TABLA MOSTRAR PRODUCTOS -->
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-box-seam-fill fs-1"></i> Administrar Productos</h2>
+        <h2 class="text-center mb-4 fw-bold"><i class="bi bi-box-seam-fill fs-1"></i> Administrar Productos</h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
                 <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a>  - <a class="toggle-vis btn" data-column="2">Categoría</a> - <a class="toggle-vis btn" data-column="3">Descripción</a> - <a class="toggle-vis btn" data-column="7">Valoración</a>
@@ -52,7 +52,7 @@
                             <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="Logo Empresa" class="logoEmpresa" width="60">
                             <h1 class="modal-title fs-5 d-flex align-items-center gap-2">
                                 <i class="bi bi-plus-lg"></i>
-                                <span id="tituloModal"><!-- TEXTO DINAMICO--></span>
+                                <span id="tituloModal" class="fw-bold"><!-- TEXTO DINAMICO--></span>
                             </h1>
                             <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">X</button>
                         </div>
@@ -68,10 +68,10 @@
                                 </div>
                                 <div class="mb-3 flex-grow-1" style="width: 100%">
                                     <label for="nombre" class="col-form-label">Categoría:</label>
-                                    <select name="categoria" class="form-select" id="categoria">
+                                    <select name="categoria" class="form-select text-capitalize" id="categoria">
                                         <option value="">-- Seleccione --</option>
                                         <?php foreach($categorias as $cate){?>
-                                            <option value="<?= $cate['id']?>"><?= $cate['nombre']?></option>
+                                            <option class="text-capitalize" value="<?= $cate['id']?>"><?= $cate['nombre']?></option>
                                         <?php }?>
                                     </select>
                                 </div>
@@ -120,7 +120,7 @@
                 <div class="modal-header flex align-items-center gap-3">
                     <div class="d-flex" style="width: 100%; justify-content: space-between; align-items: center;">
                         <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="Logo Empresa" class="logoEmpresa" width="60">
-                        <h1 class="modal-title fs-5 d-flex align-items-center gap-2">
+                        <h1 class="modal-title fw-bold fs-5 d-flex align-items-center gap-2">
                             <i class="bi bi-images"></i>
                             <span id="tituloModal">Fotos Producto</span>
                         </h1>

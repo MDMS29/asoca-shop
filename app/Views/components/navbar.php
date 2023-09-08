@@ -5,7 +5,7 @@
     <meta name="description" content="¡La tienda donde encontrarás tus productos ideales!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo.png') ?>">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url('img/logo-f.jpg') ?>">
     <link rel="stylesheet" href="<?= base_url('css/navbar.css') ?>">
     <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -66,7 +66,7 @@
                     </ul>
                 </div>
             <?php } else { ?>
-                <button class="btn btn-outline-primary" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
+                <button class="btn btn-outline-primary mx-2" data-bs-target="#modalIniciarSesion" data-bs-toggle="modal">
                     Iniciar Sesión
                 </button>
 

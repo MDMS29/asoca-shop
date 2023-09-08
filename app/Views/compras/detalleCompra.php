@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?= base_url('css/compras/detallesCompra.css') ?>">
 <div class="contenedor">
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="fw-semibold">Detalles de Compra</h2>
+        <h2 class="fw-bold">Detalles de Compra</h2>
         <div class="d-flex gap-5">
             <div id="contenedorListado">
                 <input type="number" id="id" value="0" hidden>

@@ -54,7 +54,7 @@ $("#btnEnviarCompra").click(function (e) {
               setTimeout(() => {
                 carrito = [];
                 recargaCarrito();
-                window.location.href = `${url}comprasRealizadas`;
+                window.location.href = `${url}compras-realizadas`;
               }, 1500);
             } else {
               return mostrarMensaje("error", "¡Ha ocurrido un error!");

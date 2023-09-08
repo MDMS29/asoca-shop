@@ -1,7 +1,7 @@
 <div class="contenedor">
     <!-- TABLA MOSTRAR CLIENTES -->
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-person-lines-fill fs-1"></i> Administrar Clientes</h2>
+        <h2 class="text-center mb-4 fw-bold"><i class="bi bi-person-lines-fill fs-1"></i> Administrar Clientes</h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
                 <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a> - <a class="toggle-vis btn" data-column="3">Dirección</a> - <a class="toggle-vis btn" data-column="4">Departamento</a> - <a class="toggle-vis btn" data-column="5">Municipio</a>

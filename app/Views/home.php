@@ -230,7 +230,7 @@
             var cadena = '';
             switch (res.length) {
                 case 0:
-                    cadena += `<div class="container text-center">NO HAY PRODUCTOS EN ESTE MOMENTO</div>`
+                    cadena += `<div class="container text-center text-light">NO HAY PRODUCTOS EN ESTE MOMENTO</div>`
                     break;
 
                 default:

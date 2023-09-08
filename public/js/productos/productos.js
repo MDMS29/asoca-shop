@@ -27,6 +27,7 @@ var tableProductos = $("#tableProductos").DataTable({
     },
     dataSrc: "",
   },
+  order: [0, 'asc'],
   columns: [
     {
       data: null,
@@ -40,6 +41,9 @@ var tableProductos = $("#tableProductos").DataTable({
     },
     {
       data: "categoria",
+      render: function (data, type, row) {
+        return `<span class="text-capitalize">${row.categoria}</span>`;
+      },
     },
     {
       data: null,
@@ -176,7 +180,7 @@ $("#formularioProductos").submit(function (e) {
     formData.append("foto", $("#fileInput")[0].files[0]);
     formData.append("foto1", $("#fileInput1")[0].files[0]);
     formData.append("foto2", $("#fileInput2")[0].files[0]);
-    
+
     $.ajax({
       url: `${url}insertarProducto`,
       type: "POST",
@@ -236,7 +240,7 @@ function eliminarProducto(id) {
 }
 
 // Agregar evento change al elemento de entrada de archivo
-$("#prev-img #fileInput").on('change',function(e){
+$("#prev-img #fileInput").on('change', function (e) {
   const file = e.target.files[0];
   console.log(e.target)
   if (file) {
@@ -247,7 +251,7 @@ $("#prev-img #fileInput").on('change',function(e){
     reader.readAsDataURL(file);
   }
 })
-$("#prev-img #fileInput1").on('change',function(e){
+$("#prev-img #fileInput1").on('change', function (e) {
   const file = e.target.files[0];
   console.log(e.target)
   if (file) {
@@ -258,7 +262,7 @@ $("#prev-img #fileInput1").on('change',function(e){
     reader.readAsDataURL(file);
   }
 })
-$("#prev-img #fileInput2").on('change',function(e){
+$("#prev-img #fileInput2").on('change', function (e) {
   const file = e.target.files[0];
   console.log(e.target)
   if (file) {

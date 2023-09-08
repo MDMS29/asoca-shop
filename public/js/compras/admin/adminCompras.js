@@ -25,6 +25,7 @@ var tableCompras = $("#tableCompras").DataTable({
     },
     dataSrc: "",
   },
+  order: [0, 'desc'],
   columns: [
     {
       data: "id_compra_enc",
@@ -88,7 +89,6 @@ function seleccionarCompra(id, tp) {
         var cadena = "";
         let numProductos = 0;
         var subtotal = 0;
-        // $("#btnConfirmar")
         $("#tituloModal").text(`Detalles de Compra - ${id}`);
         $("#fecha").val(data[0].fecha_compra);
         $("#hora").val(data[0].hora_compra);
@@ -109,8 +109,8 @@ function seleccionarCompra(id, tp) {
               : data[i].estadoPro == 6
                 ? '<button disabled class="btn btn-outline-danger" >Denegado</button>'
                 :
-                `<button id="${data[i].id_compra_det}" ${data[i].estadoPro !== 'A' && 'disabled'} class="btn btn-outline-success" onclick="confirProduc(${data[i].id_compra_det}, 5, '${data[i].nombre}')">Confirmar</button>
-                <button id="${data[i].id_compra_det}" ${data[i].estadoPro !== 'A' && 'disabled'} class="btn btn-outline-danger" onclick="confirProduc(${data[i].id_compra_det}, 6, '${data[i].nombre}')">Denegar</button>`}
+                `<button id="${data[i].id_compra_det}" ${data[i].estadoPro !== 'A' && 'disabled'} class="btn btn-outline-success" onclick="confirProduc(${data[i].id_compra_det}, 5, ${data[i].cantidad})">Confirmar</button>
+                <button id="${data[i].id_compra_det}" ${data[i].estadoPro !== 'A' && 'disabled'} class="btn btn-outline-danger" onclick="confirProduc(${data[i].id_compra_det}, 6, 0)">Denegar</button>`}
               
             </td>
             </tr>
@@ -178,16 +178,15 @@ function seleccionarCompra(id, tp) {
 
 var productosConfirmar = [];
 
-function confirProduc(id, estado, nombre) {
+function confirProduc(id, estado, cantidad) {
   if (id !== null || estado !== null) {
     const objConfirmar = {
-      id, estado, nombre
+      id, estado, cantidad
     }
     if (estado == 5) {
       $(`#${id}.btn-outline-success`).text('CONFIRMADO')
       $(`#${id}.btn-outline-success`).attr('disabled', '')
       $(`#${id}.btn-outline-danger`).attr('hidden', '')
-      console.log(estado)
     } else {
       $(`#${id}.btn-outline-danger`).text('DENEGADO')
       $(`#${id}.btn-outline-danger`).attr('disabled', '')
@@ -211,13 +210,13 @@ $("#btnConfirmar").click(function (e) {
     },
     success: function (res) {
       if (res == 1) {
-        tableCompras.ajax.reload(null,false)
+        tableCompras.ajax.reload(null, false)
         for (let i = 0; i < productosConfirmar.length; i++) {
           $.ajax({
             url: `${url}confirProduc`,
             type: 'POST',
             dataType: 'JSON',
-            data: { id: productosConfirmar[i].id, estado: productosConfirmar[i].estado },
+            data: { id: productosConfirmar[i].id, estado: productosConfirmar[i].estado, cantidad: productosConfirmar[i].cantidad },
             success: function (res) {
               if (res == 1) {
                 return mostrarMensaje('success', `¡Producto "${productosConfirmar[i].nombre}" confirmado!`)

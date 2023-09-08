@@ -1,7 +1,7 @@
 <div class="contenedor">
     <!-- TABLA MOSTRAR USUARIOS -->
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-people-fill fs-1"></i> Usuarios del Sistema</h2>
+        <h2 class="text-center mb-4 fw-bold"><i class="bi bi-people-fill fs-1"></i> Usuarios del Sistema</h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
                 <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="0">#</a> - <a class="toggle-vis btn" data-column="3">Tipo Documento</a> - <a class="toggle-vis btn" data-column="4">Identificación</a> - <a class="toggle-vis btn" data-column="5">Rol</a>
@@ -46,7 +46,7 @@
                     <div class="modal-header flex align-items-center gap-3">
                         <div class="d-flex" style="width: 100%; justify-content: space-between; align-items: center;">
                             <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="Logo Empresa" class="logoEmpresa" width="60">
-                            <h1 class="modal-title fs-5 d-flex align-items-center gap-2">
+                            <h1 class="modal-title fw-bold fs-5 d-flex align-items-center gap-2">
                                 <i class="bi bi-plus-lg"></i>
                                 <span id="tituloModal"><!-- TEXTO DINAMICO--></span>
                             </h1>
@@ -161,7 +161,7 @@
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between align-items-center">
                     <img src="<?= base_url('img/logo-asoca-s.png') ?>" alt="logo-empresa" width="60" height="60">
-                    <h1 class="modal-title fs-5 text-center " id="tituloModal"><i class="bi bi-telephone-plus-fill"></i> Agregar Telefono</h1>
+                    <h1 class="modal-title fs-5 text-center fw-bold" id="tituloModal"><i class="bi bi-telephone-plus-fill"></i> Agregar Telefono</h1>
                     <button type="button" class="btn" aria-label="Close" onclick="limpiarCampos('telefonoAdd', 'prioridad', 'tipoTele', 3)">X</button>
                 </div>
                 <input type="text" name="editTele" id="editTele" hidden>

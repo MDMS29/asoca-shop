@@ -1,10 +1,10 @@
 <div class="contenedor">
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-bag-check-fill fs-1"></i> Administrar Compras
+        <h2 class="text-center mb-4 fw-bold"><i class="bi bi-bag-check-fill fs-1"></i> Administrar Compras
         </h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">
-                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="2">N° Productos</a> - <a class="toggle-vis btn" data-column="3">Fecha</a>
+                <b class="fs-6 text-black"> Ocultar Columnas:</b> <a class="toggle-vis btn" data-column="2">Dirección</a> - <a class="toggle-vis btn" data-column="3">N° Productos</a> - <a class="toggle-vis btn" data-column="4">Fecha</a>
             </div>
 
 
@@ -39,7 +39,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <input type="number" id="idCompra" hidden>
-                    <h1 class="modal-title fs-5" id="tituloModal">Detalles de Compra</h1>
+                    <h5 class="modal-title fw-semibold" id="tituloModal">Detalles de Compra</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

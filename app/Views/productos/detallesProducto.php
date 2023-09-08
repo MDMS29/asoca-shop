@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="<?= base_url('css/productos/producto.css') ?>">
+<input type="number" id="produCantidad" value="<?= $producto[0]['cantidad_actual'] ?>" hidden>
 <input type="number" id="idProduc" value="<?= $producto[0]['id_producto'] ?>" hidden>
 <input type="text" id="nomProduc" value="<?= $producto[0]['nombre'] ?>" hidden>
 <input type="number" id="precioProduc" value="<?= $producto[0]['precio'] ?>" hidden>
@@ -20,7 +21,10 @@
                         <small id="smCate" class="text-secondary text-capitalize"> - <?= $producto[0]['nomCate'] ?> - </small>
                     </div>
                     <p class="descripcion"><?= $producto[0]['descripcion'] ?></p>
-                    <p>Calificación: <span id="calificacion" class="fs-5 text-warning"></span></p>
+                    <div class="d-flex justify-content-between flex-wrap gap-2">
+                        <p class="flex-grow-1 text-center">Calificación: <span id="calificacion" class="fs-5 text-warning"></span></p>
+                        <p class="flex-grow-1 text-center">Stock: <?= $producto[0]['cantidad_actual'] ?> uni.</p>
+                    </div>
                     <div class="d-flex justify-content-around cont-precio-cant">
                         <div>
                             <p>Precio: </p>
@@ -31,6 +35,7 @@
                         <div>
                             <p for="cantidad">Cantidad:</p>
                             <input type="number" name="cantidad" class="form-control text-center" id="cantidad" value="0">
+                            <small class="invalido" id="feedback-cantidad"></small>
                         </div>
                     </div>
                     <div class="w-100">
@@ -84,7 +89,7 @@
                 <div class="swiper-wrapper" id="swiper-wrapper-similares">
                     <!-- PRODUCTOS DINÁMICOS -->
                 </div>
-                 <div class="swiper-pagination"></div>
+                <div class="swiper-pagination"></div>
             </div>
 
         </div>

@@ -25,7 +25,7 @@ var tableCompras = $("#tableCompras").DataTable({
     },
     dataSrc: "",
   },
-  order: [[2, "desc"]],
+  order: [0, "desc"],
   columns: [
     {
       data: "id_compra_enc",

@@ -1,6 +1,6 @@
 <div class="contenedor">
     <div id="content" class="p-4 p-md-5 h-100">
-        <h2 class="text-center mb-4"><i class="bi bi-bag-check-fill fs-1"></i> Compras Realizadas
+        <h2 class="text-center mb-4 fw-bold"><i class="bi bi-bag-check-fill fs-1"></i> Compras Realizadas
         </h2>
         <div class="table-responsive p-2">
             <div class="d-flex justify-content-center align-items-center flex-wrap ocultar">

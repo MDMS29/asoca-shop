@@ -33,8 +33,8 @@ class ComprasEncModel extends Model
         if($estado != 0){
             $this->where('tbl_compras_enc.usuario_comprador', $usuario);
         }
+        $this->orderBy('tbl_compras_enc.fecha_compra', 'desc');
         $this->groupBy('tbl_compras_enc.id_compra_enc');
-        $this->orderBy('tbl_compras_enc.id_compra_enc', 'desc');
         $data = $this->findAll();
         return $data;
     }

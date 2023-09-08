@@ -7,15 +7,17 @@ use App\Controllers\BaseController;
 use App\Models\ComprasEncModel;
 use App\Models\ComprasDetModel;
 use App\Models\ParamDetModel;
+use App\Models\ProductosModel;
 
 class Compras extends BaseController
 {
-    protected $encCompra, $detCompra, $param;
+    protected $encCompra, $detCompra, $param, $producto;
     public function __construct()
     {
         $this->encCompra = new ComprasEncModel();
         $this->detCompra = new ComprasDetModel();
         $this->param = new ParamDetModel();
+        $this->producto = new ProductosModel();
     }
     public function verDetallesCompra()
     {
@@ -111,11 +113,29 @@ class Compras extends BaseController
     {
         $id = $this->request->getPost('id');
         $estado = $this->request->getPost('estado');
+        $cantidad = $this->request->getPost('cantidad');
 
-        if ($this->detCompra->update($id, ['estado' => $estado])) {
-            return json_encode(1);
-        } else {
-            return json_encode(2);
+        $res = $this->detCompra->buscarDetalle($id);
+        if ($res != null) {
+            $res = $this->producto->buscarProducto($res['id_producto'], '', 0);
+            $cantidad_actual = $res[0]['cantidad_actual'] - $cantidad;
+            $cantidad_vendida = intval($res[0]['cantidad_vendida']) + intval($cantidad);
+            if ($this->producto->update(
+                $res[0]['id_producto'],
+                [
+                    'cantidad_actual' => $cantidad_actual,
+                    'cantidad_vendida' => $cantidad_vendida
+                ]
+            )) {
+
+                if ($this->detCompra->update($id, ['estado' => $estado])) {
+                    return json_encode(1);
+                } else {
+                    return json_encode(2);
+                }
+            } else {
+                return json_encode(2);
+            }
         }
     }
     public function cambEstadoCompra()
@@ -124,7 +144,8 @@ class Compras extends BaseController
         $id = $this->request->getPost('id');
         $estado = $this->request->getPost('estado');
 
-        if ($this->encCompra->update($id,
+        if ($this->encCompra->update(
+            $id,
             [
                 'estado' => $estado,
                 'fecha_confir' => date('Y-m-d'),

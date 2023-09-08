@@ -1,4 +1,5 @@
 id = $("#idProduc").val();
+var invalidCant = false;
 const Toast = Swal.mixin({
   toast: true,
   showConfirmButton: false,
@@ -49,7 +50,7 @@ $("#btnAddCar").on("click", function (e) {
   cantidad = $("#cantidad").val();
   imgProduc = $("#imgProduc").val();
 
-  if (cantidad == 0 || cantidad == '') {
+  if (cantidad == 0 || cantidad == '' || invalidCant) {
     return mostrarMensaje("error", "¡Ingrese una cantidad valida!");
   } else {
     objProducto = carrito.filter((item) => item.id == idProduc)[0];
@@ -80,40 +81,40 @@ $.ajax({
   type: 'POST',
   dataType: 'json',
   data: {
-    id:id,
+    id: id,
     categoria,
     estado: 'A'
   },
   success: function (res) {
     var cadena = '';
-    switch (res.length) {
-      case 0:
-        cadena += `<p class="container text-center">NO HAY PRODUCTOS SIMILARES</p>`
-        break;
+    if (res[0]?.id_categoria == categoria) {
+      res.forEach(element => {
+        var foto = `${url}imagenesProducto/${element.nombre_img}`;
+        cadena += `
+                <article onclick="window.location.href='${url}detalles-producto/${element.id_producto}'" class="card swiper-slide">
+                    <div class="row g-0">
+                        <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
+                            <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-capitalize fw-bold" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
+                            <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
+                            <small class="text-secondary text-capitalize">-${element.categoria}-</small>
+                        </div>
+                    </div>
+                </article>`
+      });
+    } else {
 
-      default:
-        res.forEach(element => {
-          var foto = `${url}imagenesProducto/${element.nombre_img}`;
-          cadena += `
-                  <article onclick="window.location.href='${url}detalles-producto/${element.id_producto}'" class="card swiper-slide">
-                      <div class="row g-0">
-                          <div class="col-md-4 d-flex justify-content-center w-100 py-3" >
-                              <img src="${foto}"alt="${element.nombre_img}" width="130" height="150">
-                          </div>
-                          <div class="card-body text-center">
-                              <h5 class="card-title text-capitalize fw-bold" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 1; overflow: hidden;"> ${element.nombre}</h5>
-                              <p class="card-text fw-semibold text-danger">${formatearCantidad(element.precio)} COP <span class="text-secondary">c/u</span></p>
-                              <small class="text-secondary text-capitalize">-${element.categoria}-</small>
-                          </div>
-                      </div>
-                  </article>`
-        });
-        break;
+      cadena += `<div class="container text-center mt-3" style="grid-column: 1/7;">
+                  <p>NO HAY PRODUCTOS SIMILARES</span></p>
+                  <a href=${url} class="btn btn-dark">Descubre más aquí</a>
+              </div>`
     }
 
     $('#swiper-wrapper-similares').html(cadena)
 
-    crearSwiper('swiper-similares', {autoplay: { delay: 2500, disableOnInteraction: false, },slidesPerView: 1,spaceBetween: 10,pagination: {el: ".swiper-pagination",clickable: true,},breakpoints: {640: {slidesPerView: 2,spaceBetween: 20,},768: {slidesPerView: 2,spaceBetween: 40,},1024: {slidesPerView: 3,spaceBetween: 50,},1300:{slidesPerView: 4,spaceBetween: 50,}},})
+    crearSwiper('swiper-similares', { autoplay: { delay: 2500, disableOnInteraction: false, }, slidesPerView: 1, spaceBetween: 10, pagination: { el: ".swiper-pagination", clickable: true, }, breakpoints: { 640: { slidesPerView: 2, spaceBetween: 20, }, 768: { slidesPerView: 2, spaceBetween: 40, }, 1024: { slidesPerView: 3, spaceBetween: 50, }, 1300: { slidesPerView: 4, spaceBetween: 50, } }, })
   }
 })
 const puntuacion = (rating) => {
@@ -267,7 +268,6 @@ function editarComentario(idComentario) {
   })
 }
 $('#insertComent').on('input', () => $('#insertComent').val() != '' ? $('#btnCancelar').removeAttr('hidden') : $('#btnCancelar').attr('hidden', ''))
-
 $('#btnCancelar').click(function (e) {
   e.preventDefault()
   $('#tp').val(1)
@@ -317,3 +317,14 @@ function eliminarComentario(idComentario) {
     }
   });
 }
+
+$('#cantidad').on('change', () => {
+  const cantidad = $('#produCantidad').val()
+  if (+$('#cantidad').val() > +cantidad) {
+    $('#feedback-cantidad').text(`La cantidad debe ser menor a ${cantidad}`)
+    invalidCant = true;
+  } else {
+    $('#feedback-cantidad').text('')
+    invalidCant = false;
+  }
+})
