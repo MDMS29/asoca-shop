@@ -108,6 +108,7 @@
                 <p>NO HAY PRODUCTOS EN ESTA CATEGORÍA DE <span class="text-uppercase"><?= $categoria ?></span></p>
                 <a href="<?= base_url() ?>" class="btn btn-dark">Descubre más aquí</a>
                 </div>`
+                $('#wrapper-cate').html(cadena)
             }
 
         }
