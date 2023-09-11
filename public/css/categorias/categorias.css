@@ -1,0 +1,9 @@
+.swiper-slide {
+    margin-top: 1rem;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 2rem;
+    flex-wrap: wrap;
+
+}
